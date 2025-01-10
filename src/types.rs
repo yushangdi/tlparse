@@ -760,3 +760,9 @@ pub struct GuardAddedFastContext {
     pub user_stack_html: String,
     pub stack_html: String,
 }
+
+#[derive(Serialize)]
+pub struct ProvenanceContext {
+    pub css: &'static str,
+    pub qps: &'static str,
+}

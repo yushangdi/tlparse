@@ -248,6 +248,7 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
             TEMPLATE_AOT_AUTOGRAD_BACKWARD_COMPILATION_METRICS,
         )?;
     }
+    tt.add_template("provenance_tracking.html", TEMPLATE_PROVENANCE_TRACKING)?;
 
     let mut unknown_fields: FxHashSet<String> = FxHashSet::default();
 
@@ -712,6 +713,14 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
     if config.strict_compile_id && has_unknown_compile_id {
         return Err(anyhow!("Some log entries did not have compile id"));
     }
+
+    output.push((
+        PathBuf::from("provenance_tracking.html"),
+        tt.render("provenance_tracking.html", &ProvenanceContext {
+            css: CSS,
+            qps: TEMPLATE_QUERY_PARAM_SCRIPT,
+        })?,
+    ));
 
     Ok(output)
 }
