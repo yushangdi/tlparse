@@ -762,7 +762,12 @@ pub struct GuardAddedFastContext {
 }
 
 #[derive(Serialize)]
-pub struct ProvenanceContext {
-    pub css: &'static str,
-    pub qps: &'static str,
+pub struct ProvenanceContext<'a> {
+    pub css: &'a str,
+    pub js: &'a str,
+    pub pre_grad_graph_content: String,
+    pub post_grad_graph_content: String,
+    pub output_code_content: String,
+    pub aot_code_content: String,
+    pub node_mappings_content: String,
 }

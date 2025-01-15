@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inductor Provenance Tracking Highlighter</title>
+    <style>
+        {css}
+    </style>
+</head>
+
+<body>
+    <div class="editor-container">
+        <div id="preGradGraph" class="editor">
+            <pre>{pre_grad_graph_content}</pre>
+        </div>
+        <div id="divider" class="divider"></div>
+        <div id="postGradGraph" class="editor">
+            <pre>{post_grad_graph_content}</pre>
+        </div>
+        <div id="divider" class="divider"></div>
+        <div id="generatedCode" class="editor">
+            {output_code_content | format_unescaped}
+        </div>
+        <div id="divider" class="divider"></div>
+        <div id="generatedCppCode" class="editor">
+            <pre>{aot_code_content}</pre>
+        </div>
+    </div>
+
+    <div id="jsonPopup" class="json-popup">
+        <span class="close-button" onclick="closeJsonPopup()">×</span>
+        <pre id="jsonContent"></pre>
+    </div>
+
+    <script>
+        // Make node mappings available to JavaScript
+        const nodeMappings = {node_mappings_content | format_unescaped};
+        {js | format_unescaped}
+    </script>
+</body>
+
+</html>

@@ -714,11 +714,30 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
         return Err(anyhow!("Some log entries did not have compile id"));
     }
 
+    // Helper function to get file content
+    fn get_file_content(output: &[(PathBuf, String)], filename_pattern: &str) -> String {
+        output.iter()
+            .find(|(path, _)| path.to_string_lossy().contains(filename_pattern))
+            .map(|(_, content)| content.clone())
+            .unwrap_or_default()
+    }
+
+    let pre_grad_graph_content = get_file_content(&output, "inductor_pre_grad_graph");
+    let post_grad_graph_content = get_file_content(&output, "inductor_post_grad_graph");
+    let output_code_content = get_file_content(&output, "inductor_output_code");
+    let aot_code_content = get_file_content(&output, "inductor_aot_code");
+    let node_mappings_content = get_file_content(&output, "inductor_provenance_tracking_node_mappings");
+
     output.push((
         PathBuf::from("provenance_tracking.html"),
         tt.render("provenance_tracking.html", &ProvenanceContext {
-            css: CSS,
-            qps: TEMPLATE_QUERY_PARAM_SCRIPT,
+            css: PROVENANCE_CSS,
+            js: PROVENANCE_JS,
+            pre_grad_graph_content,
+            post_grad_graph_content,
+            output_code_content,
+            aot_code_content,
+            node_mappings_content,
         })?,
     ));
 

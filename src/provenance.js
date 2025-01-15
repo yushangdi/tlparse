@@ -1,0 +1,319 @@
+let preGradGraphData = null;
+let postGradGraphData = null;
+let codeData = null;
+let cppCodeData = null;
+
+let preToPost = {};
+let postToPre = {};
+let postToCppCode = {};
+let cppCodeToPost = {};
+
+let jsonData = null;
+
+/**
+ * Converts node-based mappings to line number-based mappings for visualization.
+ * 
+ * This function processes four types of files and their relationships:
+ * 1. Pre-grad graph (FX IR before autograd and any pre_grad pass)
+ * 2. Post-grad graph (FX IR after autograd)
+ * 3. Generated Python triton code
+ * 3. Generated C++ code
+ * 
+ * The conversion happens in several steps:
+ * 
+ * 1. First, it creates lookup maps that associate node names with line numbers:
+ *    - For pre/post grad graphs: Extracts node names from lines like "node_name = ..." or "node_name: ... = ..."
+ *    - For C++ code: Identifies kernel definitions and their associated line ranges
+ * 
+ * 2. Then, it processes four types of mappings:
+ *    - preToPost: Maps pre-grad nodes to post-grad nodes
+ *    - postToPre: Maps post-grad nodes back to pre-grad nodes
+ *    - cppCodeToPost: Maps C++/triton kernel lines to post-grad nodes
+ *    - postToCppCode: Maps post-grad nodes to C++ kernel lines
+ * 
+ * 3. For each mapping type, it:
+ *    - Looks up the line numbers for the source nodes
+ *    - Looks up the line numbers for the target nodes
+ *    - Creates a new mapping using line numbers instead of node names
+ * 
+ * Special handling for C++ code:
+ * - C++ kernels span multiple lines (from kernel definition to launch)
+ * - Each kernel's line range includes:
+ *   * The nullptr check line
+ *   * All lines up to and including the launchKernel call
+ *   * One line after the launch for completeness
+ * 
+ * The function updates these global variables:
+ * - preToPost: {sourceLineNum: [targetLineNums]}
+ * - postToPre: {sourceLineNum: [targetLineNums]}
+ * - cppCodeToPost: {sourceLineNum: [targetLineNums]}
+ * - postToCppCode: {sourceLineNum: [targetLineNums]}
+ * 
+ * These mappings enable the UI to highlight corresponding lines
+ * across different views when a user clicks on a line.
+ * 
+ * @requires nodeMappings - Global object containing node-to-node mappings
+ * @requires preGradGraphData - Array of pre-grad graph lines
+ * @requires postGradGraphData - Array of post-grad graph lines
+ * @requires cppCodeData - Array of C++ code lines
+ */
+function convertNodeMappingsToLineNumbers() {
+    if (!nodeMappings) {
+        console.warn('No node mappings available');
+        return;
+    }
+
+    function validLine(line) {
+        const stripped = line.trim();
+        return stripped && !stripped.startsWith("#");
+    }
+
+    // Create lookup maps for both files
+    const preGradNodeToLines = {};
+    const postGradNodeToLines = {};
+    const cppCodeToLines = {};
+
+    // Build pre_grad graph lookup map
+    preGradGraphData.forEach((line, i) => {
+        if (validLine(line)) {
+            // Split on '=' and take everything before it
+            const beforeEquals = line.trim().split("=")[0];
+            // Split on ':' and take everything before it
+            const nodeName = beforeEquals.split(":")[0].trim();
+            if (nodeName) {
+                preGradNodeToLines[nodeName] = i + 1;  // 1-based line numbers
+            }
+        }
+    });
+
+    // Build post_grad lookup map
+    postGradGraphData.forEach((line, i) => {
+        if (validLine(line)) {
+            // Split on '=' and take everything before it
+            const beforeEquals = line.trim().split("=")[0];
+            // Split on ':' and take everything before it
+            const nodeName = beforeEquals.split(":")[0].trim();
+            if (nodeName) {
+                postGradNodeToLines[nodeName] = i + 1;  // 1-based line numbers
+            }
+        }
+    });
+
+    // Build generated cpp wrapper code lookup map
+    for (let i = 0; i < cppCodeData.length; i++) {
+        const line = cppCodeData[i];
+        if (validLine(line) && line.includes('== nullptr') && line.includes('kernels.')) {
+            const match = line.match(/kernels\.(\w+)/);
+            const kernelName = match ? match[1] : null;
+            if (kernelName) {
+                cppCodeToLines[kernelName] = [];
+                cppCodeToLines[kernelName].push(i + 1);  // 1-based line numbers
+                
+                let j = i + 1;
+                while (j < cppCodeData.length) {
+                    cppCodeToLines[kernelName].push(j + 1);
+                    if (cppCodeData[j].includes('launchKernel(')) {
+                        if (j + 1 < cppCodeData.length) {
+                            cppCodeToLines[kernelName].push(j + 2);
+                        }
+                        break;
+                    }
+                    j++;
+                }
+            }
+        }
+    }
+
+    const linePreToPost = {};
+    const linePostToPre = {};
+    const lineCppCodeToPost = {};
+    const linePostToCppCode = {};
+
+    // Process preToPost using lookup maps
+    for (const [fxNodeName, genCodeNodes] of Object.entries(nodeMappings["preToPost"])) {
+        if (fxNodeName in preGradNodeToLines) {
+            const fxLineNum = preGradNodeToLines[fxNodeName];
+            linePreToPost[fxLineNum] = [];
+            for (const genNodeName of genCodeNodes) {
+                if (genNodeName in postGradNodeToLines) {
+                    linePreToPost[fxLineNum].push(postGradNodeToLines[genNodeName]);
+                }
+            }
+        }
+    }
+
+    // Process postToPre using lookup maps
+    for (const [genNodeName, fxNodeNames] of Object.entries(nodeMappings["postToPre"])) {
+        if (genNodeName in postGradNodeToLines) {
+            const genLineNum = postGradNodeToLines[genNodeName];
+            linePostToPre[genLineNum] = [];
+            for (const fxNodeName of fxNodeNames) {
+                if (fxNodeName in preGradNodeToLines) {
+                    linePostToPre[genLineNum].push(preGradNodeToLines[fxNodeName]);
+                }
+            }
+        }
+    }
+
+    // Process cppCodeToPost using lookup maps
+    for (const [cppCodeKernelName, postGradNodeNames] of Object.entries(nodeMappings["cppCodeToPost"])) {
+        if (cppCodeKernelName in cppCodeToLines) {
+            const genLineNums = cppCodeToLines[cppCodeKernelName];
+            for (const genLineNum of genLineNums) {
+                if (!(genLineNum in lineCppCodeToPost)) {
+                    lineCppCodeToPost[genLineNum] = [];
+                }
+                for (const postGradNodeName of postGradNodeNames) {
+                    if (postGradNodeName in postGradNodeToLines) {
+                        lineCppCodeToPost[genLineNum].push(postGradNodeToLines[postGradNodeName]);
+                    }
+                }
+            }
+        }
+    }
+
+    // Process postToCppCode using lookup maps
+    for (const [postGradNode, cppCodeKernelNames] of Object.entries(nodeMappings["postToCppCode"])) {
+        if (postGradNode in postGradNodeToLines) {
+            const genLineNum = postGradNodeToLines[postGradNode];
+            linePostToCppCode[genLineNum] = [];
+            for (const cppCodeKernelName of cppCodeKernelNames) {
+                if (cppCodeKernelName in cppCodeToLines) {
+                    linePostToCppCode[genLineNum].push(...cppCodeToLines[cppCodeKernelName]);
+                }
+            }
+        }
+    }
+
+    // Update global variables
+    preToPost = linePreToPost;
+    postToPre = linePostToPre;
+    cppCodeToPost = lineCppCodeToPost;
+    postToCppCode = linePostToCppCode;
+
+    console.log('Mappings converted to line numbers:', {
+        preToPost,
+        postToPre,
+        cppCodeToPost,
+        postToCppCode
+    });
+}
+
+// Process all mappings
+function processAllMappings() {
+    convertNodeMappingsToLineNumbers();
+    setupHighlighting();
+}
+
+// Setup highlighting
+function setupHighlighting() {
+    setupEditorContent('preGradGraph', preGradGraphData);
+    setupEditorContent('postGradGraph', postGradGraphData);
+    setupEditorContent('generatedCode', codeData);
+    setupEditorContent('generatedCppCode', cppCodeData);
+}
+
+// Setup editor content
+function setupEditorContent(editorId, lines) {
+    if (!lines) return;
+    
+    const editor = document.getElementById(editorId);
+    if (!editor) return;
+
+    editor.innerHTML = '';  // Clear existing content
+    
+    lines.forEach((line, index) => {
+        const lineDiv = document.createElement('div');
+        lineDiv.className = 'line';
+        lineDiv.innerHTML = `<span class="line-number">${index + 1}</span><span class="line-content">${line}</span>`;
+        lineDiv.addEventListener('click', () => handleLineClick(editorId, index + 1));
+        editor.appendChild(lineDiv);
+    });
+}
+
+// Initialize data from pre-embedded content
+function initializeData() {
+    try {
+        // Get content from pre tags
+        const preGradGraph = document.querySelector('#preGradGraph pre');
+        const postGradGraph = document.querySelector('#postGradGraph pre');
+        const generatedCode = document.querySelector('#generatedCode pre');
+        const generatedCppCode = document.querySelector('#generatedCppCode pre');
+
+        if (preGradGraph) preGradGraphData = preGradGraph.textContent.split('\n');
+        if (postGradGraph) postGradGraphData = postGradGraph.textContent.split('\n');
+        if (generatedCode) codeData = generatedCode.textContent.split('\n');
+        if (generatedCppCode) cppCodeData = generatedCppCode.textContent.split('\n');
+        
+        // Process mappings
+        processAllMappings();
+    } catch (error) {
+        console.error('Error initializing data:', error);
+        console.error(error.stack);  // Add stack trace for better debugging
+    }
+}
+
+// Call initialization when the page loads
+window.addEventListener('DOMContentLoaded', initializeData);
+
+// Handle line clicks
+function handleLineClick(editorId, lineNumber) {
+    // Clear all highlights first
+    document.querySelectorAll('.line').forEach(line => line.classList.remove('highlight'));
+    
+    // Add highlight to clicked line
+    const clickedLine = document.querySelector(`#${editorId} .line:nth-child(${lineNumber})`);
+    if (clickedLine) {
+        clickedLine.classList.add('highlight');
+    }
+
+    // Highlight corresponding lines in other editors
+    highlightCorrespondingLines(editorId, lineNumber);
+}
+
+// Highlight corresponding lines
+function highlightCorrespondingLines(sourceEditorId, lineNumber) {
+    let correspondingLines = findCorrespondingLines(sourceEditorId, lineNumber);
+    
+    Object.entries(correspondingLines).forEach(([editorId, lines]) => {
+        if (lines) {
+            // Handle both single numbers and arrays of numbers
+            const lineNumbers = Array.isArray(lines) ? lines : [lines];
+            
+            lineNumbers.forEach(line => {
+                const lineElement = document.querySelector(`#${editorId} .line:nth-child(${line})`);
+                if (lineElement) {
+                    lineElement.classList.add('highlight');
+                }
+            });
+        }
+    });
+}
+
+// Find corresponding lines
+function findCorrespondingLines(sourceEditorId, lineNumber) {
+    let result = {};
+    
+    switch (sourceEditorId) {
+        case 'preGradGraph':
+            result.postGradGraph = preToPost[lineNumber];
+            if (result.postGradGraph) {
+                result.generatedCppCode = postToCppCode[result.postGradGraph];
+            }
+            break;
+            
+        case 'postGradGraph':
+            result.preGradGraph = postToPre[lineNumber];
+            result.generatedCppCode = postToCppCode[lineNumber];
+            break;
+            
+        case 'generatedCppCode':
+            result.postGradGraph = cppCodeToPost[lineNumber];
+            if (result.postGradGraph) {
+                result.preGradGraph = postToPre[result.postGradGraph];
+            }
+            break;
+    }
+    
+    return result;
+}
