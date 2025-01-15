@@ -47,10 +47,12 @@ body {
     padding: 2px 5px;
     cursor: pointer;
     white-space: nowrap;
+    transition: background-color 0.2s ease;
 }
 
 .highlight {
     background-color: yellow;
+    transition: background-color 0.2s ease;
 }
 
 .mapped-line {
@@ -143,4 +145,8 @@ body {
 
 .file-label:hover {
     background-color: #e0e0e0;
+}
+
+.has-match {
+    font-weight: bold;
 } 

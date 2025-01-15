@@ -5,6 +5,8 @@ let cppCodeData = null;
 
 let preToPost = {};
 let postToPre = {};
+let pyCodeToPost = {};
+let postToPyCode = {};
 let postToCppCode = {};
 let cppCodeToPost = {};
 
@@ -71,6 +73,7 @@ function convertNodeMappingsToLineNumbers() {
     // Create lookup maps for both files
     const preGradNodeToLines = {};
     const postGradNodeToLines = {};
+    const pyKernelToLines = {};
     const cppCodeToLines = {};
 
     // Build pre_grad graph lookup map
@@ -95,6 +98,16 @@ function convertNodeMappingsToLineNumbers() {
             const nodeName = beforeEquals.split(":")[0].trim();
             if (nodeName) {
                 postGradNodeToLines[nodeName] = i + 1;  // 1-based line numbers
+            }
+        }
+    });
+
+    // Build generated python code lookup map
+    codeData.forEach((line, i) => {
+        if (validLine(line) && line.includes('async_compile.triton(')) {
+            const kernelName = line.split('=')[0].trim();
+            if (kernelName) {
+                pyKernelToLines[kernelName] = i + 1;  // 1-based line numbers
             }
         }
     });
@@ -124,8 +137,11 @@ function convertNodeMappingsToLineNumbers() {
         }
     }
 
+    // Process all mappings
     const linePreToPost = {};
     const linePostToPre = {};
+    const linePyCodeToPost = {};
+    const linePostToPyCode = {};
     const lineCppCodeToPost = {};
     const linePostToCppCode = {};
 
@@ -150,6 +166,32 @@ function convertNodeMappingsToLineNumbers() {
             for (const fxNodeName of fxNodeNames) {
                 if (fxNodeName in preGradNodeToLines) {
                     linePostToPre[genLineNum].push(preGradNodeToLines[fxNodeName]);
+                }
+            }
+        }
+    }
+
+    // Process pyCodeToPost using lookup maps
+    for (const [pyKernelName, postGradNodeNames] of Object.entries(nodeMappings["cppCodeToPost"] || {})) {
+        if (pyKernelName in pyKernelToLines) {
+            const genLineNum = pyKernelToLines[pyKernelName];
+            linePyCodeToPost[genLineNum] = [];
+            for (const postGradNodeName of postGradNodeNames) {
+                if (postGradNodeName in postGradNodeToLines) {
+                    linePyCodeToPost[genLineNum].push(postGradNodeToLines[postGradNodeName]);
+                }
+            }
+        }
+    }
+
+    // Process postToPyCode using lookup maps
+    for (const [postGradNode, pyKernelNames] of Object.entries(nodeMappings["postToCppCode"] || {})) {
+        if (postGradNode in postGradNodeToLines) {
+            const genLineNum = postGradNodeToLines[postGradNode];
+            linePostToPyCode[genLineNum] = [];
+            for (const pyKernelName of pyKernelNames) {
+                if (pyKernelName in pyKernelToLines) {
+                    linePostToPyCode[genLineNum].push(pyKernelToLines[pyKernelName]);
                 }
             }
         }
@@ -188,12 +230,16 @@ function convertNodeMappingsToLineNumbers() {
     // Update global variables
     preToPost = linePreToPost;
     postToPre = linePostToPre;
+    pyCodeToPost = linePyCodeToPost;
+    postToPyCode = linePostToPyCode;
     cppCodeToPost = lineCppCodeToPost;
     postToCppCode = linePostToCppCode;
 
     console.log('Mappings converted to line numbers:', {
         preToPost,
         postToPre,
+        pyCodeToPost,
+        postToPyCode,
         cppCodeToPost,
         postToCppCode
     });
@@ -225,10 +271,92 @@ function setupEditorContent(editorId, lines) {
     lines.forEach((line, index) => {
         const lineDiv = document.createElement('div');
         lineDiv.className = 'line';
-        lineDiv.innerHTML = `<span class="line-number">${index + 1}</span><span class="line-content">${line}</span>`;
+        
+        // Create text nodes instead of using innerHTML
+        const lineNumber = document.createElement('span');
+        lineNumber.className = 'line-number';
+        lineNumber.textContent = index + 1;
+        
+        const lineContent = document.createElement('span');
+        lineContent.className = 'line-content';
+        lineContent.textContent = line;
+        
+        // Check if this line has any matches
+        const lineNum = index + 1;
+        let hasMatch = false;
+        switch (editorId) {
+            case 'preGradGraph':
+                hasMatch = preToPost[lineNum] && preToPost[lineNum].length > 0;
+                break;
+            case 'postGradGraph':
+                hasMatch = (postToPre[lineNum] && postToPre[lineNum].length > 0) ||
+                          (postToPyCode[lineNum] && postToPyCode[lineNum].length > 0) ||
+                          (postToCppCode[lineNum] && postToCppCode[lineNum].length > 0);
+                break;
+            case 'generatedCode':
+                hasMatch = pyCodeToPost[lineNum] && pyCodeToPost[lineNum].length > 0;
+                break;
+            case 'generatedCppCode':
+                hasMatch = cppCodeToPost[lineNum] && cppCodeToPost[lineNum].length > 0;
+                break;
+        }
+        
+        if (hasMatch) {
+            lineContent.classList.add('has-match');
+        }
+        
+        lineDiv.appendChild(lineNumber);
+        lineDiv.appendChild(lineContent);
+        
+        // Add both click and hover handlers
         lineDiv.addEventListener('click', () => handleLineClick(editorId, index + 1));
+        lineDiv.addEventListener('mouseenter', () => handleLineHover(editorId, index + 1));
+        lineDiv.addEventListener('mouseleave', clearHighlights);
+        
         editor.appendChild(lineDiv);
     });
+}
+
+// Handle line hover
+function handleLineHover(editorId, lineNumber) {
+    // Clear previous highlights
+    clearHighlights();
+    
+    // Add highlight to hovered line
+    const hoveredLine = document.querySelector(`#${editorId} .line:nth-child(${lineNumber})`);
+    if (hoveredLine) {
+        hoveredLine.classList.add('highlight');
+        // Remove scrolling for hovered panel
+    }
+
+    // Highlight and scroll corresponding lines
+    highlightCorrespondingLines(editorId, lineNumber);
+}
+
+// Clear all highlights
+function clearHighlights() {
+    document.querySelectorAll('.line').forEach(line => {
+        line.classList.remove('highlight');
+    });
+}
+
+// Update handleLineClick to use the same pattern
+function handleLineClick(editorId, lineNumber) {
+    clearHighlights();
+    
+    // Add highlight to clicked line
+    const clickedLine = document.querySelector(`#${editorId} .line:nth-child(${lineNumber})`);
+    if (clickedLine) {
+        clickedLine.classList.add('highlight');
+        clickedLine.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+        });
+    }
+
+    // Highlight corresponding lines
+    highlightCorrespondingLines(editorId, lineNumber);
 }
 
 // Initialize data from pre-embedded content
@@ -247,6 +375,17 @@ function initializeData() {
         
         // Process mappings
         processAllMappings();
+
+        // Scroll to the run_impl function in the C++ code
+        const cppEditor = document.getElementById('generatedCppCode');
+        if (cppEditor) {
+            const targetLine = Array.from(cppEditor.querySelectorAll('.line')).find(
+                line => line.textContent.includes('void AOTInductorModel::run_impl(')
+            );
+            if (targetLine) {
+                targetLine.scrollIntoView({ behavior: 'auto', block: 'center' });
+            }
+        }
     } catch (error) {
         console.error('Error initializing data:', error);
         console.error(error.stack);  // Add stack trace for better debugging
@@ -256,34 +395,34 @@ function initializeData() {
 // Call initialization when the page loads
 window.addEventListener('DOMContentLoaded', initializeData);
 
-// Handle line clicks
-function handleLineClick(editorId, lineNumber) {
-    // Clear all highlights first
-    document.querySelectorAll('.line').forEach(line => line.classList.remove('highlight'));
-    
-    // Add highlight to clicked line
-    const clickedLine = document.querySelector(`#${editorId} .line:nth-child(${lineNumber})`);
-    if (clickedLine) {
-        clickedLine.classList.add('highlight');
-    }
-
-    // Highlight corresponding lines in other editors
-    highlightCorrespondingLines(editorId, lineNumber);
-}
-
 // Highlight corresponding lines
 function highlightCorrespondingLines(sourceEditorId, lineNumber) {
     let correspondingLines = findCorrespondingLines(sourceEditorId, lineNumber);
     
     Object.entries(correspondingLines).forEach(([editorId, lines]) => {
-        if (lines) {
+        // Skip scrolling if this is the source editor
+        if (lines && editorId !== sourceEditorId) {
             // Handle both single numbers and arrays of numbers
             const lineNumbers = Array.isArray(lines) ? lines : [lines];
             
-            lineNumbers.forEach(line => {
+            // Get the middle line number for scrolling
+            const middleIndex = Math.floor(lineNumbers.length / 2);
+            let hasScrolled = false;
+            
+            lineNumbers.forEach((line, index) => {
                 const lineElement = document.querySelector(`#${editorId} .line:nth-child(${line})`);
                 if (lineElement) {
                     lineElement.classList.add('highlight');
+                    
+                    // Scroll to the middle line of the highlighted range
+                    if (index === middleIndex && !hasScrolled) {
+                        lineElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'nearest'
+                        });
+                        hasScrolled = true;
+                    }
                 }
             });
         }
@@ -296,21 +435,56 @@ function findCorrespondingLines(sourceEditorId, lineNumber) {
     
     switch (sourceEditorId) {
         case 'preGradGraph':
-            result.postGradGraph = preToPost[lineNumber];
-            if (result.postGradGraph) {
-                result.generatedCppCode = postToCppCode[result.postGradGraph];
+            result.postGradGraph = preToPost[lineNumber] || [];
+            if (result.postGradGraph.length > 0) {
+                result.generatedCode = [];
+                result.generatedCppCode = [];
+                for (const postLine of result.postGradGraph) {
+                    if (postToPyCode[postLine]) {
+                        result.generatedCode.push(...postToPyCode[postLine]);
+                    }
+                    if (postToCppCode[postLine]) {
+                        result.generatedCppCode.push(...postToCppCode[postLine]);
+                    }
+                }
             }
             break;
             
         case 'postGradGraph':
-            result.preGradGraph = postToPre[lineNumber];
-            result.generatedCppCode = postToCppCode[lineNumber];
+            result.preGradGraph = postToPre[lineNumber] || [];
+            result.generatedCode = postToPyCode[lineNumber] || [];
+            result.generatedCppCode = postToCppCode[lineNumber] || [];
+            break;
+            
+        case 'generatedCode':
+            result.postGradGraph = pyCodeToPost[lineNumber] || [];
+            if (result.postGradGraph.length > 0) {
+                result.preGradGraph = [];
+                result.generatedCppCode = [];
+                for (const postLine of result.postGradGraph) {
+                    if (postToPre[postLine]) {
+                        result.preGradGraph.push(...postToPre[postLine]);
+                    }
+                    if (postToCppCode[postLine]) {
+                        result.generatedCppCode.push(...postToCppCode[postLine]);
+                    }
+                }
+            }
             break;
             
         case 'generatedCppCode':
-            result.postGradGraph = cppCodeToPost[lineNumber];
-            if (result.postGradGraph) {
-                result.preGradGraph = postToPre[result.postGradGraph];
+            result.postGradGraph = cppCodeToPost[lineNumber] || [];
+            if (result.postGradGraph.length > 0) {
+                result.preGradGraph = [];
+                result.generatedCode = [];
+                for (const postLine of result.postGradGraph) {
+                    if (postToPre[postLine]) {
+                        result.preGradGraph.push(...postToPre[postLine]);
+                    }
+                    if (postToPyCode[postLine]) {
+                        result.generatedCode.push(...postToPyCode[postLine]);
+                    }
+                }
             }
             break;
     }
