@@ -45,6 +45,3 @@ impl StructuredLogParser for MyCustomParser {
 1. Make a release commit by updating Cargo.toml and then running cargo update
 2. Push the release commit and a tag for it.  This will trigger PyPI release
 3. cargo publish
-
-
-moo
