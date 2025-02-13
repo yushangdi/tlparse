@@ -21,17 +21,8 @@
         </div>
         <div id="divider" class="divider"></div>
         <div id="generatedCode" class="editor">
-            {output_code_content | format_unescaped}
+            <pre>{output_code_content | format_unescaped}{aot_code_content}</pre>
         </div>
-        <div id="divider" class="divider"></div>
-        <div id="generatedCppCode" class="editor">
-            <pre>{aot_code_content}</pre>
-        </div>
-    </div>
-
-    <div id="jsonPopup" class="json-popup">
-        <span class="close-button" onclick="closeJsonPopup()">×</span>
-        <pre id="jsonContent"></pre>
     </div>
 
     <script>

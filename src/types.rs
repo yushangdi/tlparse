@@ -730,6 +730,7 @@ pub struct IndexContext {
     pub custom_header_html: String,
     pub has_chromium_events: bool,
     pub qps: &'static str,
+    pub has_inductor_provenance: bool,
 }
 
 #[derive(Debug, Serialize)]

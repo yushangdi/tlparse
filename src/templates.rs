@@ -195,10 +195,12 @@ Build products below:
 </div>
 
 
+{{ if has_inductor_provenance }}
 <h2>Provenance Tracking</h2>
 <p>
 View detailed <a href='provenance_tracking.html'>provenance tracking information</a> for this compilation.
 </p>
+{{ endif }}
 
 {{ if has_unknown_stack_trie }}
 <div>

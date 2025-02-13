@@ -29,6 +29,7 @@ pub struct ParseConfig {
     pub verbose: bool,
     pub plain_text: bool,
     pub export: bool,
+    pub inductor_provenance: bool,
 }
 
 impl Default for ParseConfig {
@@ -41,6 +42,7 @@ impl Default for ParseConfig {
             verbose: false,
             plain_text: false,
             export: false,
+            inductor_provenance: false,
         }
     }
 }
@@ -687,6 +689,7 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
         num_breaks: breaks.failures.len(),
         has_chromium_events: !chromium_events.is_empty(),
         qps: TEMPLATE_QUERY_PARAM_SCRIPT,
+        has_inductor_provenance: config.inductor_provenance,
     };
     output.push((
         PathBuf::from("index.html"),
@@ -714,32 +717,39 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
         return Err(anyhow!("Some log entries did not have compile id"));
     }
 
-    // Helper function to get file content
-    fn get_file_content(output: &[(PathBuf, String)], filename_pattern: &str) -> String {
-        output.iter()
-            .find(|(path, _)| path.to_string_lossy().contains(filename_pattern))
-            .map(|(_, content)| content.clone())
-            .unwrap_or_default()
+    if config.inductor_provenance {
+        // Helper function to get file content
+        fn get_file_content(output: &[(PathBuf, String)], filename_pattern: &str) -> String {
+            output
+                .iter()
+                .find(|(path, _)| path.to_string_lossy().contains(filename_pattern))
+                .map(|(_, content)| content.clone())
+                .unwrap_or_default()
+        }
+
+        let pre_grad_graph_content = get_file_content(&output, "inductor_pre_grad_graph");
+        let post_grad_graph_content = get_file_content(&output, "inductor_post_grad_graph");
+        let output_code_content = get_file_content(&output, "inductor_output_code");
+        let aot_code_content = get_file_content(&output, "inductor_aot_code");
+        let node_mappings_content =
+            get_file_content(&output, "inductor_provenance_tracking_node_mappings");
+
+        output.push((
+            PathBuf::from("provenance_tracking.html"),
+            tt.render(
+                "provenance_tracking.html",
+                &ProvenanceContext {
+                    css: PROVENANCE_CSS,
+                    js: PROVENANCE_JS,
+                    pre_grad_graph_content,
+                    post_grad_graph_content,
+                    output_code_content,
+                    aot_code_content,
+                    node_mappings_content,
+                },
+            )?,
+        ));
     }
-
-    let pre_grad_graph_content = get_file_content(&output, "inductor_pre_grad_graph");
-    let post_grad_graph_content = get_file_content(&output, "inductor_post_grad_graph");
-    let output_code_content = get_file_content(&output, "inductor_output_code");
-    let aot_code_content = get_file_content(&output, "inductor_aot_code");
-    let node_mappings_content = get_file_content(&output, "inductor_provenance_tracking_node_mappings");
-
-    output.push((
-        PathBuf::from("provenance_tracking.html"),
-        tt.render("provenance_tracking.html", &ProvenanceContext {
-            css: PROVENANCE_CSS,
-            js: PROVENANCE_JS,
-            pre_grad_graph_content,
-            post_grad_graph_content,
-            output_code_content,
-            aot_code_content,
-            node_mappings_content,
-        })?,
-    ));
 
     Ok(output)
 }

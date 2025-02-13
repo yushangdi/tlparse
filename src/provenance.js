@@ -18,14 +18,14 @@ let jsonData = null;
  * This function processes four types of files and their relationships:
  * 1. Pre-grad graph (FX IR before autograd and any pre_grad pass)
  * 2. Post-grad graph (FX IR after autograd)
- * 3. Generated Python triton code
- * 3. Generated C++ code
+ * 3. Generated Python triton code (produced by JIT inductor)
+ * 3. Generated C++ code  (produced by AOT inductor)
  * 
  * The conversion happens in several steps:
  * 
  * 1. First, it creates lookup maps that associate node names with line numbers:
  *    - For pre/post grad graphs: Extracts node names from lines like "node_name = ..." or "node_name: ... = ..."
- *    - For C++ code: Identifies kernel definitions and their associated line ranges
+ *    - For C++/python code: Identifies kernel definitions and their associated line ranges
  * 
  * 2. Then, it processes four types of mappings:
  *    - preToPost: Maps pre-grad nodes to post-grad nodes
@@ -53,11 +53,6 @@ let jsonData = null;
  * 
  * These mappings enable the UI to highlight corresponding lines
  * across different views when a user clicks on a line.
- * 
- * @requires nodeMappings - Global object containing node-to-node mappings
- * @requires preGradGraphData - Array of pre-grad graph lines
- * @requires postGradGraphData - Array of post-grad graph lines
- * @requires cppCodeData - Array of C++ code lines
  */
 function convertNodeMappingsToLineNumbers() {
     if (!nodeMappings) {
@@ -103,35 +98,49 @@ function convertNodeMappingsToLineNumbers() {
     });
 
     // Build generated python code lookup map
-    codeData.forEach((line, i) => {
-        if (validLine(line) && line.includes('async_compile.triton(')) {
-            const kernelName = line.split('=')[0].trim();
-            if (kernelName) {
-                pyKernelToLines[kernelName] = i + 1;  // 1-based line numbers
-            }
-        }
-    });
+    let currentKernelName = null;
+    let currentKernelLines = [];
 
-    // Build generated cpp wrapper code lookup map
-    for (let i = 0; i < cppCodeData.length; i++) {
-        const line = cppCodeData[i];
-        if (validLine(line) && line.includes('== nullptr') && line.includes('kernels.')) {
-            const match = line.match(/kernels\.(\w+)/);
-            const kernelName = match ? match[1] : null;
-            if (kernelName) {
-                cppCodeToLines[kernelName] = [];
-                cppCodeToLines[kernelName].push(i + 1);  // 1-based line numbers
-                
-                let j = i + 1;
-                while (j < cppCodeData.length) {
-                    cppCodeToLines[kernelName].push(j + 1);
-                    if (cppCodeData[j].includes('launchKernel(')) {
-                        if (j + 1 < cppCodeData.length) {
-                            cppCodeToLines[kernelName].push(j + 2);
+    if (codeData) {
+        codeData.forEach((line, i) => {
+            if (validLine(line)) {
+                if (line.includes('async_compile.triton(')) {
+                    currentKernelName = line.split('=')[0].trim();
+                    currentKernelLines = [i + 1];  // Start collecting lines
+                } else if (line.includes("''', device_str='cuda')") && currentKernelName) {
+                    currentKernelLines.push(i + 1);  // Add the last line
+                    pyKernelToLines[currentKernelName] = currentKernelLines;
+                    currentKernelName = null;
+                    currentKernelLines = [];
+                } else if (currentKernelName) {
+                    currentKernelLines.push(i + 1);  // Add lines in between
+                }
+            }
+        });
+    }
+
+    if (cppCodeData) {
+        // Build generated cpp wrapper code lookup map
+        for (let i = 0; i < cppCodeData.length; i++) {
+            const line = cppCodeData[i];
+            if (validLine(line) && line.includes('== nullptr') && line.includes('kernels.')) {
+                const match = line.match(/kernels\.(\w+)/);
+                const kernelName = match ? match[1] : null;
+                if (kernelName) {
+                    cppCodeToLines[kernelName] = [];
+                    cppCodeToLines[kernelName].push(i + 1);  // 1-based line numbers
+                    
+                    let j = i + 1;
+                    while (j < cppCodeData.length) {
+                        cppCodeToLines[kernelName].push(j + 1);
+                        if (cppCodeData[j].includes('launchKernel(')) {
+                            if (j + 1 < cppCodeData.length) {
+                                cppCodeToLines[kernelName].push(j + 2);
+                            }
+                            break;
                         }
-                        break;
+                        j++;
                     }
-                    j++;
                 }
             }
         }
@@ -174,11 +183,15 @@ function convertNodeMappingsToLineNumbers() {
     // Process pyCodeToPost using lookup maps
     for (const [pyKernelName, postGradNodeNames] of Object.entries(nodeMappings["cppCodeToPost"] || {})) {
         if (pyKernelName in pyKernelToLines) {
-            const genLineNum = pyKernelToLines[pyKernelName];
-            linePyCodeToPost[genLineNum] = [];
-            for (const postGradNodeName of postGradNodeNames) {
-                if (postGradNodeName in postGradNodeToLines) {
-                    linePyCodeToPost[genLineNum].push(postGradNodeToLines[postGradNodeName]);
+            const genLineNums = pyKernelToLines[pyKernelName];
+            for (const genLineNum of genLineNums) {
+                if (!(genLineNum in linePyCodeToPost)) {
+                    linePyCodeToPost[genLineNum] = [];
+                }
+                for (const postGradNodeName of postGradNodeNames) {
+                    if (postGradNodeName in postGradNodeToLines) {
+                        linePyCodeToPost[genLineNum].push(postGradNodeToLines[postGradNodeName]);
+                    }
                 }
             }
         }
@@ -191,7 +204,7 @@ function convertNodeMappingsToLineNumbers() {
             linePostToPyCode[genLineNum] = [];
             for (const pyKernelName of pyKernelNames) {
                 if (pyKernelName in pyKernelToLines) {
-                    linePostToPyCode[genLineNum].push(pyKernelToLines[pyKernelName]);
+                    linePostToPyCode[genLineNum].push(...pyKernelToLines[pyKernelName]);
                 }
             }
         }
@@ -245,19 +258,6 @@ function convertNodeMappingsToLineNumbers() {
     });
 }
 
-// Process all mappings
-function processAllMappings() {
-    convertNodeMappingsToLineNumbers();
-    setupHighlighting();
-}
-
-// Setup highlighting
-function setupHighlighting() {
-    setupEditorContent('preGradGraph', preGradGraphData);
-    setupEditorContent('postGradGraph', postGradGraphData);
-    setupEditorContent('generatedCode', codeData);
-    setupEditorContent('generatedCppCode', cppCodeData);
-}
 
 // Setup editor content
 function setupEditorContent(editorId, lines) {
@@ -294,10 +294,8 @@ function setupEditorContent(editorId, lines) {
                           (postToCppCode[lineNum] && postToCppCode[lineNum].length > 0);
                 break;
             case 'generatedCode':
-                hasMatch = pyCodeToPost[lineNum] && pyCodeToPost[lineNum].length > 0;
-                break;
-            case 'generatedCppCode':
-                hasMatch = cppCodeToPost[lineNum] && cppCodeToPost[lineNum].length > 0;
+                hasMatch = (pyCodeToPost[lineNum] && pyCodeToPost[lineNum].length > 0) || 
+                (cppCodeToPost[lineNum] && cppCodeToPost[lineNum].length > 0);
                 break;
         }
         
@@ -366,29 +364,45 @@ function initializeData() {
         const preGradGraph = document.querySelector('#preGradGraph pre');
         const postGradGraph = document.querySelector('#postGradGraph pre');
         const generatedCode = document.querySelector('#generatedCode pre');
-        const generatedCppCode = document.querySelector('#generatedCppCode pre');
 
         if (preGradGraph) preGradGraphData = preGradGraph.textContent.split('\n');
         if (postGradGraph) postGradGraphData = postGradGraph.textContent.split('\n');
-        if (generatedCode) codeData = generatedCode.textContent.split('\n');
-        if (generatedCppCode) cppCodeData = generatedCppCode.textContent.split('\n');
-        
-        // Process mappings
-        processAllMappings();
+        if (generatedCode) {
+            const content = generatedCode.textContent;
+            if (content.includes('async_compile.triton(')) {
+                // This is Python code
+                codeData = content.split('\n');
+                cppCodeData = null;
+            } else {
+                // This is C++ code
+                cppCodeData = content.split('\n');
+                codeData = null;
+            }
+        }
 
-        // Scroll to the run_impl function in the C++ code
-        const cppEditor = document.getElementById('generatedCppCode');
-        if (cppEditor) {
-            const targetLine = Array.from(cppEditor.querySelectorAll('.line')).find(
-                line => line.textContent.includes('void AOTInductorModel::run_impl(')
-            );
-            if (targetLine) {
-                targetLine.scrollIntoView({ behavior: 'auto', block: 'center' });
+        // Convert node mappings to line numbers
+        convertNodeMappingsToLineNumbers();
+
+        // Setup highlighting
+        setupEditorContent('preGradGraph', preGradGraphData);
+        setupEditorContent('postGradGraph', postGradGraphData);
+        setupEditorContent('generatedCode', codeData || cppCodeData);
+
+        // If it's C++ code, scroll to run_impl
+        if (cppCodeData) {
+            const cppEditor = document.getElementById('generatedCode');
+            if (cppEditor) {
+                const targetLine = Array.from(cppEditor.querySelectorAll('.line')).find(
+                    line => line.textContent.includes('void AOTInductorModel::run_impl(')
+                );
+                if (targetLine) {
+                    targetLine.scrollIntoView({ behavior: 'auto', block: 'center' });
+                }
             }
         }
     } catch (error) {
         console.error('Error initializing data:', error);
-        console.error(error.stack);  // Add stack trace for better debugging
+        console.error(error.stack);
     }
 }
 
@@ -429,7 +443,7 @@ function highlightCorrespondingLines(sourceEditorId, lineNumber) {
     });
 }
 
-// Find corresponding lines
+// Given a line in sourceEditorId, find the corresponding lines in the other editors that should be highlighted.
 function findCorrespondingLines(sourceEditorId, lineNumber) {
     let result = {};
     
@@ -438,13 +452,15 @@ function findCorrespondingLines(sourceEditorId, lineNumber) {
             result.postGradGraph = preToPost[lineNumber] || [];
             if (result.postGradGraph.length > 0) {
                 result.generatedCode = [];
-                result.generatedCppCode = [];
                 for (const postLine of result.postGradGraph) {
-                    if (postToPyCode[postLine]) {
-                        result.generatedCode.push(...postToPyCode[postLine]);
-                    }
-                    if (postToCppCode[postLine]) {
-                        result.generatedCppCode.push(...postToCppCode[postLine]);
+                    if (codeData) {
+                        if (postToPyCode[postLine]) {
+                            result.generatedCode.push(...postToPyCode[postLine]);
+                        }
+                    } else {
+                        if (postToCppCode[postLine]) {
+                            result.generatedCode.push(...postToCppCode[postLine]);
+                        }
                     }
                 }
             }
@@ -452,37 +468,25 @@ function findCorrespondingLines(sourceEditorId, lineNumber) {
             
         case 'postGradGraph':
             result.preGradGraph = postToPre[lineNumber] || [];
-            result.generatedCode = postToPyCode[lineNumber] || [];
-            result.generatedCppCode = postToCppCode[lineNumber] || [];
-            break;
-            
-        case 'generatedCode':
-            result.postGradGraph = pyCodeToPost[lineNumber] || [];
-            if (result.postGradGraph.length > 0) {
-                result.preGradGraph = [];
-                result.generatedCppCode = [];
-                for (const postLine of result.postGradGraph) {
-                    if (postToPre[postLine]) {
-                        result.preGradGraph.push(...postToPre[postLine]);
-                    }
-                    if (postToCppCode[postLine]) {
-                        result.generatedCppCode.push(...postToCppCode[postLine]);
-                    }
-                }
+            if (codeData) {
+                result.generatedCode = postToPyCode[lineNumber] || [];
+            } else {
+                result.generatedCode =  postToCppCode[lineNumber] || [];
             }
             break;
             
-        case 'generatedCppCode':
-            result.postGradGraph = cppCodeToPost[lineNumber] || [];
+        case 'generatedCode':
+            if (codeData) {
+                // Python code
+                result.postGradGraph = pyCodeToPost[lineNumber] || [];
+            } else {
+                result.postGradGraph = cppCodeToPost[lineNumber] || [];
+            }
             if (result.postGradGraph.length > 0) {
                 result.preGradGraph = [];
-                result.generatedCode = [];
                 for (const postLine of result.postGradGraph) {
                     if (postToPre[postLine]) {
                         result.preGradGraph.push(...postToPre[postLine]);
-                    }
-                    if (postToPyCode[postLine]) {
-                        result.generatedCode.push(...postToPyCode[postLine]);
                     }
                 }
             }
