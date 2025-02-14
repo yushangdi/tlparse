@@ -197,9 +197,14 @@ Build products below:
 
 {{ if has_inductor_provenance }}
 <h2>Provenance Tracking</h2>
-<p>
-View detailed <a href='provenance_tracking.html'>provenance tracking information</a> for this compilation.
-</p>
+<div>
+    <p>View detailed provenance tracking information for each rank and frame:</p>
+    <ul>
+    {{ for directory_name in directory_names }}
+        <li><a href='provenance_tracking_{directory_name}.html'>provenance_tracking_{directory_name}</a></li>
+    {{ endfor }}
+    </ul>
+</div>
 {{ endif }}
 
 {{ if has_unknown_stack_trie }}

@@ -731,6 +731,7 @@ pub struct IndexContext {
     pub has_chromium_events: bool,
     pub qps: &'static str,
     pub has_inductor_provenance: bool,
+    pub directory_names: Vec<String>,
 }
 
 #[derive(Debug, Serialize)]
