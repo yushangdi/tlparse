@@ -194,6 +194,19 @@ Build products below:
 </ul>
 </div>
 
+
+{{ if has_inductor_provenance }}
+<h2>Provenance Tracking</h2>
+<div>
+    <p>View detailed provenance tracking information for each rank and frame:</p>
+    <ul>
+    {{ for directory_name in directory_names }}
+        <li><a href='provenance_tracking_{directory_name}.html'>provenance_tracking_{directory_name}</a></li>
+    {{ endfor }}
+    </ul>
+</div>
+{{ endif }}
+
 {{ if has_unknown_stack_trie }}
 <div>
 <h2>Unknown stacks</h2>
@@ -512,3 +525,7 @@ pub static TEMPLATE_SYMBOLIC_GUARD_INFO: &str = r#"
 </body>
 </html>
 "#;
+
+pub static PROVENANCE_CSS: &str = include_str!("provenance.css");
+pub static PROVENANCE_JS: &str = include_str!("provenance.js");
+pub static TEMPLATE_PROVENANCE_TRACKING: &str = include_str!("provenance.html");
