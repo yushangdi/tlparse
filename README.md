@@ -4,12 +4,12 @@
 Quick start:
 Run PT2 with the TORCH_TRACE environment variable set:
 ```
-TORCH_TRACE=/tmp/my_traced_log example.py
+TORCH_TRACE=/tmp/my_traced_log_dir example.py
 ```
 
 Feed input into tlparse:
 ```
-tlparse /tmp/my_traced_log -o tl_out/
+tlparse /tmp/my_traced_log_dir -o tl_out/
 ```
 
 ## Adding custom parsers
