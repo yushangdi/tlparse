@@ -747,7 +747,8 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
                 get_file_content(&output, "inductor_post_grad_graph", directory_name);
             let output_code_content =
                 get_file_content(&output, "inductor_output_code", directory_name);
-            let aot_code_content = get_file_content(&output, "inductor_aot_code", directory_name);
+            let aot_code_content =
+                get_file_content(&output, "inductor_aot_wrapper_code", directory_name);
             let node_mappings_content = get_file_content(
                 &output,
                 "inductor_provenance_tracking_node_mappings",
