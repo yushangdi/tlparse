@@ -1,7 +1,7 @@
-V0213 10:06:43.630000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "ea8d5f3b71d4c6f123369837b5701c7b"}
+V0310 11:51:00.965000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "a95b3b6db94522ae38ca2bba52bf3cb3"}
 	{
 	"name": "dynamo",
-	"ts": 1739470003630658.2,
+	"ts": 1741632660965550.8,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -10,21 +10,21 @@ V0213 10:06:43.630000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:43.635000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/torch/_dynamo/convert_frame.py", 0]}
-V0213 10:06:43.635000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/__run_lpar_main__.py", 1]}
-V0213 10:06:43.636000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/__par__/meta_only/bootstrap.py", 2]}
-V0213 10:06:43.636000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/__par__/bootstrap.py", 3]}
-V0213 10:06:43.636000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py", 4]}
-V0213 10:06:43.637000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/torch/export/__init__.py", 5]}
-V0213 10:06:43.637000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/torch/export/_trace.py", 6]}
-V0213 10:06:43.637000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/torch/export/exported_program.py", 7]}
-V0213 10:06:43.638000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/torch/_dynamo/eval_frame.py", 8]}
-V0213 10:06:43.638000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:23] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/torch/nn/modules/module.py", 9]}
-V0213 10:06:43.638000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/convert_frame.py:972] {"dynamo_start": {"stack": [{"line": 38, "name": "<module>", "filename": 1}, {"line": 35, "name": "__invoke_main", "filename": 1}, {"line": 98, "name": "run_as_main", "filename": 2}, {"line": 94, "name": "run_as_main", "filename": 3}, {"line": 46, "name": "main", "filename": 4}, {"line": 370, "name": "export", "filename": 5}, {"line": 1019, "name": "wrapper", "filename": 6}, {"line": 121, "name": "wrapper", "filename": 7}, {"line": 2080, "name": "_export", "filename": 6}, {"line": 1019, "name": "wrapper", "filename": 6}, {"line": 121, "name": "wrapper", "filename": 7}, {"line": 1945, "name": "_export_for_training", "filename": 6}, {"line": 1298, "name": "_strict_export_lower_to_aten_ir", "filename": 6}, {"line": 693, "name": "_export_to_torch_ir", "filename": 6}, {"line": 1587, "name": "inner", "filename": 8}, {"line": 1751, "name": "_wrapped_call_impl", "filename": 9}, {"line": 1762, "name": "_call_impl", "filename": 9}, {"line": 570, "name": "_fn", "filename": 8}, {"line": 1751, "name": "_wrapped_call_impl", "filename": 9}, {"line": 30, "name": "forward", "filename": 4}]}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
-V0213 10:06:43.639000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "aae7090d6ef9e393cd4c1db18cc6aa12"}
+V0310 11:51:00.970000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/torch/_dynamo/convert_frame.py", 0]}
+V0310 11:51:00.970000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/__run_lpar_main__.py", 1]}
+V0310 11:51:00.971000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/__par__/meta_only/bootstrap.py", 2]}
+V0310 11:51:00.971000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/__par__/bootstrap.py", 3]}
+V0310 11:51:00.972000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py", 4]}
+V0310 11:51:00.972000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/torch/export/__init__.py", 5]}
+V0310 11:51:00.972000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/torch/export/_trace.py", 6]}
+V0310 11:51:00.973000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/torch/export/exported_program.py", 7]}
+V0310 11:51:00.973000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/torch/_dynamo/eval_frame.py", 8]}
+V0310 11:51:00.973000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_logging/structured.py:27] {"str": ["/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/torch/nn/modules/module.py", 9]}
+V0310 11:51:00.974000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/convert_frame.py:1028] {"dynamo_start": {"stack": [{"line": 38, "name": "<module>", "filename": 1, "loc": "__invoke_main()"}, {"line": 35, "name": "__invoke_main", "filename": 1, "loc": "run_as_main(module, main_function)"}, {"line": 98, "name": "run_as_main", "filename": 2, "loc": "oss_run_as_main("}, {"line": 94, "name": "run_as_main", "filename": 3, "loc": "main()"}, {"line": 49, "name": "main", "filename": 4, "loc": "ep = torch.export.export(model, example_inputs)"}, {"line": 360, "name": "export", "filename": 5, "loc": "return _export("}, {"line": 1065, "name": "wrapper", "filename": 6, "loc": "ep = fn(*args, **kwargs)"}, {"line": 121, "name": "wrapper", "filename": 7, "loc": "return fn(*args, **kwargs)"}, {"line": 2112, "name": "_export", "filename": 6, "loc": "ep = _export_for_training("}, {"line": 1065, "name": "wrapper", "filename": 6, "loc": "ep = fn(*args, **kwargs)"}, {"line": 121, "name": "wrapper", "filename": 7, "loc": "return fn(*args, **kwargs)"}, {"line": 1975, "name": "_export_for_training", "filename": 6, "loc": "export_artifact = export_func(  # type: ignore[operator]"}, {"line": 1344, "name": "_strict_export_lower_to_aten_ir", "filename": 6, "loc": "gm_torch_level = _export_to_torch_ir("}, {"line": 739, "name": "_export_to_torch_ir", "filename": 6, "loc": "gm_torch_level, _ = torch._dynamo.export("}, {"line": 1677, "name": "inner", "filename": 8, "loc": "result_traced = opt_f(*args, **kwargs)"}, {"line": 1751, "name": "_wrapped_call_impl", "filename": 9, "loc": "return self._call_impl(*args, **kwargs)"}, {"line": 1762, "name": "_call_impl", "filename": 9, "loc": "return forward_call(*args, **kwargs)"}, {"line": 655, "name": "_fn", "filename": 8, "loc": "return fn(*args, **kwargs)"}, {"line": 1751, "name": "_wrapped_call_impl", "filename": 9, "loc": "return self._call_impl(*args, **kwargs)"}, {"line": 28, "name": "forward", "filename": 4}]}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
+V0310 11:51:00.975000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "f128c025ab9e77fb735385983b62113e"}
 	{
 	"name": "entire_frame_compile",
-	"ts": 1739470003639467.8,
+	"ts": 1741632660975173.0,
 	"args": {
 	"fn_name": "_compile.compile_inner",
 	"compile_id": "0/0"
@@ -34,31 +34,31 @@ V0213 10:06:43.639000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:43.649000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:248] {"describe_storage": {"id": 0, "describer_id": 0, "size": 320}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
-V0213 10:06:43.650000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:462] {"describe_tensor": {"id": 0, "ndim": 2, "dtype": "torch.float32", "device": "device(type='cuda', index=0)", "size": [8, 10], "is_leaf": true, "stride": [10, 1], "storage": 0, "view_func": "_CustomViewFunc(func=<built-in method _view_func_unsafe of Tensor object at 0x7f88a78af9c0>)", "describer_id": 0}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
-V0213 10:06:43.650000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:1867] {"describe_source": {"describer_id": 0, "id": 0, "source": "L['x']"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
-V0213 10:06:43.652000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:248] {"describe_storage": {"id": 1, "describer_id": 0, "size": 320}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
-V0213 10:06:43.653000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:462] {"describe_tensor": {"id": 1, "ndim": 2, "dtype": "torch.float32", "device": "device(type='cuda', index=0)", "size": [8, 10], "is_leaf": true, "stride": [10, 1], "storage": 1, "view_func": "_CustomViewFunc(func=<built-in method _view_func_unsafe of Tensor object at 0x7f88a9d20b80>)", "describer_id": 0}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
-V0213 10:06:43.653000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:1867] {"describe_source": {"describer_id": 0, "id": 1, "source": "L['y']"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
-V0213 10:06:43.676000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/output_graph.py:1361] {"dynamo_output_graph": {"sizes": {"l_x_": [8, 10], "x": [8, 16], "x_1": [8, 16], "x_2": [8, 16]}}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "4cc363070b9fbf0808a57330cebb1697"}
+V0310 11:51:00.987000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:248] {"describe_storage": {"id": 0, "describer_id": 0, "size": 320}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
+V0310 11:51:00.988000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:462] {"describe_tensor": {"id": 0, "ndim": 2, "dtype": "torch.float32", "device": "device(type='cuda', index=0)", "size": [8, 10], "is_leaf": true, "stride": [10, 1], "storage": 0, "view_func": "_CustomViewFunc(func=<built-in method _view_func_unsafe of Tensor object at 0x7f33959a8ef0>)", "describer_id": 0}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
+V0310 11:51:00.989000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:1869] {"describe_source": {"describer_id": 0, "id": 0, "source": "L['x']"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
+V0310 11:51:00.992000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:248] {"describe_storage": {"id": 1, "describer_id": 0, "size": 320}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
+V0310 11:51:00.993000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:462] {"describe_tensor": {"id": 1, "ndim": 2, "dtype": "torch.float32", "device": "device(type='cuda', index=0)", "size": [8, 10], "is_leaf": true, "stride": [10, 1], "storage": 1, "view_func": "_CustomViewFunc(func=<built-in method _view_func_unsafe of Tensor object at 0x7f3396d49120>)", "describer_id": 0}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
+V0310 11:51:00.993000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_subclasses/meta_utils.py:1869] {"describe_source": {"describer_id": 0, "id": 1, "source": "L['y']"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
+V0310 11:51:01.025000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/output_graph.py:1411] {"dynamo_output_graph": {"sizes": {"l_x_": [8, 10], "x": [8, 16], "x_1": [8, 16], "x_2": [8, 16]}}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "9f1d653d286335f104a9523832facf33"}
 	class GraphModule(torch.nn.Module):
 	    def forward(self, L_x_: "f32[8, 10][10, 1]cuda:0"):
 	        l_x_ = L_x_
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:31 in forward, code: x = self.fc1(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:29 in forward, code: x = self.fc1(x)
 	        x: "f32[8, 16][16, 1]cuda:0" = self.L__self___fc1(l_x_);  l_x_ = None
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:32 in forward, code: x = self.relu(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:30 in forward, code: x = self.relu(x)
 	        x_1: "f32[8, 16][16, 1]cuda:0" = self.L__self___relu(x);  x = None
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:33 in forward, code: x = self.sigmoid(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:31 in forward, code: x = self.sigmoid(x)
 	        x_2: "f32[8, 16][16, 1]cuda:0" = self.L__self___sigmoid(x_1);  x_1 = None
 	        return (x_2,)
 	        
-V0213 10:06:43.677000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "e3f07a427b7031ae9a163c1a4afddaa0"}
+V0310 11:51:01.026000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "545da69485e64040cc2d9c705d304630"}
 	{
 	"name": "backend_compile",
-	"ts": 1739470003677287.8,
+	"ts": 1741632661026517.2,
 	"args": {
 	"fn_name": "OutputGraph.call_user_compiler",
 	"compile_id": "0/0"
@@ -68,10 +68,10 @@ V0213 10:06:43.677000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:43.678000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "71f754abe045555e3ec3b2dfe8601c7e"}
+V0310 11:51:01.028000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "9f5f874caf0e58acd6d0e7436ad01c8e"}
 	{
 	"name": "backend_compile",
-	"ts": 1739470003678677.8,
+	"ts": 1741632661028261.5,
 	"args": {
 	"fn_name": "OutputGraph.call_user_compiler",
 	"compile_id": "0/0"
@@ -81,40 +81,40 @@ V0213 10:06:43.678000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:43.693000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/guards.py:2502] {"dynamo_cpp_guards_str": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "1667e725bf83806b63b2c7537282ed5c"}
+V0310 11:51:01.043000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/guards.py:2532] {"dynamo_cpp_guards_str": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "5bf14c91f2ee122b242100abf2e10b85"}
 	
 	TREE_GUARD_MANAGER:
 	+- RootGuardManager
-	| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:491 in init_ambient_guards
+	| +- DEFAULT_DEVICE: utils_device.CURRENT_DEVICE == None                           # _dynamo/output_graph.py:519 in init_ambient_guards
 	| +- GLOBAL_STATE: ___check_global_state()
 	| +- TORCH_FUNCTION_MODE_STACK: ___check_torch_function_mode_stack()
 	| +- GuardManager: source=L['x'], accessed_by=FrameLocalsGuardAccessor(key='x', framelocals_idx=1)
-	| | +- TYPE_MATCH: ___check_type_id(L['x'], 140225372413968)                   
+	| | +- TYPE_MATCH: ___check_type_id(L['x'], 139860054512656)                   
 	| | +- NO_HASATTR: hasattr(L['x'], '_dynamo_dynamic_indices') == False         
 	| +- GuardManager: source=L['y'], accessed_by=FrameLocalsGuardAccessor(key='y', framelocals_idx=2)
-	| | +- TYPE_MATCH: ___check_type_id(L['y'], 140225372413968)                   
+	| | +- TYPE_MATCH: ___check_type_id(L['y'], 139860054512656)                   
 	| | +- NO_HASATTR: hasattr(L['y'], '_dynamo_dynamic_indices') == False         
 	| +- GuardManager: source=L['self'], accessed_by=FrameLocalsGuardAccessor(key='self', framelocals_idx=0)
-	| | +- ID_MATCH: ___check_obj_id(L['self'], 140226411458672)                 
+	| | +- ID_MATCH: ___check_obj_id(L['self'], 139860983803200)                 
 	| | +- GuardManager: source=L['self'].__dict__, accessed_by=GetGenericDictGuardAccessor
 	| | | +- GuardManager: source=L['self'].training, accessed_by=DictGetItemGuardAccessor('training')
-	| | | | +- ID_MATCH: ___check_obj_id(L['self'].training, 140226838509560)        
+	| | | | +- ID_MATCH: ___check_obj_id(L['self'].training, 139862951180280)        
 	| | | +- GuardManager: source=L['self']._modules, accessed_by=DictGetItemGuardAccessor('_modules')
 	| | | | +- GuardManager: source=L['self'].fc1, accessed_by=DictGetItemGuardAccessor('fc1')
-	| | | | | +- ID_MATCH: ___check_obj_id(L['self'].fc1, 140226411461696)             
+	| | | | | +- ID_MATCH: ___check_obj_id(L['self'].fc1, 139860983806224)             
 	| | | | | +- GuardManager: source=L['self'].fc1.__dict__, accessed_by=GetGenericDictGuardAccessor
 	| | | | | | +- GuardManager: source=L['self'].fc1.training, accessed_by=DictGetItemGuardAccessor('training')
-	| | | | | | | +- ID_MATCH: ___check_obj_id(L['self'].fc1.training, 140226838509560)    
+	| | | | | | | +- ID_MATCH: ___check_obj_id(L['self'].fc1.training, 139862951180280)    
 	| | | | +- GuardManager: source=L['self'].relu, accessed_by=DictGetItemGuardAccessor('relu')
-	| | | | | +- ID_MATCH: ___check_obj_id(L['self'].relu, 140226412360752)            
+	| | | | | +- ID_MATCH: ___check_obj_id(L['self'].relu, 139860976367648)            
 	| | | | | +- GuardManager: source=L['self'].relu.__dict__, accessed_by=GetGenericDictGuardAccessor
 	| | | | | | +- GuardManager: source=L['self'].relu.training, accessed_by=DictGetItemGuardAccessor('training')
-	| | | | | | | +- ID_MATCH: ___check_obj_id(L['self'].relu.training, 140226838509560)   
+	| | | | | | | +- ID_MATCH: ___check_obj_id(L['self'].relu.training, 139862951180280)   
 	| | | | +- GuardManager: source=L['self'].sigmoid, accessed_by=DictGetItemGuardAccessor('sigmoid')
-	| | | | | +- ID_MATCH: ___check_obj_id(L['self'].sigmoid, 140226366522032)         
+	| | | | | +- ID_MATCH: ___check_obj_id(L['self'].sigmoid, 139860976366304)         
 	| | | | | +- GuardManager: source=L['self'].sigmoid.__dict__, accessed_by=GetGenericDictGuardAccessor
 	| | | | | | +- GuardManager: source=L['self'].sigmoid.training, accessed_by=DictGetItemGuardAccessor('training')
-	| | | | | | | +- ID_MATCH: ___check_obj_id(L['self'].sigmoid.training, 140226838509560)
+	| | | | | | | +- ID_MATCH: ___check_obj_id(L['self'].sigmoid.training, 139862951180280)
 	+- LAMBDA_GUARD: L['x'].size()[0] == 8  # (unknown source L['x'].size()[0], please file a bug)
 	+- LAMBDA_GUARD: L['x'].size()[1] == 10  # (unknown source L['x'].size()[1], please file a bug)
 	+- LAMBDA_GUARD: L['x'].stride()[0] == 10  # (unknown source L['x'].stride()[0], please file a bug)
@@ -127,10 +127,10 @@ V0213 10:06:43.693000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	+- LAMBDA_GUARD: L['y'].storage_offset() == 0  # (unknown source L['y'].storage_offset(), please file a bug)
 	
 	Guard latency = 0.00 us
-V0213 10:06:43.694000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "aea22c72a899c439a2fba9e9445b187a"}
+V0310 11:51:01.045000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "8a8fc503caa737907cd6d2f10e7aa46b"}
 	{
 	"name": "entire_frame_compile",
-	"ts": 1739470003694058.8,
+	"ts": 1741632661045078.2,
 	"args": {
 	"fn_name": "_compile.compile_inner",
 	"compile_id": "0/0"
@@ -140,10 +140,10 @@ V0213 10:06:43.694000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:43.695000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "b3df764a799b88525ad909435111cf20"}
+V0310 11:51:01.046000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "4d019b0a0c6ad7f32f0fa6812d35602d"}
 	{
 	"name": "gc",
-	"ts": 1739470003694968.5,
+	"ts": 1741632661046410.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -152,10 +152,10 @@ V0213 10:06:43.695000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:43.696000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "c231f7bfdfd60d6a49db5112835aacfd"}
+V0310 11:51:01.048000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "95764bb8b3f131edf8191e288c3d1544"}
 	{
 	"name": "gc",
-	"ts": 1739470003696604.8,
+	"ts": 1741632661048643.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -164,17 +164,17 @@ V0213 10:06:43.696000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:43.717000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1463] {"compilation_metrics": {"compile_id": "0/0", "frame_key": "1", "co_name": "forward", "co_filename": "/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py", "co_firstlineno": 30, "cache_size": 0, "accumulated_cache_size": 0, "guard_count": 11, "shape_env_guard_count": 0, "graph_op_count": 3, "graph_node_count": 5, "graph_input_count": 1, "start_time": 1739470003.634051, "entire_frame_compile_time_s": 0.054591, "backend_compile_time_s": 0.001389, "inductor_compile_time_s": null, "code_gen_time_s": null, "fail_type": null, "fail_reason": null, "fail_user_frame_filename": null, "fail_user_frame_lineno": null, "non_compliant_ops": [], "compliant_custom_ops": [], "restart_reasons": [], "dynamo_time_before_restart_s": 0.0, "has_guarded_code": true, "remote_cache_time_saved_s": null, "structured_logging_overhead_s": 0.015496, "config_suppress_errors": false, "config_inline_inbuilt_nn_modules": true, "specialize_float": true, "dynamo_config": "{\"_autograd_backward_strict_mode_conditional_banned_ops\": [\"stride\", \"storage_offset\", \"is_contiguous\"], \"_ddp_optimization_mode\": [\"ddp_optimizer\", \"python_reducer\", \"python_reducer_without_compiled_forward\", \"no_optimization\"], \"_unsafe_skip_fsdp_module_guards\": false, \"accumulated_recompile_limit\": 256, \"allow_complex_guards_as_runtime_asserts\": false, \"allow_empty_graphs\": false, \"allow_ignore_mark_dynamic\": false, \"allow_rnn\": true, \"allow_unspec_int_on_nn_module\": false, \"allowed_functions_module_string_ignorelist\": [\"torch._decomp\", \"torch._prims\", \"torch._refs\", \"torch.distributions\", \"torch.testing\"], \"assume_static_by_default\": true, \"automatic_dynamic_local_pgo\": true, \"automatic_dynamic_remote_pgo\": null, \"automatic_dynamic_shapes\": false, \"automatic_dynamic_shapes_mark_as\": \"dynamic\", \"capture_autograd_function\": true, \"capture_dynamic_output_shape_ops\": true, \"capture_func_transforms\": true, \"capture_scalar_outputs\": true, \"capture_sparse_compute\": false, \"compiled_autograd\": false, \"compiled_autograd_kwargs_override\": {}, \"cprofile\": false, \"cudagraph_backend_keep_input_mutation\": false, \"cudagraph_backend_support_input_mutation\": false, \"dead_code_elimination\": true, \"disable\": false, \"do_not_emit_runtime_asserts\": false, \"dynamic_shapes\": true, \"enable_compiler_collectives\": false, \"enable_cpp_framelocals_guard_eval\": true, \"enable_cpp_guard_manager\": true, \"enable_cpp_symbolic_shape_guards\": false, \"enable_faithful_generator_behavior\": true, \"enable_trace_contextlib\": true, \"error_on_nested_fx_trace\": true, \"error_on_nested_jit_trace\": true, \"error_on_recompile\": false, \"fail_on_recompile_limit_hit\": false, \"fake_tensor_cache_crosscheck_enabled\": false, \"fake_tensor_cache_enabled\": true, \"force_nn_module_property_static_shapes\": true, \"force_parameter_static_shapes\": true, \"force_unspec_int_unbacked_size_like_on_torchrec_kjt\": false, \"guard_nn_modules\": true, \"guard_nn_modules_using_dict_tags\": true, \"inline_inbuilt_nn_modules\": true, \"issue_3_13_0_warning\": true, \"minimum_call_count\": 1, \"numpy_default_complex\": \"complex128\", \"numpy_default_float\": \"float64\", \"numpy_default_int\": \"int64\", \"only_allow_pt2_compliant_ops\": false, \"optimize_ddp\": true, \"optimize_ddp_lazy_compile\": false, \"prefer_deferred_runtime_asserts_over_guards\": true, \"prepare_freezing\": false, \"raise_on_ctx_manager_usage\": true, \"raise_on_unsafe_aot_autograd\": false, \"recompile_limit\": 8, \"record_compile_time_instruction_count\": false, \"replay_record_enabled\": false, \"report_guard_failures\": true, \"rewrite_assert_with_torch_assert\": true, \"run_gc_after_compile\": true, \"skip_code_recursive_on_recompile_limit_hit\": true, \"skip_fsdp_guards\": true, \"skip_fsdp_hooks\": true, \"skip_nnmodule_hook_guards\": true, \"skip_no_tensor_aliasing_guards_on_parameters\": true, \"skip_tensor_guards_with_matching_dict_tags\": true, \"skip_torchrec\": true, \"skipfiles_inline_module_allowlist\": {}, \"specialize_float\": true, \"specialize_int\": true, \"suppress_errors\": false, \"trace_numpy\": true, \"track_nodes_for_deduplication\": false, \"use_graph_deduplication\": false, \"use_lazy_graph_module\": true, \"use_numpy_random_stream\": false, \"verify_correctness\": false}", "is_forward": true, "num_triton_bundles": null, "remote_fx_graph_cache_get_time_ms": null, "remote_fx_graph_cache_put_time_ms": null, "start_time_us": 1739470003634051, "duration_us": 63434, "dynamo_cumulative_compile_time_us": 54591, "aot_autograd_cumulative_compile_time_us": 1389, "inductor_cumulative_compile_time_us": null, "inductor_code_gen_cumulative_compile_time_us": null, "triton_compile_time_us": null, "runtime_cudagraphify_time_us": null, "runtime_triton_autotune_time_us": null, "dynamo_compile_time_before_restart_us": 0, "cuda_synchronize_time_us": null, "distributed_ephemeral_timeout_us": null, "structured_logging_overhead_us": 15496, "remote_fx_graph_cache_get_time_us": null, "remote_fx_graph_cache_put_time_us": null, "backward_cumulative_compile_time_us": null, "end_time_us": 1739470003697485, "pre_grad_pass_time_us": null, "post_grad_pass_time_us": null, "joint_graph_pass_time_us": null, "log_format_version": 3, "inductor_config": "{\"TYPE_CHECKING\": false, \"_cache_config_ignore_prefix\": [\"trace\", \"cuda.cutlass_dir\", \"worker_start_method\", \"compile_threads\", \"post_grad_custom_post_pass\", \"post_grad_custom_pre_pass\", \"always_complex_memory_overlap_TESTING_ONLY\"], \"_collective.auto_select\": false, \"_collective.one_shot_all_reduce_threshold_bytes\": 131072, \"_fuse_ddp_bucket_size\": 25, \"_fuse_ddp_communication\": false, \"_fuse_ddp_communication_passes\": [\"fuse_ddp_with_concat_op\", \"schedule_comm_wait\"], \"_micro_pipeline_tp\": false, \"_pre_fusion_custom_pass\": null, \"_profile_var\": \"\", \"_raise_error_for_testing\": false, \"_save_config_ignore\": [\"trace.upload_tar\", \"joint_custom_pre_pass\", \"joint_custom_post_pass\", \"pre_grad_custom_pass\", \"aot_inductor.repro_level\", \"aot_inductor.dump_aoti_minifier\"], \"aggressive_fusion\": false, \"allow_buffer_reuse\": true, \"always_complex_memory_overlap_TESTING_ONLY\": false, \"always_keep_tensor_constants\": false, \"annotate_training\": false, \"aot_inductor.allow_stack_allocation\": false, \"aot_inductor.compile_wrapper_with_O0\": false, \"aot_inductor.debug_compile\": false, \"aot_inductor.debug_intermediate_value_printer\": \"0\", \"aot_inductor.dump_aoti_minifier\": false, \"aot_inductor.filtered_kernel_names\": null, \"aot_inductor.force_mmap_weights\": false, \"aot_inductor.metadata\": {}, \"aot_inductor.output_path\": \"\", \"aot_inductor.package\": false, \"aot_inductor.package_constants_in_so\": true, \"aot_inductor.package_cpp_only\": false, \"aot_inductor.presets\": {}, \"aot_inductor.raise_error_on_ignored_optimization\": true, \"aot_inductor.repro_level\": 2, \"aot_inductor.serialized_in_spec\": \"\", \"aot_inductor.serialized_out_spec\": \"\", \"aot_inductor.use_minimal_arrayref_interface\": false, \"aot_inductor.use_runtime_constant_folding\": false, \"assert_indirect_indexing\": true, \"assume_aligned_inputs\": false, \"autoheuristic_collect\": \"\", \"autoheuristic_log_path\": \"DEFAULT\", \"autoheuristic_use\": \"mixed_mm\", \"autotune_fallback_to_aten\": true, \"autotune_in_subproc\": false, \"autotune_local_cache\": true, \"autotune_multi_device\": false, \"autotune_num_choices_displayed\": 10, \"autotune_remote_cache\": null, \"b2b_gemm_pass\": false, \"batch_fusion\": true, \"benchmark_combo_kernel\": false, \"benchmark_epilogue_fusion\": true, \"benchmark_fusion\": false, \"benchmark_harness\": true, \"benchmark_kernel\": false, \"bundle_triton_into_fx_graph_cache\": null, \"bundled_autotune_remote_cache\": null, \"bw_outputs_user_visible\": true, \"can_inplace_pad_graph_input\": false, \"check_stack_no_cycles_TESTING_ONLY\": false, \"combo_kernel_allow_mixed_sizes\": 1, \"combo_kernel_foreach_dynamic_shapes\": false, \"combo_kernels\": false, \"combo_kernels_autotune\": 1, \"comment_origin\": false, \"compile_threads\": null, \"comprehensive_padding\": true, \"compute_all_bounds\": false, \"constant_and_index_propagation\": true, \"conv_1x1_as_mm\": false, \"coordinate_descent_check_all_directions\": false, \"coordinate_descent_search_radius\": 1, \"coordinate_descent_tuning\": false, \"cpp.cxx\": [null, \"g++\"], \"cpp.descriptive_names\": \"original_aten\", \"cpp.dynamic_threads\": false, \"cpp.enable_concat_linear\": false, \"cpp.enable_floating_point_contract_flag\": \"off\", \"cpp.enable_grouped_gemm_template\": false, \"cpp.enable_kernel_profile\": false, \"cpp.enable_loop_tail_vec\": true, \"cpp.enable_tiling_heuristics\": true, \"cpp.enable_unsafe_math_opt_flag\": false, \"cpp.fallback_scatter_reduce_sum\": true, \"cpp.gemm_cache_blocking\": null, \"cpp.gemm_max_k_slices\": 1, \"cpp.gemm_thread_factors\": null, \"cpp.inject_log1p_bug_TESTING_ONLY\": null, \"cpp.inject_relu_bug_TESTING_ONLY\": null, \"cpp.max_horizontal_fusion_size\": 16, \"cpp.min_chunk_size\": 4096, \"cpp.no_redundant_loops\": true, \"cpp.simdlen\": null, \"cpp.threads\": -1, \"cpp.vec_isa_ok\": null, \"cpp.weight_prepack\": true, \"cpp_wrapper\": false, \"cpu_backend\": \"cpp\", \"cuda.arch\": null, \"cuda.compile_opt_level\": \"-O1\", \"cuda.cuda_cxx\": null, \"cuda.cutlass_backend_min_gemm_size\": 1, \"cuda.cutlass_dir\": \"/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/third_party/cutlass\", \"cuda.cutlass_instantiation_level\": \"0\", \"cuda.cutlass_max_profiling_configs\": null, \"cuda.cutlass_max_profiling_swizzle_options\": [2], \"cuda.cutlass_op_allowlist_regex\": null, \"cuda.cutlass_op_denylist_regex\": null, \"cuda.enable_cuda_lto\": false, \"cuda.enable_debug_info\": false, \"cuda.enable_ptxas_info\": false, \"cuda.generate_test_runner\": false, \"cuda.use_fast_math\": false, \"cuda.version\": null, \"cuda_backend\": \"triton\", \"custom_op_default_layout_constraint\": \"needs_fixed_stride_order\", \"dce\": false, \"debug\": false, \"debug_fusion\": false, \"debug_index_asserts\": false, \"debug_ir_traceback\": false, \"decompose_mem_bound_mm\": false, \"developer_warnings\": true, \"disable_cpp_codegen\": false, \"disable_padding_cpu\": true, \"disable_progress\": true, \"dynamic_scale_rblock\": true, \"efficient_conv_bn_eval_fx_passes\": false, \"emulate_precision_casts\": false, \"enable_auto_functionalized_v2\": true, \"enable_linear_binary_folding\": false, \"enabled_metric_tables\": \"\", \"epilogue_fusion\": true, \"epilogue_fusion_first\": false, \"estimate_op_runtime\": \"default\", \"external_matmul\": [], \"fallback_random\": false, \"force_disable_caches\": false, \"force_fuse_int_mm_with_mul\": false, \"force_layout_optimization\": false, \"force_pointwise_cat\": false, \"force_same_precision\": true, \"force_shape_pad\": false, \"freezing\": false, \"freezing_discard_parameters\": false, \"fx_graph_cache\": true, \"fx_graph_remote_cache\": null, \"fx_passes_numeric_check\": {\"num_iterations\": 1, \"pre_grad\": false, \"precision\": 0.0001, \"requires_optimizer\": true}, \"generate_intermediate_hooks\": false, \"global_cache_dir\": null, \"group_fusion\": false, \"halide.asserts\": false, \"halide.cpu_target\": \"host\", \"halide.debug\": false, \"halide.gpu_target\": \"host-cuda\", \"halide.scan_kernels\": false, \"halide.scheduler_cpu\": \"Adams2019\", \"halide.scheduler_cuda\": \"Anderson2021\", \"implicit_fallbacks\": true, \"inplace_buffers\": true, \"inplace_padding\": true, \"inter_node_bw\": 25, \"intra_node_bw\": 300, \"is_nightly_or_source\": false, \"is_predispatch\": false, \"joint_custom_post_pass\": null, \"joint_custom_pre_pass\": null, \"joint_graph_constant_folding\": true, \"keep_output_stride\": true, \"kernel_name_max_ops\": 10, \"layout_opt_default\": \"1\", \"layout_optimization\": true, \"loop_ordering_after_fusion\": false, \"max_autotune\": false, \"max_autotune_conv_backends\": \"ATEN,TRITON\", \"max_autotune_gemm\": false, \"max_autotune_gemm_backends\": \"ATEN,TRITON,CPP\", \"max_autotune_gemm_search_space\": \"DEFAULT\", \"max_autotune_pointwise\": false, \"max_autotune_subproc_graceful_timeout_seconds\": 1.0, \"max_autotune_subproc_result_timeout_seconds\": 60.0, \"max_autotune_subproc_terminate_timeout_seconds\": 2.0, \"max_epilogue_benchmarked_choices\": 1, \"max_fusion_size\": 64, \"max_pointwise_cat_inputs\": 8, \"memory_planning\": false, \"memory_pool\": \"intermediates\", \"mixed_mm_choice\": \"heuristic\", \"nan_asserts\": false, \"optimize_scatter_upon_const_tensor\": true, \"pad_channels_last\": false, \"pad_outputs\": false, \"padding_alignment_bytes\": 128, \"padding_stride_threshold\": 1024, \"pattern_matcher\": true, \"permute_fusion\": false, \"pick_loop_orders\": true, \"post_grad_custom_post_pass\": null, \"post_grad_custom_pre_pass\": null, \"post_grad_fusion_options\": {}, \"pre_grad_custom_pass\": null, \"pre_grad_fusion_options\": {}, \"profile_bandwidth\": false, \"profile_bandwidth_output\": null, \"profile_bandwidth_regex\": \"\", \"profile_bandwidth_with_do_bench_using_profiling\": false, \"profiler_mark_wrapper_call\": false, \"prologue_fusion\": false, \"realize_acc_reads_threshold\": 8, \"realize_opcount_threshold\": 30, \"realize_reads_threshold\": 4, \"reorder_for_compute_comm_overlap\": false, \"reorder_for_compute_comm_overlap_passes\": [\"reorder_compute_for_overlap\", \"sink_waits\", \"raise_comms\"], \"reorder_for_locality\": true, \"reorder_for_peak_memory\": true, \"rocm.arch\": [], \"rocm.ck_dir\": null, \"rocm.ck_supported_arch\": [\"gfx90a\", \"gfx940\", \"gfx941\", \"gfx942\"], \"rocm.compile_opt_level\": \"-O2\", \"rocm.flush_denormals\": true, \"rocm.generate_test_runner\": false, \"rocm.is_debug\": false, \"rocm.n_max_profiling_configs\": null, \"rocm.print_kernel_resource_usage\": false, \"rocm.rocm_home\": null, \"rocm.save_temps\": false, \"rocm.use_fast_math\": true, \"rocm.use_preselected_instances\": false, \"save_args\": false, \"score_fusion_memory_threshold\": 10, \"search_autotune_cache\": false, \"shape_padding\": true, \"size_asserts\": true, \"sleep_sec_TESTING_ONLY\": null, \"split_cat_fx_passes\": true, \"split_reductions\": true, \"static_weight_shapes\": true, \"test_configs.autotune_choice_desc_regex\": null, \"test_configs.autotune_choice_name_regex\": null, \"test_configs.force_extern_kernel_in_multi_template\": false, \"test_configs.max_mm_configs\": null, \"test_configs.runtime_triton_dtype_assert\": false, \"trace.compile_profile\": false, \"trace.debug_dir\": null, \"trace.debug_log\": false, \"trace.dot_graph_shape\": null, \"trace.draw_orig_fx_graph\": false, \"trace.enabled\": true, \"trace.fx_graph\": true, \"trace.fx_graph_transformed\": true, \"trace.graph_diagram\": false, \"trace.info_log\": false, \"trace.ir_post_fusion\": true, \"trace.ir_pre_fusion\": true, \"trace.log_autotuning_results\": false, \"trace.log_inductor_triton_kernel_to_post_grad_node_info\": true, \"trace.log_url_for_graph_xform\": null, \"trace.output_code\": true, \"trace.save_real_tensors\": false, \"trace.upload_tar\": null, \"triton.autotune_at_compile_time\": null, \"triton.autotune_cublasLt\": true, \"triton.autotune_pointwise\": true, \"triton.codegen_upcast_to_fp32\": true, \"triton.cooperative_reductions\": false, \"triton.cudagraph_dynamic_shape_warn_limit\": 50, \"triton.cudagraph_skip_dynamic_graphs\": false, \"triton.cudagraph_support_input_mutation\": false, \"triton.cudagraph_trees\": true, \"triton.cudagraph_trees_history_recording\": false, \"triton.cudagraph_unexpected_rerecord_limit\": 128, \"triton.cudagraphs\": false, \"triton.debug_sync_graph\": false, \"triton.debug_sync_kernel\": false, \"triton.dense_indexing\": false, \"triton.descriptive_names\": \"original_aten\", \"triton.divisible_by_16\": true, \"triton.enable_persistent_tma_matmul\": false, \"triton.fast_path_cudagraph_asserts\": false, \"triton.force_cooperative_reductions\": false, \"triton.force_cudagraph_sync\": false, \"triton.force_cudagraphs_warmup\": false, \"triton.inject_relu_bug_TESTING_ONLY\": null, \"triton.max_tiles\": 2, \"triton.min_split_scan_rblock\": 256, \"triton.multi_kernel\": 0, \"triton.persistent_reductions\": true, \"triton.prefer_nd_tiling\": false, \"triton.skip_cudagraph_warmup\": false, \"triton.skip_l1_cache\": false, \"triton.slow_path_cudagraph_asserts\": true, \"triton.spill_threshold\": 16, \"triton.store_cubin\": false, \"triton.tile_reductions\": false, \"triton.tiling_prevents_pointwise_fusion\": true, \"triton.tiling_prevents_reduction_fusion\": true, \"triton.unique_kernel_names\": true, \"triton.use_block_ptr\": false, \"triton_kernel_default_layout_constraint\": \"needs_fixed_stride_order\", \"unbacked_symint_fallback\": 8192, \"unroll_reductions_threshold\": 8, \"unsafe_ignore_unsupported_triton_autotune_args\": false, \"use_experimental_benchmarker\": false, \"use_fast_math\": false, \"use_mixed_mm\": true, \"verbose_progress\": false, \"warn_mix_layout\": false, \"worker_start_method\": \"subprocess\"}", "remote_cache_version": 14, "inductor_fx_remote_cache_hit_count": null, "inductor_fx_remote_cache_miss_count": null, "inductor_fx_remote_cache_backend_type": "_ManifoldCache", "inductor_fx_remote_cache_hit_keys": null, "inductor_fx_remote_cache_miss_keys": null, "cuda_version": "12.4.0", "triton_version": "3.2.0", "feature_usage": null, "compile_time_autotune_time_us": null, "is_runtime": false, "gc_time_us": 1636, "tensorify_float_attempt": null, "tensorify_float_success": null, "tensorify_float_failure": null, "guard_latency_us": null, "recompile_reason": null}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
-V0213 10:06:43.722000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "f8df32b7fa743bacc15d3b2e5ebc59c2"}
+V0310 11:51:01.062000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1505] {"compilation_metrics": {"compile_id": "0/0", "frame_key": "1", "co_name": "forward", "co_filename": "/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py", "co_firstlineno": 28, "cache_size": 0, "accumulated_cache_size": 0, "guard_count": 11, "shape_env_guard_count": 0, "graph_op_count": 3, "graph_node_count": 5, "graph_input_count": 1, "start_time": 1741632660.968663, "entire_frame_compile_time_s": 0.069905, "backend_compile_time_s": 0.001744, "inductor_compile_time_s": null, "code_gen_time_s": null, "fail_type": null, "fail_reason": null, "fail_user_frame_filename": null, "fail_user_frame_lineno": null, "non_compliant_ops": [], "compliant_custom_ops": [], "restart_reasons": [], "dynamo_time_before_restart_s": 0.0, "has_guarded_code": true, "remote_cache_time_saved_s": null, "structured_logging_overhead_s": 0.018806, "config_suppress_errors": false, "config_inline_inbuilt_nn_modules": true, "specialize_float": true, "dynamo_config": "{\"_autograd_backward_strict_mode_conditional_banned_ops\": [\"stride\", \"storage_offset\", \"is_contiguous\"], \"_unsafe_skip_fsdp_module_guards\": false, \"accumulated_recompile_limit\": 256, \"allow_complex_guards_as_runtime_asserts\": false, \"allow_empty_graphs\": false, \"allow_ignore_mark_dynamic\": false, \"allow_rnn\": true, \"allow_unspec_int_on_nn_module\": false, \"allowed_functions_module_string_ignorelist\": [\"torch._decomp\", \"torch._prims\", \"torch._refs\", \"torch.distributions\", \"torch.testing\"], \"assume_static_by_default\": true, \"automatic_dynamic_local_pgo\": true, \"automatic_dynamic_remote_pgo\": null, \"automatic_dynamic_shapes\": false, \"automatic_dynamic_shapes_mark_as\": \"dynamic\", \"capture_autograd_function\": true, \"capture_dynamic_output_shape_ops\": true, \"capture_func_transforms\": true, \"capture_scalar_outputs\": true, \"capture_sparse_compute\": false, \"compiled_autograd\": false, \"compiled_autograd_kwargs_override\": {}, \"cprofile\": false, \"cudagraph_backend_keep_input_mutation\": false, \"cudagraph_backend_support_input_mutation\": false, \"dead_code_elimination\": true, \"disable\": false, \"do_not_emit_runtime_asserts\": false, \"dynamic_shapes\": true, \"enable_compiler_collectives\": false, \"enable_cpp_framelocals_guard_eval\": true, \"enable_cpp_guard_manager\": true, \"enable_cpp_symbolic_shape_guards\": false, \"enable_faithful_generator_behavior\": true, \"enable_trace_contextlib\": true, \"error_on_nested_fx_trace\": true, \"error_on_nested_jit_trace\": true, \"error_on_recompile\": false, \"fail_on_recompile_limit_hit\": false, \"fake_tensor_cache_crosscheck_enabled\": false, \"fake_tensor_cache_enabled\": true, \"force_nn_module_property_static_shapes\": true, \"force_parameter_static_shapes\": true, \"force_unspec_int_unbacked_size_like_on_torchrec_kjt\": false, \"guard_nn_modules\": true, \"guard_nn_modules_using_dict_tags\": true, \"inline_inbuilt_nn_modules\": true, \"issue_3_13_0_warning\": true, \"minimum_call_count\": 1, \"numpy_default_complex\": \"complex128\", \"numpy_default_float\": \"float64\", \"numpy_default_int\": \"int64\", \"only_allow_pt2_compliant_ops\": false, \"optimize_ddp\": true, \"optimize_ddp_lazy_compile\": false, \"prefer_deferred_runtime_asserts_over_guards\": true, \"prepare_freezing\": false, \"raise_on_ctx_manager_usage\": true, \"raise_on_unsafe_aot_autograd\": false, \"recompile_limit\": 8, \"record_compile_time_instruction_count\": false, \"replay_record_enabled\": false, \"report_guard_failures\": true, \"rewrite_assert_with_torch_assert\": true, \"run_gc_after_compile\": true, \"skip_code_recursive_on_recompile_limit_hit\": true, \"skip_fsdp_guards\": true, \"skip_fsdp_hooks\": true, \"skip_nnmodule_hook_guards\": true, \"skip_no_tensor_aliasing_guards_on_parameters\": true, \"skip_tensor_guards_with_matching_dict_tags\": true, \"skip_torchrec\": true, \"skipfiles_inline_module_allowlist\": {}, \"specialize_float\": true, \"specialize_int\": true, \"suppress_errors\": false, \"trace_numpy\": true, \"track_nodes_for_deduplication\": false, \"use_graph_deduplication\": false, \"use_lazy_graph_module\": true, \"use_numpy_random_stream\": false, \"verify_correctness\": false}", "is_forward": true, "num_triton_bundles": null, "remote_fx_graph_cache_get_time_ms": null, "remote_fx_graph_cache_put_time_ms": null, "start_time_us": 1741632660968663, "duration_us": 81037, "dynamo_cumulative_compile_time_us": 69905, "aot_autograd_cumulative_compile_time_us": 1744, "inductor_cumulative_compile_time_us": null, "inductor_code_gen_cumulative_compile_time_us": null, "triton_compile_time_us": null, "runtime_cudagraphify_time_us": null, "runtime_triton_autotune_time_us": null, "dynamo_compile_time_before_restart_us": 0, "cuda_synchronize_time_us": null, "distributed_ephemeral_timeout_us": null, "structured_logging_overhead_us": 18806, "remote_fx_graph_cache_get_time_us": null, "remote_fx_graph_cache_put_time_us": null, "backward_cumulative_compile_time_us": null, "end_time_us": 1741632661049700, "pre_grad_pass_time_us": null, "post_grad_pass_time_us": null, "joint_graph_pass_time_us": null, "log_format_version": 3, "inductor_config": "{\"TYPE_CHECKING\": false, \"_cache_config_ignore_prefix\": [\"trace\", \"cuda.cutlass_dir\", \"worker_start_method\", \"compile_threads\", \"post_grad_custom_post_pass\", \"post_grad_custom_pre_pass\", \"always_complex_memory_overlap_TESTING_ONLY\"], \"_collective.auto_select\": false, \"_collective.one_shot_all_reduce_threshold_bytes\": 131072, \"_fuse_ddp_bucket_size\": 25, \"_fuse_ddp_communication\": false, \"_fuse_ddp_communication_passes\": [\"fuse_ddp_with_concat_op\", \"schedule_comm_wait\"], \"_micro_pipeline_tp\": false, \"_pre_fusion_custom_pass\": null, \"_profile_var\": \"\", \"_raise_error_for_testing\": false, \"_save_config_ignore\": [\"trace.upload_tar\", \"joint_custom_pre_pass\", \"joint_custom_post_pass\", \"pre_grad_custom_pass\", \"aot_inductor.repro_level\", \"aot_inductor.dump_aoti_minifier\"], \"add_pre_grad_passes\": null, \"aggressive_fusion\": false, \"allow_buffer_reuse\": true, \"always_complex_memory_overlap_TESTING_ONLY\": false, \"always_keep_tensor_constants\": false, \"annotate_training\": false, \"aot_inductor.allow_stack_allocation\": false, \"aot_inductor.compile_wrapper_with_O0\": false, \"aot_inductor.debug_compile\": false, \"aot_inductor.debug_intermediate_value_printer\": \"0\", \"aot_inductor.dump_aoti_minifier\": false, \"aot_inductor.filtered_kernel_names\": null, \"aot_inductor.force_mmap_weights\": false, \"aot_inductor.metadata\": {}, \"aot_inductor.output_path\": \"\", \"aot_inductor.package\": false, \"aot_inductor.package_constants_in_so\": true, \"aot_inductor.package_cpp_only\": false, \"aot_inductor.presets\": {}, \"aot_inductor.raise_error_on_ignored_optimization\": true, \"aot_inductor.repro_level\": 2, \"aot_inductor.serialized_in_spec\": \"\", \"aot_inductor.serialized_out_spec\": \"\", \"aot_inductor.use_minimal_arrayref_interface\": false, \"aot_inductor.use_runtime_constant_folding\": false, \"assert_indirect_indexing\": true, \"assume_aligned_inputs\": false, \"autoheuristic_collect\": \"\", \"autoheuristic_log_path\": \"DEFAULT\", \"autoheuristic_use\": \"mixed_mm\", \"autotune_fallback_to_aten\": true, \"autotune_in_subproc\": false, \"autotune_local_cache\": true, \"autotune_multi_device\": false, \"autotune_num_choices_displayed\": 10, \"autotune_remote_cache\": null, \"b2b_gemm_pass\": false, \"batch_fusion\": true, \"benchmark_combo_kernel\": false, \"benchmark_epilogue_fusion\": true, \"benchmark_fusion\": false, \"benchmark_harness\": true, \"benchmark_kernel\": false, \"bundle_triton_into_fx_graph_cache\": null, \"bundled_autotune_remote_cache\": null, \"bw_outputs_user_visible\": true, \"can_inplace_pad_graph_input\": false, \"check_stack_no_cycles_TESTING_ONLY\": false, \"combo_kernel_allow_mixed_sizes\": 1, \"combo_kernel_foreach_dynamic_shapes\": false, \"combo_kernels\": false, \"combo_kernels_autotune\": 1, \"comment_origin\": false, \"compile_threads\": null, \"comprehensive_padding\": true, \"compute_all_bounds\": false, \"constant_and_index_propagation\": true, \"conv_1x1_as_mm\": false, \"coordinate_descent_check_all_directions\": false, \"coordinate_descent_search_radius\": 1, \"coordinate_descent_tuning\": false, \"cpp.cxx\": [null, \"g++\"], \"cpp.descriptive_names\": \"original_aten\", \"cpp.dynamic_threads\": false, \"cpp.enable_concat_linear\": false, \"cpp.enable_floating_point_contract_flag\": \"off\", \"cpp.enable_grouped_gemm_template\": false, \"cpp.enable_kernel_profile\": false, \"cpp.enable_loop_tail_vec\": true, \"cpp.enable_tiling_heuristics\": true, \"cpp.enable_unsafe_math_opt_flag\": false, \"cpp.fallback_scatter_reduce_sum\": true, \"cpp.gemm_cache_blocking\": null, \"cpp.gemm_max_k_slices\": 1, \"cpp.gemm_thread_factors\": null, \"cpp.inject_log1p_bug_TESTING_ONLY\": null, \"cpp.inject_relu_bug_TESTING_ONLY\": null, \"cpp.max_horizontal_fusion_size\": 16, \"cpp.min_chunk_size\": 4096, \"cpp.no_redundant_loops\": true, \"cpp.simdlen\": null, \"cpp.threads\": -1, \"cpp.vec_isa_ok\": null, \"cpp.weight_prepack\": true, \"cpp_wrapper\": false, \"cpu_backend\": \"cpp\", \"cuda.arch\": null, \"cuda.compile_opt_level\": \"-O1\", \"cuda.cuda_cxx\": null, \"cuda.cutlass_backend_min_gemm_size\": 1, \"cuda.cutlass_dir\": \"/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/third_party/cutlass\", \"cuda.cutlass_instantiation_level\": \"0\", \"cuda.cutlass_max_profiling_configs\": null, \"cuda.cutlass_max_profiling_swizzle_options\": [1, 2, 4], \"cuda.cutlass_op_allowlist_regex\": null, \"cuda.cutlass_op_denylist_regex\": null, \"cuda.enable_cuda_lto\": false, \"cuda.enable_debug_info\": false, \"cuda.enable_ptxas_info\": false, \"cuda.generate_test_runner\": false, \"cuda.use_fast_math\": false, \"cuda.version\": null, \"cuda_backend\": \"triton\", \"custom_op_default_layout_constraint\": \"needs_fixed_stride_order\", \"dce\": false, \"debug\": false, \"debug_fusion\": false, \"debug_index_asserts\": false, \"debug_ir_traceback\": false, \"decompose_mem_bound_mm\": false, \"developer_warnings\": true, \"disable_cpp_codegen\": false, \"disable_padding_cpu\": true, \"disable_progress\": true, \"dynamic_scale_rblock\": true, \"efficient_conv_bn_eval_fx_passes\": false, \"emulate_precision_casts\": false, \"enable_auto_functionalized_v2\": true, \"enable_linear_binary_folding\": false, \"enabled_metric_tables\": \"\", \"epilogue_fusion\": true, \"epilogue_fusion_first\": false, \"estimate_op_runtime\": \"default\", \"external_matmul\": [], \"fallback_random\": false, \"force_disable_caches\": false, \"force_fuse_int_mm_with_mul\": false, \"force_layout_optimization\": false, \"force_pointwise_cat\": false, \"force_same_precision\": true, \"force_shape_pad\": false, \"freezing\": false, \"freezing_discard_parameters\": false, \"fx_graph_cache\": true, \"fx_graph_remote_cache\": null, \"fx_passes_numeric_check\": {\"num_iterations\": 1, \"pre_grad\": false, \"precision\": 0.0001, \"requires_optimizer\": true}, \"generate_intermediate_hooks\": false, \"global_cache_dir\": null, \"graph_partition\": false, \"group_fusion\": false, \"halide.asserts\": false, \"halide.cpu_target\": \"host\", \"halide.debug\": false, \"halide.gpu_target\": \"host-cuda\", \"halide.scan_kernels\": false, \"halide.scheduler_cpu\": \"Adams2019\", \"halide.scheduler_cuda\": \"Anderson2021\", \"implicit_fallbacks\": true, \"inplace_buffers\": true, \"inplace_padding\": true, \"inter_node_bw\": 25, \"intra_node_bw\": 300, \"is_nightly_or_source\": false, \"is_predispatch\": false, \"joint_custom_post_pass\": null, \"joint_custom_pre_pass\": null, \"joint_graph_constant_folding\": true, \"keep_output_stride\": true, \"kernel_name_max_ops\": 10, \"layout_opt_default\": \"1\", \"layout_optimization\": true, \"loop_ordering_after_fusion\": false, \"max_autotune\": false, \"max_autotune_conv_backends\": \"ATEN,TRITON\", \"max_autotune_gemm\": false, \"max_autotune_gemm_backends\": \"ATEN,TRITON,CPP\", \"max_autotune_gemm_search_space\": \"DEFAULT\", \"max_autotune_pointwise\": false, \"max_autotune_subproc_graceful_timeout_seconds\": 1.0, \"max_autotune_subproc_result_timeout_seconds\": 60.0, \"max_autotune_subproc_terminate_timeout_seconds\": 2.0, \"max_epilogue_benchmarked_choices\": 1, \"max_fusion_size\": 64, \"max_pointwise_cat_inputs\": 8, \"memory_planning\": false, \"memory_pool\": \"intermediates\", \"mixed_mm_choice\": \"heuristic\", \"nan_asserts\": false, \"online_softmax\": true, \"optimize_scatter_upon_const_tensor\": true, \"pad_channels_last\": false, \"pad_outputs\": false, \"padding_alignment_bytes\": 128, \"padding_stride_threshold\": 1024, \"pattern_matcher\": true, \"permute_fusion\": false, \"pick_loop_orders\": true, \"post_grad_custom_post_pass\": null, \"post_grad_custom_pre_pass\": null, \"post_grad_fusion_options\": {}, \"pre_grad_custom_pass\": null, \"pre_grad_fusion_options\": {}, \"profile_bandwidth\": false, \"profile_bandwidth_output\": null, \"profile_bandwidth_regex\": \"\", \"profile_bandwidth_with_do_bench_using_profiling\": false, \"profiler_mark_wrapper_call\": false, \"prologue_fusion\": true, \"realize_acc_reads_threshold\": 8, \"realize_opcount_threshold\": 30, \"realize_reads_threshold\": 4, \"remove_pre_grad_passes\": null, \"reorder_for_compute_comm_overlap\": false, \"reorder_for_compute_comm_overlap_passes\": [\"reorder_compute_for_overlap\", \"sink_waits\", \"raise_comms\"], \"reorder_for_locality\": true, \"reorder_for_peak_memory\": true, \"rocm.arch\": [], \"rocm.ck_dir\": null, \"rocm.ck_supported_arch\": [\"gfx90a\", \"gfx942\"], \"rocm.compile_opt_level\": \"-O2\", \"rocm.flush_denormals\": true, \"rocm.generate_test_runner\": false, \"rocm.is_debug\": false, \"rocm.kBatch_sweep\": null, \"rocm.n_max_profiling_configs\": null, \"rocm.print_kernel_resource_usage\": false, \"rocm.rocm_home\": null, \"rocm.save_temps\": false, \"rocm.split_k_threshold\": 16, \"rocm.use_fast_math\": true, \"rocm.use_preselected_instances\": false, \"save_args\": false, \"scalar_asserts\": true, \"score_fusion_memory_threshold\": 10, \"search_autotune_cache\": false, \"shape_padding\": true, \"size_asserts\": true, \"sleep_sec_TESTING_ONLY\": null, \"split_cat_fx_passes\": true, \"split_reductions\": true, \"static_weight_shapes\": true, \"test_configs.autotune_choice_desc_regex\": null, \"test_configs.autotune_choice_name_regex\": null, \"test_configs.force_extern_kernel_in_multi_template\": false, \"test_configs.graphsafe_rng_func_ignores_fallback_random\": false, \"test_configs.max_mm_configs\": null, \"test_configs.runtime_triton_dtype_assert\": false, \"trace.compile_profile\": false, \"trace.debug_dir\": null, \"trace.debug_log\": false, \"trace.dot_graph_shape\": null, \"trace.draw_orig_fx_graph\": false, \"trace.enabled\": true, \"trace.fx_graph\": true, \"trace.fx_graph_transformed\": true, \"trace.graph_diagram\": false, \"trace.info_log\": false, \"trace.ir_post_fusion\": true, \"trace.ir_pre_fusion\": true, \"trace.log_autotuning_results\": false, \"trace.log_inductor_triton_kernel_to_post_grad_node_info\": true, \"trace.log_url_for_graph_xform\": null, \"trace.output_code\": true, \"trace.save_real_tensors\": false, \"trace.upload_tar\": null, \"triton.autotune_at_compile_time\": null, \"triton.autotune_cublasLt\": true, \"triton.autotune_pointwise\": true, \"triton.codegen_upcast_to_fp32\": true, \"triton.cooperative_reductions\": false, \"triton.cudagraph_dynamic_shape_warn_limit\": 50, \"triton.cudagraph_skip_dynamic_graphs\": false, \"triton.cudagraph_support_input_mutation\": false, \"triton.cudagraph_trees\": true, \"triton.cudagraph_trees_history_recording\": false, \"triton.cudagraph_unexpected_rerecord_limit\": 128, \"triton.cudagraphs\": false, \"triton.debug_sync_graph\": false, \"triton.debug_sync_kernel\": false, \"triton.dense_indexing\": false, \"triton.descriptive_names\": \"original_aten\", \"triton.divisible_by_16\": true, \"triton.enable_persistent_tma_matmul\": false, \"triton.fast_path_cudagraph_asserts\": false, \"triton.force_cooperative_reductions\": false, \"triton.force_cudagraph_sync\": false, \"triton.force_cudagraphs_warmup\": false, \"triton.inject_relu_bug_TESTING_ONLY\": null, \"triton.max_tiles\": 2, \"triton.min_split_scan_rblock\": 256, \"triton.multi_kernel\": 0, \"triton.persistent_reductions\": true, \"triton.prefer_nd_tiling\": false, \"triton.skip_cudagraph_warmup\": false, \"triton.skip_l1_cache\": false, \"triton.slow_path_cudagraph_asserts\": true, \"triton.spill_threshold\": 16, \"triton.store_cubin\": false, \"triton.tile_reductions\": false, \"triton.tiling_prevents_pointwise_fusion\": true, \"triton.tiling_prevents_reduction_fusion\": true, \"triton.unique_kernel_names\": true, \"triton.unique_user_kernel_names\": false, \"triton.use_block_ptr\": false, \"triton_kernel_default_layout_constraint\": \"needs_fixed_stride_order\", \"unbacked_symint_fallback\": 8192, \"unroll_reductions_threshold\": 8, \"unsafe_ignore_unsupported_triton_autotune_args\": false, \"use_experimental_benchmarker\": false, \"use_fast_math\": false, \"use_mixed_mm\": true, \"verbose_progress\": false, \"warn_mix_layout\": false, \"worker_start_method\": \"subprocess\"}", "remote_cache_version": 14, "inductor_fx_remote_cache_hit_count": null, "inductor_fx_remote_cache_miss_count": null, "inductor_fx_remote_cache_backend_type": "_ManifoldCache", "inductor_fx_remote_cache_hit_keys": null, "inductor_fx_remote_cache_miss_keys": null, "cuda_version": "12.4.0", "triton_version": "3.2.0", "feature_usage": null, "compile_time_autotune_time_us": null, "is_runtime": false, "gc_time_us": 2232, "tensorify_float_attempt": null, "tensorify_float_success": null, "tensorify_float_failure": null, "guard_latency_us": null, "recompile_reason": null, "num_graph_breaks": null, "triton_kernel_compile_times_us": null}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
+V0310 11:51:01.066000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "47e621342449369a588584bc057b214c"}
 	{
 	"name": "dynamo",
-	"ts": 1739470003722659.5,
+	"ts": 1741632661066594.5,
 	"args": {
 	"compile_id": "0/0",
 	"frame_key": "1",
 	"co_name": "forward",
-	"co_filename": "/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py",
-	"co_firstlineno": 30,
+	"co_filename": "/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py",
+	"co_firstlineno": 28,
 	"cache_size": 0,
 	"accumulated_cache_size": 0,
 	"guard_count": 11,
@@ -191,36 +191,48 @@ V0213 10:06:43.722000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"restart_reasons": [],
 	"dynamo_time_before_restart_s": 0.0,
 	"has_guarded_code": true,
-	"dynamo_config": "{\"_autograd_backward_strict_mode_conditional_banned_ops\": [\"stride\", \"storage_offset\", \"is_contiguous\"], \"_ddp_optimization_mode\": [\"ddp_optimizer\", \"python_reducer\", \"python_reducer_without_compiled_forward\", \"no_optimization\"], \"_unsafe_skip_fsdp_module_guards\": false, \"accumulated_recompile_limit\": 256, \"allow_complex_guards_as_runtime_asserts\": false, \"allow_empty_graphs\": false, \"allow_ignore_mark_dynamic\": false, \"allow_rnn\": true, \"allow_unspec_int_on_nn_module\": false, \"allowed_functions_module_string_ignorelist\": [\"torch._decomp\", \"torch._prims\", \"torch._refs\", \"torch.distributions\", \"torch.testing\"], \"assume_static_by_default\": true, \"automatic_dynamic_local_pgo\": true, \"automatic_dynamic_remote_pgo\": null, \"automatic_dynamic_shapes\": false, \"automatic_dynamic_shapes_mark_as\": \"dynamic\", \"capture_autograd_function\": true, \"capture_dynamic_output_shape_ops\": true, \"capture_func_transforms\": true, \"capture_scalar_outputs\": true, \"capture_sparse_compute\": false, \"compiled_autograd\": false, \"compiled_autograd_kwargs_override\": {}, \"cprofile\": false, \"cudagraph_backend_keep_input_mutation\": false, \"cudagraph_backend_support_input_mutation\": false, \"dead_code_elimination\": true, \"disable\": false, \"do_not_emit_runtime_asserts\": false, \"dynamic_shapes\": true, \"enable_compiler_collectives\": false, \"enable_cpp_framelocals_guard_eval\": true, \"enable_cpp_guard_manager\": true, \"enable_cpp_symbolic_shape_guards\": false, \"enable_faithful_generator_behavior\": true, \"enable_trace_contextlib\": true, \"error_on_nested_fx_trace\": true, \"error_on_nested_jit_trace\": true, \"error_on_recompile\": false, \"fail_on_recompile_limit_hit\": false, \"fake_tensor_cache_crosscheck_enabled\": false, \"fake_tensor_cache_enabled\": true, \"force_nn_module_property_static_shapes\": true, \"force_parameter_static_shapes\": true, \"force_unspec_int_unbacked_size_like_on_torchrec_kjt\": false, \"guard_nn_modules\": true, \"guard_nn_modules_using_dict_tags\": true, \"inline_inbuilt_nn_modules\": true, \"issue_3_13_0_warning\": true, \"minimum_call_count\": 1, \"numpy_default_complex\": \"complex128\", \"numpy_default_float\": \"float64\", \"numpy_default_int\": \"int64\", \"only_allow_pt2_compliant_ops\": false, \"optimize_ddp\": true, \"optimize_ddp_lazy_compile\": false, \"prefer_deferred_runtime_asserts_over_guards\": true, \"prepare_freezing\": false, \"raise_on_ctx_manager_usage\": true, \"raise_on_unsafe_aot_autograd\": false, \"recompile_limit\": 8, \"record_compile_time_instruction_count\": false, \"replay_record_enabled\": false, \"report_guard_failures\": true, \"rewrite_assert_with_torch_assert\": true, \"run_gc_after_compile\": true, \"skip_code_recursive_on_recompile_limit_hit\": true, \"skip_fsdp_guards\": true, \"skip_fsdp_hooks\": true, \"skip_nnmodule_hook_guards\": true, \"skip_no_tensor_aliasing_guards_on_parameters\": true, \"skip_tensor_guards_with_matching_dict_tags\": true, \"skip_torchrec\": true, \"skipfiles_inline_module_allowlist\": {}, \"specialize_float\": true, \"specialize_int\": true, \"suppress_errors\": false, \"trace_numpy\": true, \"track_nodes_for_deduplication\": false, \"use_graph_deduplication\": false, \"use_lazy_graph_module\": true, \"use_numpy_random_stream\": false, \"verify_correctness\": false}"
+	"dynamo_config": "{\"_autograd_backward_strict_mode_conditional_banned_ops\": [\"stride\", \"storage_offset\", \"is_contiguous\"], \"_unsafe_skip_fsdp_module_guards\": false, \"accumulated_recompile_limit\": 256, \"allow_complex_guards_as_runtime_asserts\": false, \"allow_empty_graphs\": false, \"allow_ignore_mark_dynamic\": false, \"allow_rnn\": true, \"allow_unspec_int_on_nn_module\": false, \"allowed_functions_module_string_ignorelist\": [\"torch._decomp\", \"torch._prims\", \"torch._refs\", \"torch.distributions\", \"torch.testing\"], \"assume_static_by_default\": true, \"automatic_dynamic_local_pgo\": true, \"automatic_dynamic_remote_pgo\": null, \"automatic_dynamic_shapes\": false, \"automatic_dynamic_shapes_mark_as\": \"dynamic\", \"capture_autograd_function\": true, \"capture_dynamic_output_shape_ops\": true, \"capture_func_transforms\": true, \"capture_scalar_outputs\": true, \"capture_sparse_compute\": false, \"compiled_autograd\": false, \"compiled_autograd_kwargs_override\": {}, \"cprofile\": false, \"cudagraph_backend_keep_input_mutation\": false, \"cudagraph_backend_support_input_mutation\": false, \"dead_code_elimination\": true, \"disable\": false, \"do_not_emit_runtime_asserts\": false, \"dynamic_shapes\": true, \"enable_compiler_collectives\": false, \"enable_cpp_framelocals_guard_eval\": true, \"enable_cpp_guard_manager\": true, \"enable_cpp_symbolic_shape_guards\": false, \"enable_faithful_generator_behavior\": true, \"enable_trace_contextlib\": true, \"error_on_nested_fx_trace\": true, \"error_on_nested_jit_trace\": true, \"error_on_recompile\": false, \"fail_on_recompile_limit_hit\": false, \"fake_tensor_cache_crosscheck_enabled\": false, \"fake_tensor_cache_enabled\": true, \"force_nn_module_property_static_shapes\": true, \"force_parameter_static_shapes\": true, \"force_unspec_int_unbacked_size_like_on_torchrec_kjt\": false, \"guard_nn_modules\": true, \"guard_nn_modules_using_dict_tags\": true, \"inline_inbuilt_nn_modules\": true, \"issue_3_13_0_warning\": true, \"minimum_call_count\": 1, \"numpy_default_complex\": \"complex128\", \"numpy_default_float\": \"float64\", \"numpy_default_int\": \"int64\", \"only_allow_pt2_compliant_ops\": false, \"optimize_ddp\": true, \"optimize_ddp_lazy_compile\": false, \"prefer_deferred_runtime_asserts_over_guards\": true, \"prepare_freezing\": false, \"raise_on_ctx_manager_usage\": true, \"raise_on_unsafe_aot_autograd\": false, \"recompile_limit\": 8, \"record_compile_time_instruction_count\": false, \"replay_record_enabled\": false, \"report_guard_failures\": true, \"rewrite_assert_with_torch_assert\": true, \"run_gc_after_compile\": true, \"skip_code_recursive_on_recompile_limit_hit\": true, \"skip_fsdp_guards\": true, \"skip_fsdp_hooks\": true, \"skip_nnmodule_hook_guards\": true, \"skip_no_tensor_aliasing_guards_on_parameters\": true, \"skip_tensor_guards_with_matching_dict_tags\": true, \"skip_torchrec\": true, \"skipfiles_inline_module_allowlist\": {}, \"specialize_float\": true, \"specialize_int\": true, \"suppress_errors\": false, \"trace_numpy\": true, \"track_nodes_for_deduplication\": false, \"use_graph_deduplication\": false, \"use_lazy_graph_module\": true, \"use_numpy_random_stream\": false, \"verify_correctness\": false}"
 	},
 	"ph": "E",
 	"cat": "dynamo_timed",
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:45.422000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/compile_fx.py:1917] {"inductor_pre_grad_graph": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "c11229293a126f817cae1199c1d728e9"}
+V0310 11:51:02.809000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "7909fea5aab2c06fdfe772bace0f93f2"}
+	{
+	"name": "compile_fx_aot",
+	"ts": 1741632662809445.8,
+	"args": {
+	"compile_id": "0/0"
+	},
+	"ph": "B",
+	"cat": "dynamo_timed",
+	"tid": 0,
+	"pid": 0
+	}
+V0310 11:51:02.812000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/compile_fx.py:1818] {"inductor_pre_grad_graph": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "9e0f0f87ae818b44d363332dfefda984"}
 	class GraphModule(torch.nn.Module):
 	    def forward(self, x: "f32[8, 10][10, 1]cuda:0", y: "f32[8, 10][10, 1]cuda:0"):
 	        # No stacktrace found for following nodes
 	        fc1_weight: "f32[16, 10][10, 1]cuda:0" = self.fc1.weight
 	        fc1_bias: "f32[16][1]cuda:0" = self.fc1.bias
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:31 in forward, code: x = self.fc1(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:29 in forward, code: x = self.fc1(x)
 	        linear: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.linear.default(x, fc1_weight, fc1_bias);  x = fc1_weight = fc1_bias = None
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:32 in forward, code: x = self.relu(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:30 in forward, code: x = self.relu(x)
 	        relu: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.relu.default(linear);  linear = None
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:33 in forward, code: x = self.sigmoid(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:31 in forward, code: x = self.sigmoid(x)
 	        sigmoid: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.sigmoid.default(relu);  relu = None
 	        return (sigmoid,)
 	        
 	
-	 # graph id: 140226366523760
-V0213 10:06:45.425000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "ef4309046cba5a4a110e5faae35341f2"}
+	 # graph id: 139860976364000
+V0310 11:51:02.814000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "42b562a19db82e918d2d5f43c9763f21"}
 	{
 	"name": "_recursive_pre_grad_passes",
-	"ts": 1739470005425028.0,
+	"ts": 1741632662814202.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -229,10 +241,10 @@ V0213 10:06:45.425000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:46.446000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "8626f5835186e5ea53bd516c7912a591"}
+V0310 11:51:03.263000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "87a30310f0cb9a51a5674e881b9a9767"}
 	{
 	"name": "_recursive_pre_grad_passes",
-	"ts": 1739470006446231.5,
+	"ts": 1741632663263002.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -241,10 +253,10 @@ V0213 10:06:46.446000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:46.450000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "b7600b1631cfebbcd8d8b776ea39a533"}
+V0310 11:51:03.267000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "e39b437490c795e89e09e39cbabc9613"}
 	{
 	"name": "create_aot_dispatcher_function",
-	"ts": 1739470006450827.2,
+	"ts": 1741632663267624.8,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -253,7 +265,7 @@ V0213 10:06:46.450000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:46.490000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_functorch/_aot_autograd/dispatch_and_compile_graph.py:214] {"artifact": {"name": "aot_forward_graph_fw_metadata", "encoding": "string"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "08abad34ef623f7fda57b39a4ce21e13"}
+V0310 11:51:03.309000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_functorch/_aot_autograd/dispatch_and_compile_graph.py:214] {"artifact": {"name": "aot_forward_graph_fw_metadata", "encoding": "string"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "f7a69ed72aca3eb28d1654f274265d19"}
 	ViewAndMutationMeta(input_info=[InputAliasInfo(is_leaf=True,
 	                                              mutates_data=False,
 	                                              mutates_metadata=False,
@@ -319,25 +331,27 @@ V0213 10:06:46.490000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	                    tokens={},
 	                    indices_of_inputs_that_requires_grad_with_mutations_in_bw=[],
 	                    bw_donated_idxs=None,
-	                    num_backward_tokens=0)
-V0213 10:06:46.492000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_functorch/_aot_autograd/dispatch_and_compile_graph.py:232] {"aot_inference_graph": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "f0533770d65bc6c53bcea908c21cdc24"}
+	                    num_backward_tokens=0,
+	                    num_graphsafe_rng_states=0,
+	                    graphsafe_rng_state_index=None)
+V0310 11:51:03.311000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_functorch/_aot_autograd/dispatch_and_compile_graph.py:232] {"aot_inference_graph": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "1f29c90f3a608d7e8756580cf1736467"}
 	class <lambda>(torch.nn.Module):
 	    def forward(self, arg0_1: "f32[16, 10][10, 1]cuda:0", arg1_1: "f32[16][1]cuda:0", arg2_1: "f32[8, 10][10, 1]cuda:0", arg3_1: "f32[8, 10][10, 1]cuda:0"):
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:31 in forward, code: x = self.fc1(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:29 in forward, code: x = self.fc1(x)
 	        permute: "f32[10, 16][1, 10]cuda:0" = torch.ops.aten.permute.default(arg0_1, [1, 0]);  arg0_1 = None
 	        addmm: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.addmm.default(arg1_1, arg2_1, permute);  arg1_1 = arg2_1 = permute = None
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:32 in forward, code: x = self.relu(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:30 in forward, code: x = self.relu(x)
 	        relu: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.relu.default(addmm);  addmm = None
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:33 in forward, code: x = self.sigmoid(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:31 in forward, code: x = self.sigmoid(x)
 	        sigmoid: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.sigmoid.default(relu);  relu = None
 	        return (sigmoid,)
 	        
-V0213 10:06:46.496000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "b9c2f5429d306e08ee53c8c03691edc5"}
+V0310 11:51:03.317000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "622b8111961853aefe1659adda729d71"}
 	{
 	"name": "create_aot_dispatcher_function",
-	"ts": 1739470006496217.2,
+	"ts": 1741632663317085.8,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -346,10 +360,10 @@ V0213 10:06:46.496000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:46.498000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "10a2caea4dabc26d6518ce65704c761d"}
+V0310 11:51:03.320000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "f3e959a9c96e8ec05ec991ca5f7c40ba"}
 	{
 	"name": "compile_fx.<locals>.fw_compiler_base",
-	"ts": 1739470006498870.0,
+	"ts": 1741632663320556.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -358,10 +372,10 @@ V0213 10:06:46.498000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:46.499000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "ebaf33c7d9a820229016b3c0e5d75781"}
+V0310 11:51:03.321000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "511ebb6ef85bddfdde149501f21948a7"}
 	{
 	"name": "_recursive_joint_graph_passes",
-	"ts": 1739470006499729.0,
+	"ts": 1741632663321614.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -370,10 +384,10 @@ V0213 10:06:46.499000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:46.690000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "7db5597e4dd0e10621257d440e6fc8df"}
+V0310 11:51:03.544000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "a4701859ab110f08ea4abb9766d7cc13"}
 	{
 	"name": "pad_mm_benchmark",
-	"ts": 1739470006690189.5,
+	"ts": 1741632663543612.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -382,10 +396,10 @@ V0213 10:06:46.690000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:46.692000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "ddaead9f424e392571f154185b14cfaf"}
+V0310 11:51:03.546000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "eb0b89b51779caf6719af9b9e2737981"}
 	{
 	"name": "pad_mm_benchmark_get_do_bench",
-	"ts": 1739470006692014.2,
+	"ts": 1741632663546341.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -394,10 +408,10 @@ V0213 10:06:46.692000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:46.693000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "8156f5997cad2bdf911b631d7e2563be"}
+V0310 11:51:03.548000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "c524b8e3f45386fbe35a2ef53a97bd71"}
 	{
 	"name": "pad_mm_benchmark_get_do_bench",
-	"ts": 1739470006693572.2,
+	"ts": 1741632663547976.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -406,58 +420,10 @@ V0213 10:06:46.693000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:47.476000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "a6b01932b479b020a3a466e8116a4aa6"}
-	{
-	"name": "TritonBenchmarker.benchmark_gpu",
-	"ts": 1739470007476532.2,
-	"args": {
-	"compile_id": "0/0"
-	},
-	"ph": "B",
-	"cat": "dynamo_timed",
-	"tid": 0,
-	"pid": 0
-	}
-V0213 10:06:47.654000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "5ff3df0385f9c7f5aa3538782bd0b2a8"}
-	{
-	"name": "TritonBenchmarker.benchmark_gpu",
-	"ts": 1739470007654361.0,
-	"args": {
-	"compile_id": "0/0"
-	},
-	"ph": "E",
-	"cat": "dynamo_timed",
-	"tid": 0,
-	"pid": 0
-	}
-V0213 10:06:47.657000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "b9040f5ceeb3ee1048747ac62e585ba7"}
-	{
-	"name": "TritonBenchmarker.benchmark_gpu",
-	"ts": 1739470007657114.0,
-	"args": {
-	"compile_id": "0/0"
-	},
-	"ph": "B",
-	"cat": "dynamo_timed",
-	"tid": 0,
-	"pid": 0
-	}
-V0213 10:06:47.801000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "8cd0a2b800882a29fee9f49e3fb33154"}
-	{
-	"name": "TritonBenchmarker.benchmark_gpu",
-	"ts": 1739470007801626.5,
-	"args": {
-	"compile_id": "0/0"
-	},
-	"ph": "E",
-	"cat": "dynamo_timed",
-	"tid": 0,
-	"pid": 0
-	}
-V0213 10:06:47.805000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "e7eb86c4355474816509513f4fe06ab4"}
+V0310 11:51:04.681000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "0a0bdc848be61382521f6599835b8051"}
 	{
 	"name": "pad_mm_benchmark",
-	"ts": 1739470007804908.8,
+	"ts": 1741632664680904.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -466,10 +432,10 @@ V0213 10:06:47.805000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:47.807000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "ac80ca82560849141fa2bfd46586e702"}
+V0310 11:51:04.683000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "7c00bd900ad1d2616b151b2b9523dd71"}
 	{
 	"name": "_recursive_joint_graph_passes",
-	"ts": 1739470007806972.5,
+	"ts": 1741632664683750.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -478,10 +444,10 @@ V0213 10:06:47.807000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:47.808000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "7426573358f065667fc889240ff9e7aa"}
+V0310 11:51:04.685000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "1a7d980063dfff3f77ddf092b055192b"}
 	{
 	"name": "inductor_compile",
-	"ts": 1739470007808676.2,
+	"ts": 1741632664685596.8,
 	"args": {
 	"fn_name": "compile_fx_inner",
 	"compile_id": "0/0"
@@ -491,7 +457,7 @@ V0213 10:06:47.808000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:47.820000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/compile_fx.py:923] {"artifact": {"name": "fx_graph_runnable", "encoding": "string"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "5d01e2e5d7f49d7bbed81cd272bc2dd2"}
+V0310 11:51:04.702000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/compile_fx.py:955] {"artifact": {"name": "fx_graph_runnable", "encoding": "string"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "9b648f5ffa333a892658af980ba6657e"}
 	
 	import os
 	os.environ['TORCH_TRACE'] = '/home/shangdiy/my_trace_log_dir'
@@ -573,14 +539,9 @@ V0213 10:06:47.820000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	# torch version: 2.7.0a0+fb
 	# torch cuda version: 12.4.0
 	# CUDA Info: 
-	# nvcc: NVIDIA (R) Cuda compiler driver 
-	# Copyright (c) 2005-2023 NVIDIA Corporation 
-	# Built on Fri_Jan__6_16:45:21_PST_2023 
-	# Cuda compilation tools, release 12.0, V12.0.140 
-	# Build cuda_12.0.r12.0/compiler.32267302_0 
-	
+	# nvcc not found
 	# GPU Hardware Info: 
-	# NVIDIA PG509-210 : 8 
+	# NVIDIA PG509-210 : 1 
 	
 	
 	from torch.nn import *
@@ -615,10 +576,10 @@ V0213 10:06:47.820000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	        # To run it separately, do 
 	        # mod, args = run_repro(mod, load_args, accuracy=False, command='get_args', save_dir=None, tracing_mode='real', check_str=None)
 	        # mod(*args)
-V0213 10:06:47.831000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "1154151d9a689da1d9e1a4e8451e1d14"}
+V0310 11:51:04.713000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "36ef278cedd805e0cf300ee50932046b"}
 	{
 	"name": "_recursive_post_grad_passes",
-	"ts": 1739470007831592.0,
+	"ts": 1741632664713793.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -627,10 +588,10 @@ V0213 10:06:47.831000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.304000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "3b3e2da7397d9d0018f1bc37ca3328ac"}
+V0310 11:51:05.094000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "6e757f0b1741cad1435c51a65e2848d1"}
 	{
 	"name": "_recursive_post_grad_passes",
-	"ts": 1739470008304419.2,
+	"ts": 1741632665094050.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -639,7 +600,7 @@ V0213 10:06:48.304000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.309000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/compile_fx.py:986] {"inductor_post_grad_graph": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "924b310c3f181a771d10c9e540fd375c"}
+V0310 11:51:05.099000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/compile_fx.py:1018] {"inductor_post_grad_graph": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "f39ce2b5ad97c9d1dabeb78e9af9b1ec"}
 	class <lambda>(torch.nn.Module):
 	    def forward(self):
 	        arg2_1: "f32[8, 10][10, 1]cuda:0"; arg3_1: "f32[8, 10][10, 1]cuda:0"; 
@@ -649,26 +610,26 @@ V0213 10:06:48.309000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	        fc1_weight: "f32[16, 10][10, 1]cuda:0" = self.fc1.weight
 	        fc1_bias: "f32[16][1]cuda:0" = self.fc1.bias
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:31 in forward, code: x = self.fc1(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:29 in forward, code: x = self.fc1(x)
 	        permute: "f32[10, 16][1, 10]cuda:0" = torch.ops.aten.permute.default(fc1_weight, [1, 0]);  fc1_weight = None
 	        
 	        # No stacktrace found for following nodes
 	        mm_default: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.mm.default(arg2_1, permute);  arg2_1 = permute = None
 	        add_tensor: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.add.Tensor(mm_default, fc1_bias);  mm_default = fc1_bias = None
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:32 in forward, code: x = self.relu(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:30 in forward, code: x = self.relu(x)
 	        relu: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.relu.default(add_tensor);  add_tensor = None
 	        
-	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/7adc9a57403be96c/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:33 in forward, code: x = self.sigmoid(x)
+	         # File: /data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/scripts/shangdiy/aot.py:31 in forward, code: x = self.sigmoid(x)
 	        sigmoid: "f32[8, 16][16, 1]cuda:0" = torch.ops.aten.sigmoid.default(relu);  relu = None
 	        return (sigmoid,)
 	        
-V0213 10:06:48.310000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/compile_fx.py:996] {"artifact": {"name": "inductor_post_to_pre_grad_nodes", "encoding": "json"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "0bd866df1128fc8c7c07e4714969e2fb"}
-	{"permute": [{"name": "linear", "target": "aten.linear.default", "graph_id": 140226366523760, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956053664, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956060000, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}], "mm_default": [{"name": "", "target": "", "graph_id": -1, "pass_name": "pass_pattern_2", "action": "create", "from_node": []}, {"name": "", "target": "", "graph_id": -1, "pass_name": "pattern_matcher", "action": "create", "from_node": []}, {"name": "mm", "target": "aten.mm.default", "graph_id": 140222167002960, "pass_name": "Interpreter_Replacer", "action": "replace", "from_node": [{"name": "addmm", "target": "aten.addmm.default", "graph_id": 140222179352896, "pass_name": "replace_by_example", "action": "replace", "from_node": [{"name": "linear", "target": "aten.linear.default", "graph_id": 140226366523760, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956053664, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956060000, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}]}], "add_tensor": [{"name": "add", "target": "aten.add.Tensor", "graph_id": 140222167002960, "pass_name": "Interpreter_Replacer", "action": "replace", "from_node": [{"name": "addmm", "target": "aten.addmm.default", "graph_id": 140222179352896, "pass_name": "replace_by_example", "action": "replace", "from_node": [{"name": "linear", "target": "aten.linear.default", "graph_id": 140226366523760, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956053664, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956060000, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}]}, {"name": "addmm", "target": "aten.addmm.default", "graph_id": 140222179352896, "pass_name": "pass_pattern_2", "action": "replace+create", "from_node": [{"name": "linear", "target": "aten.linear.default", "graph_id": 140226366523760, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956053664, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956060000, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}, {"name": "addmm", "target": "aten.addmm.default", "graph_id": 140222179352896, "pass_name": "pattern_matcher", "action": "replace+create", "from_node": [{"name": "linear", "target": "aten.linear.default", "graph_id": 140226366523760, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956053664, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 140222956060000, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}], "relu": [{"name": "relu", "target": "aten.relu.default", "graph_id": 140226366523760, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x_1", "target": "L__self___relu", "graph_id": 140222956053664, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x_1", "target": "L__self___relu", "graph_id": 140222956060000, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}], "sigmoid": [{"name": "sigmoid", "target": "aten.sigmoid.default", "graph_id": 140226366523760, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x_2", "target": "L__self___sigmoid", "graph_id": 140222956053664, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x_2", "target": "L__self___sigmoid", "graph_id": 140222956060000, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}
-V0213 10:06:48.331000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "52d0694516195e4ec682da93b2c2f054"}
+V0310 11:51:05.101000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/compile_fx.py:1028] {"artifact": {"name": "inductor_post_to_pre_grad_nodes", "encoding": "json"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "595f48df2a4ba65c35991398eea87f00"}
+	{"permute": [{"name": "linear", "target": "aten.linear.default", "graph_id": 139860976364000, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651275264, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651276320, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}], "mm_default": [{"name": "", "target": "", "graph_id": -1, "pass_name": "pass_pattern_2", "action": "create", "from_node": []}, {"name": "", "target": "", "graph_id": -1, "pass_name": "pattern_matcher", "action": "create", "from_node": []}, {"name": "mm", "target": "aten.mm.default", "graph_id": 139855784720752, "pass_name": "Interpreter_Replacer", "action": "replace", "from_node": [{"name": "addmm", "target": "aten.addmm.default", "graph_id": 139856781099216, "pass_name": "replace_by_example", "action": "replace", "from_node": [{"name": "linear", "target": "aten.linear.default", "graph_id": 139860976364000, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651275264, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651276320, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}]}], "add_tensor": [{"name": "add", "target": "aten.add.Tensor", "graph_id": 139855784720752, "pass_name": "Interpreter_Replacer", "action": "replace", "from_node": [{"name": "addmm", "target": "aten.addmm.default", "graph_id": 139856781099216, "pass_name": "replace_by_example", "action": "replace", "from_node": [{"name": "linear", "target": "aten.linear.default", "graph_id": 139860976364000, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651275264, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651276320, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}]}, {"name": "addmm", "target": "aten.addmm.default", "graph_id": 139856781099216, "pass_name": "pass_pattern_2", "action": "replace+create", "from_node": [{"name": "linear", "target": "aten.linear.default", "graph_id": 139860976364000, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651275264, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651276320, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}, {"name": "addmm", "target": "aten.addmm.default", "graph_id": 139856781099216, "pass_name": "pattern_matcher", "action": "replace+create", "from_node": [{"name": "linear", "target": "aten.linear.default", "graph_id": 139860976364000, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651275264, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x", "target": "L__self___fc1", "graph_id": 139857651276320, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}], "relu": [{"name": "relu", "target": "aten.relu.default", "graph_id": 139860976364000, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x_1", "target": "L__self___relu", "graph_id": 139857651275264, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x_1", "target": "L__self___relu", "graph_id": 139857651276320, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}], "sigmoid": [{"name": "sigmoid", "target": "aten.sigmoid.default", "graph_id": 139860976364000, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x_2", "target": "L__self___sigmoid", "graph_id": 139857651275264, "pass_name": "Interpreter_PropagateUnbackedSymInts", "action": "create", "from_node": [{"name": "x_2", "target": "L__self___sigmoid", "graph_id": 139857651276320, "pass_name": "Interpreter_FlattenInputOutputSignature", "action": "create", "from_node": []}]}]}]}
+V0310 11:51:05.116000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "87b7c542186c3878fddb55567e2b1f08"}
 	{
 	"name": "GraphLowering.run",
-	"ts": 1739470008331076.2,
+	"ts": 1741632665116733.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -677,10 +638,10 @@ V0213 10:06:48.331000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.393000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "1e66896da2636007232a7df271df7dfe"}
+V0310 11:51:05.179000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "563f1dd8d099da14fa76b509dbf9995a"}
 	{
 	"name": "GraphLowering.run",
-	"ts": 1739470008393228.8,
+	"ts": 1741632665179388.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -689,10 +650,10 @@ V0213 10:06:48.393000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.394000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "5753309613d0a95edbc19fd08dd4c3c0"}
+V0310 11:51:05.180000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "ff3e791b742dc575b35b570c4f21016c"}
 	{
 	"name": "GraphLowering.compile_to_fn",
-	"ts": 1739470008394681.5,
+	"ts": 1741632665180859.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -701,10 +662,10 @@ V0213 10:06:48.394000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.395000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "a35750baf4de041557e6d03111fc1206"}
+V0310 11:51:05.182000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "cd38909fc57fee9f9d75f46f2e303964"}
 	{
 	"name": "GraphLowering.codegen",
-	"ts": 1739470008395650.8,
+	"ts": 1741632665181922.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -713,10 +674,10 @@ V0213 10:06:48.395000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.400000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "2ab36575205b7fbf9645db025940d19a"}
+V0310 11:51:05.186000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "07826fc4ca6dc8afa7842790819f53da"}
 	{
 	"name": "Scheduler.__init__",
-	"ts": 1739470008400137.8,
+	"ts": 1741632665186636.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -725,10 +686,10 @@ V0213 10:06:48.400000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.422000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "d582532d29e00a92a46b1e09aa7c3ed8"}
+V0310 11:51:05.214000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "f063cffa5c1c52efd0e401e1655ab26f"}
 	{
 	"name": "Scheduler.fused_nodes",
-	"ts": 1739470008422671.0,
+	"ts": 1741632665214407.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -737,10 +698,10 @@ V0213 10:06:48.422000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.424000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "4958fe58fb2c78cd8d8889e27c0a9531"}
+V0310 11:51:05.216000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "876cb222d9646530383df160c17e3b6f"}
 	{
 	"name": "Scheduler.fused_nodes",
-	"ts": 1739470008424098.0,
+	"ts": 1741632665216561.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -749,10 +710,10 @@ V0213 10:06:48.424000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.434000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "27b6a751bf55d4f42f1ddab3b1ad1ac1"}
+V0310 11:51:05.229000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "158a59a23b2014b151991aceb9484231"}
 	{
 	"name": "Scheduler.__init__",
-	"ts": 1739470008434153.8,
+	"ts": 1741632665229197.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -761,10 +722,10 @@ V0213 10:06:48.434000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.435000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "b1ccbda858ac7626772c21ad899d7fa4"}
+V0310 11:51:05.230000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "9a8e9a1d8f930ec658a9da9ad4636671"}
 	{
 	"name": "Scheduler.codegen",
-	"ts": 1739470008435035.0,
+	"ts": 1741632665230201.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -773,10 +734,10 @@ V0213 10:06:48.435000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.685000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "47815af02f215d27f949e2e2e4b07fe7"}
+V0310 11:51:05.283000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "08d3038cb03078a0066d817e553f6dd7"}
 	{
 	"name": "Scheduler.codegen",
-	"ts": 1739470008685083.8,
+	"ts": 1741632665283794.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -785,14 +746,14 @@ V0213 10:06:48.685000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.688000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/graph.py:1925] {"artifact": {"name": "inductor_triton_kernel_to_post_grad_nodes", "encoding": "json"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "0867dfef8c4c46386e8d230bab125d98"}
+V0310 11:51:05.286000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/graph.py:2018] {"artifact": {"name": "inductor_triton_kernel_to_post_grad_nodes", "encoding": "json"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "0867dfef8c4c46386e8d230bab125d98"}
 	{"triton_poi_fused_addmm_relu_sigmoid_0": ["sigmoid", "relu", "add_tensor"]}
-V0213 10:06:48.689000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/graph.py:1933] {"artifact": {"name": "inductor_provenance_tracking_node_mappings", "encoding": "json"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "d81c22c958817f085f2f26be1f905dbc"}
+V0310 11:51:05.287000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/graph.py:2026] {"artifact": {"name": "inductor_provenance_tracking_node_mappings", "encoding": "json"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "d81c22c958817f085f2f26be1f905dbc"}
 	{"preToPost": {"linear": ["permute", "mm_default", "add_tensor"], "relu": ["relu"], "sigmoid": ["sigmoid"]}, "postToPre": {"permute": ["linear"], "mm_default": ["linear"], "add_tensor": ["linear"], "relu": ["relu"], "sigmoid": ["sigmoid"]}, "cppCodeToPost": {"triton_poi_fused_addmm_relu_sigmoid_0": ["sigmoid", "relu", "add_tensor"]}, "postToCppCode": {"sigmoid": ["triton_poi_fused_addmm_relu_sigmoid_0"], "relu": ["triton_poi_fused_addmm_relu_sigmoid_0"], "add_tensor": ["triton_poi_fused_addmm_relu_sigmoid_0"]}}
-V0213 10:06:48.690000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "62de1311209961c125f39e263b09243b"}
+V0310 11:51:05.288000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "937576aceaf0acc30513152b3f2d0af7"}
 	{
 	"name": "CppWrapperGpu.generate",
-	"ts": 1739470008690039.2,
+	"ts": 1741632665288678.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -801,10 +762,10 @@ V0213 10:06:48.690000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.691000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "8a597a7bc6d63e9391cb682a86e9912e"}
+V0310 11:51:05.289000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "40200d08484c57e64c5320e65909faf3"}
 	{
 	"name": "CppWrapperCpu.generate",
-	"ts": 1739470008691048.0,
+	"ts": 1741632665289857.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -813,10 +774,10 @@ V0213 10:06:48.691000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.693000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "d098e187ad746036952ed2f285b3721c"}
+V0310 11:51:05.293000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "0f726a75313a05182ceaf018672ebc90"}
 	{
 	"name": "PythonWrapperCodegen.generate",
-	"ts": 1739470008693121.8,
+	"ts": 1741632665293241.8,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -825,10 +786,10 @@ V0213 10:06:48.693000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.696000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "6f2ee74d031355fadb346ee29218a83c"}
+V0310 11:51:05.296000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "406f8d3e485849081f74fb3a06f4bc00"}
 	{
 	"name": "inductor_codecache_torch_key",
-	"ts": 1739470008696474.0,
+	"ts": 1741632665296636.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -837,10 +798,10 @@ V0213 10:06:48.696000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.697000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "4167b342fb5ab1dd5797d8689aea3811"}
+V0310 11:51:05.298000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "50813d6451aba60fa0eaa0bf9fd7f121"}
 	{
 	"name": "inductor_codecache_torch_key",
-	"ts": 1739470008697601.5,
+	"ts": 1741632665298132.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -849,10 +810,10 @@ V0213 10:06:48.697000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.699000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "4ef840c853171f20b8e4f3814a9b7998"}
+V0310 11:51:05.300000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "41747570059bca2dffa954f125f85176"}
 	{
 	"name": "async_compile.precompile",
-	"ts": 1739470008699284.5,
+	"ts": 1741632665300214.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -861,10 +822,10 @@ V0213 10:06:48.699000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.854000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "6de2d3abd7fd43c02fb93b9a68ac2c21"}
+V0310 11:51:05.327000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "0b8ea26b4bded16543809d342366b82e"}
 	{
 	"name": "async_compile.precompile",
-	"ts": 1739470008854410.0,
+	"ts": 1741632665327366.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -873,10 +834,10 @@ V0213 10:06:48.854000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.856000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "67a0f122bbb9fca97d997d01255a0a1e"}
+V0310 11:51:05.329000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "ec2f64845d8a2b7a2ab11ea96939a50c"}
 	{
 	"name": "async_compile.wait",
-	"ts": 1739470008856445.8,
+	"ts": 1741632665329690.8,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -885,10 +846,10 @@ V0213 10:06:48.856000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.857000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "38df28114718132bb1a890b634ac30e8"}
+V0310 11:51:05.331000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "95b98ef1a76c929b95317368f6948d79"}
 	{
 	"name": "async_compile.wait",
-	"ts": 1739470008857700.8,
+	"ts": 1741632665331040.8,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -897,10 +858,10 @@ V0213 10:06:48.857000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.861000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "59f304eb3942aa0d53499e3da724fa49"}
+V0310 11:51:05.337000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "5fa336b88b69fa4b409a4f03629b2b5a"}
 	{
 	"name": "PythonWrapperCodegen.generate",
-	"ts": 1739470008861715.8,
+	"ts": 1741632665337520.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -909,10 +870,10 @@ V0213 10:06:48.861000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.862000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "4c88dd39835b6ed6fe93ae6512a332eb"}
+V0310 11:51:05.338000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "fd9f98410ca8ec3c58c00dcbd7efa125"}
 	{
 	"name": "CppWrapperCpu.generate",
-	"ts": 1739470008862577.0,
+	"ts": 1741632665338560.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -921,10 +882,10 @@ V0213 10:06:48.862000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.864000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "24ca28ae0e61f586ba6b54d4d2d8e21c"}
+V0310 11:51:05.340000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "a27fa54f10aebce3878f0b26a16fb95b"}
 	{
 	"name": "CppWrapperGpu.generate",
-	"ts": 1739470008864021.5,
+	"ts": 1741632665340205.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -933,10 +894,10 @@ V0213 10:06:48.864000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.865000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "88c57a676c6fbab1d0b1e5a2259fd9dc"}
+V0310 11:51:05.341000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "8f3a2be3da412d13e697f4a31b7851a7"}
 	{
 	"name": "GraphLowering.codegen",
-	"ts": 1739470008865428.5,
+	"ts": 1741632665341887.8,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -945,10 +906,10 @@ V0213 10:06:48.865000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:06:48.867000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "dfc2d9b891d5d22e9955b6fbcd6b70fc"}
+V0310 11:51:05.343000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "6fc6a8474938744997952d95d49eead7"}
 	{
 	"name": "AotCodeCompiler.compile",
-	"ts": 1739470008866952.0,
+	"ts": 1741632665343469.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -957,7 +918,7 @@ V0213 10:06:48.867000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:37.366000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/codecache.py:1454] {"graph_dump": {"name": "inductor_aot_code", "type": "cpp", "filename": "/tmp/torchinductor_shangdiy/clfxsfxv4tjfonuwp2w6qbwpgbdh7xotkmm5r6jfm6i6nvldgzlp/czume3d3cqqc2dah3tvs4rqn3rrpusdvbhn4j3diiq62spva6qwn.cpp"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "e87150cbea2d8a8fb4a32a6d4664ba1b"}
+V0310 11:51:05.358000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/codecache.py:1469] {"graph_dump": {"name": "inductor_aot_wrapper_code", "type": "cpp", "filename": "/tmp/torchinductor_shangdiy/clfxsfxv4tjfonuwp2w6qbwpgbdh7xotkmm5r6jfm6i6nvldgzlp/crmfw2naqjefq7pkuqpmjaiizcbsgfapm6vss7gfvfgrysgcddin.wrapper.cpp"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "336361b20b3adf6d218451c674ea7203"}
 	
 	#include <torch/csrc/inductor/aoti_include/cuda.h>
 	// Definition of AOTI runtime interface functions
@@ -1323,6 +1284,7 @@ V0213 10:07:37.366000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	
 	} // extern "C"
 	
+	
 	#define CUDA_DRIVER_CHECK(EXPR)                    \
 	do {                                               \
 	    CUresult code = EXPR;                          \
@@ -1461,6 +1423,112 @@ V0213 10:07:37.366000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	    AOTIProxyExecutorHandle proxy_executor
 	) {}
 	
+	bool _check_aoti_runtime_check_inputs_env() {
+	    const static char* env_var_value = getenv("AOTI_RUNTIME_CHECK_INPUTS");
+	    const static bool result = env_var_value != nullptr && env_var_value[0] != ' ';
+	    return result;
+	}
+	
+	AOTI_NOINLINE static void __check_inputs_outputs(
+	    AtenTensorHandle* input_handles,
+	    AtenTensorHandle* output_handles) {
+	    if (!_check_aoti_runtime_check_inputs_env()){
+	        return;
+	    }
+	    ConstantHandle arg2_1 = ConstantHandle(input_handles[0]);
+	    int32_t arg2_1_dtype;
+	    AOTI_TORCH_ERROR_CODE_CHECK(aoti_torch_get_dtype(arg2_1, &arg2_1_dtype));
+	
+	    int32_t arg2_1_expected_dtype = aoti_torch_dtype_float32();
+	    if (arg2_1_expected_dtype != arg2_1_dtype) {
+	        std::stringstream ss;
+	        ss << "input_handles[0]: unmatched dtype, "
+	           << "expected: " << arg2_1_expected_dtype << "(at::kFloat), "
+	           << "but got: " << arg2_1_dtype << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	    auto arg2_1_size = arg2_1.sizes();
+	
+	    if (8 != arg2_1_size[0]) {
+	        std::stringstream ss;
+	        ss << "input_handles[0]: unmatched dim value at 0, "
+	           << "expected: 8, " << "but got: " << arg2_1_size[0]
+	           << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	
+	    if (10 != arg2_1_size[1]) {
+	        std::stringstream ss;
+	        ss << "input_handles[0]: unmatched dim value at 1, "
+	           << "expected: 10, " << "but got: " << arg2_1_size[1]
+	           << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	    auto arg2_1_stride = arg2_1.strides();
+	
+	    if (10 != arg2_1_stride[0]) {
+	        std::stringstream ss;
+	        ss << "input_handles[0]: unmatched stride value at 0, "
+	           << "expected: 10, " << "but got: " << arg2_1_stride[0]
+	           << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	
+	    if (1 != arg2_1_stride[1]) {
+	        std::stringstream ss;
+	        ss << "input_handles[0]: unmatched stride value at 1, "
+	           << "expected: 1, " << "but got: " << arg2_1_stride[1]
+	           << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	    ConstantHandle arg3_1 = ConstantHandle(input_handles[1]);
+	    int32_t arg3_1_dtype;
+	    AOTI_TORCH_ERROR_CODE_CHECK(aoti_torch_get_dtype(arg3_1, &arg3_1_dtype));
+	
+	    int32_t arg3_1_expected_dtype = aoti_torch_dtype_float32();
+	    if (arg3_1_expected_dtype != arg3_1_dtype) {
+	        std::stringstream ss;
+	        ss << "input_handles[1]: unmatched dtype, "
+	           << "expected: " << arg3_1_expected_dtype << "(at::kFloat), "
+	           << "but got: " << arg3_1_dtype << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	    auto arg3_1_size = arg3_1.sizes();
+	
+	    if (8 != arg3_1_size[0]) {
+	        std::stringstream ss;
+	        ss << "input_handles[1]: unmatched dim value at 0, "
+	           << "expected: 8, " << "but got: " << arg3_1_size[0]
+	           << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	
+	    if (10 != arg3_1_size[1]) {
+	        std::stringstream ss;
+	        ss << "input_handles[1]: unmatched dim value at 1, "
+	           << "expected: 10, " << "but got: " << arg3_1_size[1]
+	           << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	    auto arg3_1_stride = arg3_1.strides();
+	
+	    if (10 != arg3_1_stride[0]) {
+	        std::stringstream ss;
+	        ss << "input_handles[1]: unmatched stride value at 0, "
+	           << "expected: 10, " << "but got: " << arg3_1_stride[0]
+	           << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	
+	    if (1 != arg3_1_stride[1]) {
+	        std::stringstream ss;
+	        ss << "input_handles[1]: unmatched stride value at 1, "
+	           << "expected: 1, " << "but got: " << arg3_1_stride[1]
+	           << "\n";
+	        throw std::runtime_error(ss.str());
+	    }
+	}
+	
 	void AOTInductorModel::run_impl(
 	    AtenTensorHandle*
 	        input_handles, // array of input AtenTensorHandle; handles
@@ -1472,6 +1540,8 @@ V0213 10:07:37.366000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	    DeviceStreamType stream,
 	    AOTIProxyExecutorHandle proxy_executor
 	) {
+	
+	__check_inputs_outputs(input_handles, output_handles);
 	
 	    auto inputs = steal_from_raw_handles_to_raii_handles(input_handles, 2);
 	    auto arg2_1 = std::move(inputs[0]);
@@ -1490,14 +1560,12 @@ V0213 10:07:37.366000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	    // Topologically Sorted Source Nodes: [], Original ATen: [aten.addmm]
 	    static constexpr int64_t int_array_0[] = {10L, 16L};
 	    static constexpr int64_t int_array_1[] = {1L, 10L};
-	    auto tmp_tensor_handle_0 = reinterpret_tensor_wrapper(fc1_weight, 2, int_array_0, int_array_1, 0L);
-	    RAIIAtenTensorHandle tmp_tensor_handle_0_raii(tmp_tensor_handle_0);
-	    AOTI_TORCH_ERROR_CODE_CHECK(aoti_torch_cuda_mm_out(buf0, arg2_1, tmp_tensor_handle_0_raii));
+	    AOTI_TORCH_ERROR_CODE_CHECK(aoti_torch_cuda_mm_out(buf0, arg2_1, wrap_with_raii_handle_if_needed(reinterpret_tensor_wrapper(fc1_weight, 2, int_array_0, int_array_1, 0L))));
 	    arg2_1.reset();
 	    auto buf1 = std::move(buf0);  // reuse
 	    // Topologically Sorted Source Nodes: [add, relu, sigmoid], Original ATen: [aten.addmm, aten.relu, aten.sigmoid]
 	    if (kernels.triton_poi_fused_addmm_relu_sigmoid_0 == nullptr) {
-	        kernels.triton_poi_fused_addmm_relu_sigmoid_0 = loadKernel("/tmp/torchinductor_shangdiy/clfxsfxv4tjfonuwp2w6qbwpgbdh7xotkmm5r6jfm6i6nvldgzlp/cgtwzymffpxo3wova6pv7gfh3t4tcgubjsugq6uw6vksmob4mmh4.cubin", "triton_poi_fused_addmm_relu_sigmoid_0", 0, this->cubin_dir_);
+	        kernels.triton_poi_fused_addmm_relu_sigmoid_0 = loadKernel("/tmp/torchinductor_shangdiy/clfxsfxv4tjfonuwp2w6qbwpgbdh7xotkmm5r6jfm6i6nvldgzlp/cly4psei4aqalxv67s6qoq2ec4yrqawzrurwdyqvxwcjvv2nrk3w.cubin", "triton_poi_fused_addmm_relu_sigmoid_0", 0, this->cubin_dir_);
 	    }
 	    CUdeviceptr var_0 = reinterpret_cast<CUdeviceptr>(buf1.data_ptr());
 	    CUdeviceptr var_1 = reinterpret_cast<CUdeviceptr>(fc1_bias.data_ptr());
@@ -1514,10 +1582,12 @@ V0213 10:07:37.366000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	
 	
 	
-V0213 10:07:37.374000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "96dfc667b274e18ec890d51917192023"}
+V0310 11:51:05.360000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_inductor/codecache.py:1478] {"graph_dump": {"name": "inductor_aot_kernel_code", "type": "cpp", "filename": "/tmp/torchinductor_shangdiy/clfxsfxv4tjfonuwp2w6qbwpgbdh7xotkmm5r6jfm6i6nvldgzlp/cilrcud5fznzy3iihrj3mzsohbjh3nttf7wh4dqutxvohkf5phxz.kernel.cpp"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "d41d8cd98f00b204e9800998ecf8427e"}
+	
+V0310 11:51:05.367000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "26395360dae1fffb19cae1fac6e1bfaa"}
 	{
-	"name": "run_command_and_check",
-	"ts": 1739470057374550.8,
+	"name": "compile_file",
+	"ts": 1741632665367734.8,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -1526,10 +1596,10 @@ V0213 10:07:37.374000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:42.751000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "5c20f71e44e14eaf053cf21e3d543355"}
+V0310 11:51:15.156000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "45e0344814f06ee8a76eba05e9a0a2fe"}
 	{
-	"name": "run_command_and_check",
-	"ts": 1739470062750896.2,
+	"name": "compile_file",
+	"ts": 1741632675155902.2,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -1538,10 +1608,10 @@ V0213 10:07:42.751000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:42.756000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "15bc205dcc80c1c003a45f70511e3f90"}
+V0310 11:51:15.157000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "b3afbefb4938ce7c77eab918aa4c6902"}
 	{
-	"name": "run_command_and_check",
-	"ts": 1739470062756090.0,
+	"name": "compile_file",
+	"ts": 1741632675157669.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -1550,10 +1620,10 @@ V0213 10:07:42.756000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:42.786000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "7a53447f8a78a931dd19e9c9f87d8ea5"}
+V0310 11:51:17.962000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "5f1ef7628c13dd6d46b1097aa832b346"}
 	{
-	"name": "run_command_and_check",
-	"ts": 1739470062786837.5,
+	"name": "compile_file",
+	"ts": 1741632677962744.8,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -1562,10 +1632,10 @@ V0213 10:07:42.786000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:42.790000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "8c87ad1d1d55851320294e5369443222"}
+V0310 11:51:17.967000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "688cbbe0506c7c0166cd8bff305a3f07"}
 	{
-	"name": "run_command_and_check",
-	"ts": 1739470062790890.5,
+	"name": "compile_file",
+	"ts": 1741632677967834.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -1574,10 +1644,10 @@ V0213 10:07:42.790000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:42.854000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "fea96f8abe0b008e5def6ed94b14e0f0"}
+V0310 11:51:18.002000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "26326032fdf09856988689bd3af9f1c6"}
 	{
-	"name": "run_command_and_check",
-	"ts": 1739470062854503.0,
+	"name": "compile_file",
+	"ts": 1741632678001883.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -1586,10 +1656,34 @@ V0213 10:07:42.854000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:42.857000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "06cd5b221ce26a2f10914180aca000e4"}
+V0310 11:51:18.007000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "bcd116139803b545bde580aeb13f95ae"}
+	{
+	"name": "compile_file",
+	"ts": 1741632678006962.0,
+	"args": {
+	"compile_id": "0/0"
+	},
+	"ph": "B",
+	"cat": "dynamo_timed",
+	"tid": 0,
+	"pid": 0
+	}
+V0310 11:51:18.056000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "483a3c65f7b479d7185b9339360f7029"}
+	{
+	"name": "compile_file",
+	"ts": 1741632678055918.0,
+	"args": {
+	"compile_id": "0/0"
+	},
+	"ph": "E",
+	"cat": "dynamo_timed",
+	"tid": 0,
+	"pid": 0
+	}
+V0310 11:51:18.058000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "bbb8c862db814d164fdf5b74ed3c7d49"}
 	{
 	"name": "AotCodeCompiler.compile",
-	"ts": 1739470062857147.5,
+	"ts": 1741632678058142.5,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -1598,10 +1692,10 @@ V0213 10:07:42.857000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:42.858000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "674dbec102eed13df4c250024d74f2b3"}
+V0310 11:51:18.060000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "b10fb6082de2fa5acab434c995090c32"}
 	{
 	"name": "GraphLowering.compile_to_fn",
-	"ts": 1739470062858643.5,
+	"ts": 1741632678060161.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -1610,10 +1704,10 @@ V0213 10:07:42.858000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:42.860000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1801] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "b9b0dd76320d1fca9a405368d810bf12"}
+V0310 11:51:18.062000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1843] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "10e35f1aa402ee9eed75e137da3b6e0c"}
 	{
 	"name": "fx_graph_cache_disabled",
-	"ts": 1739470007811179.2,
+	"ts": 1741632664687990.0,
 	"args": {
 	"compile_id": "0/0"
 	},
@@ -1623,16 +1717,16 @@ V0213 10:07:42.860000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"pid": 0,
 	"s": "p"
 	}
-V0213 10:07:42.862000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "3c04c53394ffa6341132d9637e4717f2"}
+V0310 11:51:18.065000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "bf22ff274ba71e5d42874f1a1ab9b7b5"}
 	{
 	"name": "inductor_compile",
-	"ts": 1739470062862185.0,
+	"ts": 1741632678065830.5,
 	"args": {
 	"fn_name": "compile_fx_inner",
 	"compile_id": "0/0",
 	"is_backward": false,
 	"cache_state": "disabled",
-	"cache_event_time": 1739470007811179289,
+	"cache_event_time": 1741632664687990007,
 	"key": null,
 	"components": null,
 	"cache_bypass_reason": "cache not enabled",
@@ -1644,12 +1738,47 @@ V0213 10:07:42.862000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_
 	"tid": 0,
 	"pid": 0
 	}
-V0213 10:07:42.863000 132701 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1762] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "e02beb947c69f7e18a78a2c7f3da1161"}
+V0310 11:51:18.069000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "506b7b8fd6db1df9d666be737633b2f3"}
 	{
 	"name": "compile_fx.<locals>.fw_compiler_base",
-	"ts": 1739470062863651.0,
+	"ts": 1741632678069329.5,
 	"args": {
 	"compile_id": "0/0"
+	},
+	"ph": "E",
+	"cat": "dynamo_timed",
+	"tid": 0,
+	"pid": 0
+	}
+V0310 11:51:18.073000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1505] {"compilation_metrics": {"compile_id": "0/0", "frame_key": null, "co_name": null, "co_filename": null, "co_firstlineno": null, "cache_size": null, "accumulated_cache_size": null, "guard_count": null, "shape_env_guard_count": null, "graph_op_count": null, "graph_node_count": null, "graph_input_count": null, "start_time": 1741632662.810891, "entire_frame_compile_time_s": null, "backend_compile_time_s": null, "inductor_compile_time_s": 13.380233, "code_gen_time_s": null, "fail_type": null, "fail_reason": null, "fail_user_frame_filename": null, "fail_user_frame_lineno": null, "non_compliant_ops": null, "compliant_custom_ops": null, "restart_reasons": null, "dynamo_time_before_restart_s": null, "has_guarded_code": null, "remote_cache_time_saved_s": null, "structured_logging_overhead_s": 0.073545, "config_suppress_errors": null, "config_inline_inbuilt_nn_modules": null, "specialize_float": null, "dynamo_config": "{\"_autograd_backward_strict_mode_conditional_banned_ops\": [\"stride\", \"storage_offset\", \"is_contiguous\"], \"_unsafe_skip_fsdp_module_guards\": false, \"accumulated_recompile_limit\": 256, \"allow_complex_guards_as_runtime_asserts\": false, \"allow_empty_graphs\": false, \"allow_ignore_mark_dynamic\": false, \"allow_rnn\": false, \"allow_unspec_int_on_nn_module\": false, \"allowed_functions_module_string_ignorelist\": [\"torch._decomp\", \"torch._prims\", \"torch._refs\", \"torch.distributions\", \"torch.testing\"], \"assume_static_by_default\": true, \"automatic_dynamic_local_pgo\": true, \"automatic_dynamic_remote_pgo\": null, \"automatic_dynamic_shapes\": true, \"automatic_dynamic_shapes_mark_as\": \"dynamic\", \"capture_autograd_function\": true, \"capture_dynamic_output_shape_ops\": false, \"capture_func_transforms\": true, \"capture_scalar_outputs\": false, \"capture_sparse_compute\": false, \"compiled_autograd\": false, \"compiled_autograd_kwargs_override\": {}, \"cprofile\": false, \"cudagraph_backend_keep_input_mutation\": false, \"cudagraph_backend_support_input_mutation\": false, \"dead_code_elimination\": true, \"disable\": false, \"do_not_emit_runtime_asserts\": false, \"dynamic_shapes\": true, \"enable_compiler_collectives\": false, \"enable_cpp_framelocals_guard_eval\": true, \"enable_cpp_guard_manager\": true, \"enable_cpp_symbolic_shape_guards\": false, \"enable_faithful_generator_behavior\": true, \"enable_trace_contextlib\": true, \"error_on_nested_fx_trace\": true, \"error_on_nested_jit_trace\": true, \"error_on_recompile\": false, \"fail_on_recompile_limit_hit\": false, \"fake_tensor_cache_crosscheck_enabled\": false, \"fake_tensor_cache_enabled\": true, \"force_nn_module_property_static_shapes\": true, \"force_parameter_static_shapes\": true, \"force_unspec_int_unbacked_size_like_on_torchrec_kjt\": false, \"guard_nn_modules\": true, \"guard_nn_modules_using_dict_tags\": true, \"inline_inbuilt_nn_modules\": true, \"issue_3_13_0_warning\": true, \"minimum_call_count\": 1, \"numpy_default_complex\": \"complex128\", \"numpy_default_float\": \"float64\", \"numpy_default_int\": \"int64\", \"only_allow_pt2_compliant_ops\": false, \"optimize_ddp\": true, \"optimize_ddp_lazy_compile\": false, \"prefer_deferred_runtime_asserts_over_guards\": false, \"prepare_freezing\": false, \"raise_on_ctx_manager_usage\": true, \"raise_on_unsafe_aot_autograd\": false, \"recompile_limit\": 8, \"record_compile_time_instruction_count\": false, \"replay_record_enabled\": false, \"report_guard_failures\": true, \"rewrite_assert_with_torch_assert\": true, \"run_gc_after_compile\": true, \"skip_code_recursive_on_recompile_limit_hit\": true, \"skip_fsdp_guards\": true, \"skip_fsdp_hooks\": true, \"skip_nnmodule_hook_guards\": true, \"skip_no_tensor_aliasing_guards_on_parameters\": true, \"skip_tensor_guards_with_matching_dict_tags\": true, \"skip_torchrec\": true, \"skipfiles_inline_module_allowlist\": {}, \"specialize_float\": false, \"specialize_int\": false, \"suppress_errors\": false, \"trace_numpy\": true, \"track_nodes_for_deduplication\": false, \"use_graph_deduplication\": false, \"use_lazy_graph_module\": true, \"use_numpy_random_stream\": false, \"verify_correctness\": false}", "is_forward": null, "num_triton_bundles": null, "remote_fx_graph_cache_get_time_ms": null, "remote_fx_graph_cache_put_time_ms": null, "start_time_us": 1741632662810891, "duration_us": 15259998, "dynamo_cumulative_compile_time_us": null, "aot_autograd_cumulative_compile_time_us": null, "inductor_cumulative_compile_time_us": 13380233, "inductor_code_gen_cumulative_compile_time_us": null, "triton_compile_time_us": 28500, "runtime_cudagraphify_time_us": null, "runtime_triton_autotune_time_us": null, "dynamo_compile_time_before_restart_us": null, "cuda_synchronize_time_us": null, "distributed_ephemeral_timeout_us": null, "structured_logging_overhead_us": 73545, "remote_fx_graph_cache_get_time_us": null, "remote_fx_graph_cache_put_time_us": null, "backward_cumulative_compile_time_us": null, "end_time_us": 1741632678070889, "pre_grad_pass_time_us": 448799, "post_grad_pass_time_us": 380256, "joint_graph_pass_time_us": 1362136, "log_format_version": 3, "inductor_config": "{\"TYPE_CHECKING\": false, \"_cache_config_ignore_prefix\": [\"trace\", \"cuda.cutlass_dir\", \"worker_start_method\", \"compile_threads\", \"post_grad_custom_post_pass\", \"post_grad_custom_pre_pass\", \"always_complex_memory_overlap_TESTING_ONLY\"], \"_collective.auto_select\": false, \"_collective.one_shot_all_reduce_threshold_bytes\": 131072, \"_fuse_ddp_bucket_size\": 25, \"_fuse_ddp_communication\": false, \"_fuse_ddp_communication_passes\": [\"fuse_ddp_with_concat_op\", \"schedule_comm_wait\"], \"_micro_pipeline_tp\": false, \"_pre_fusion_custom_pass\": null, \"_profile_var\": \"\", \"_raise_error_for_testing\": false, \"_save_config_ignore\": [\"trace.upload_tar\", \"joint_custom_pre_pass\", \"joint_custom_post_pass\", \"pre_grad_custom_pass\", \"aot_inductor.repro_level\", \"aot_inductor.dump_aoti_minifier\"], \"add_pre_grad_passes\": null, \"aggressive_fusion\": false, \"allow_buffer_reuse\": true, \"always_complex_memory_overlap_TESTING_ONLY\": false, \"always_keep_tensor_constants\": false, \"annotate_training\": false, \"aot_inductor.allow_stack_allocation\": false, \"aot_inductor.compile_wrapper_with_O0\": false, \"aot_inductor.debug_compile\": false, \"aot_inductor.debug_intermediate_value_printer\": \"0\", \"aot_inductor.dump_aoti_minifier\": false, \"aot_inductor.filtered_kernel_names\": null, \"aot_inductor.force_mmap_weights\": false, \"aot_inductor.metadata\": {\"AOTI_DEVICE_KEY\": \"cuda\"}, \"aot_inductor.output_path\": \"\", \"aot_inductor.package\": false, \"aot_inductor.package_constants_in_so\": true, \"aot_inductor.package_cpp_only\": false, \"aot_inductor.presets\": {}, \"aot_inductor.raise_error_on_ignored_optimization\": true, \"aot_inductor.repro_level\": 2, \"aot_inductor.serialized_in_spec\": \"\", \"aot_inductor.serialized_out_spec\": \"\", \"aot_inductor.use_minimal_arrayref_interface\": false, \"aot_inductor.use_runtime_constant_folding\": false, \"assert_indirect_indexing\": true, \"assume_aligned_inputs\": false, \"autoheuristic_collect\": \"\", \"autoheuristic_log_path\": \"DEFAULT\", \"autoheuristic_use\": \"mixed_mm\", \"autotune_fallback_to_aten\": true, \"autotune_in_subproc\": false, \"autotune_local_cache\": true, \"autotune_multi_device\": false, \"autotune_num_choices_displayed\": 10, \"autotune_remote_cache\": null, \"b2b_gemm_pass\": false, \"batch_fusion\": true, \"benchmark_combo_kernel\": false, \"benchmark_epilogue_fusion\": true, \"benchmark_fusion\": false, \"benchmark_harness\": true, \"benchmark_kernel\": false, \"bundle_triton_into_fx_graph_cache\": null, \"bundled_autotune_remote_cache\": null, \"bw_outputs_user_visible\": true, \"can_inplace_pad_graph_input\": false, \"check_stack_no_cycles_TESTING_ONLY\": false, \"combo_kernel_allow_mixed_sizes\": 1, \"combo_kernel_foreach_dynamic_shapes\": false, \"combo_kernels\": false, \"combo_kernels_autotune\": 1, \"comment_origin\": false, \"compile_threads\": 22, \"comprehensive_padding\": true, \"compute_all_bounds\": false, \"constant_and_index_propagation\": true, \"conv_1x1_as_mm\": false, \"coordinate_descent_check_all_directions\": false, \"coordinate_descent_search_radius\": 1, \"coordinate_descent_tuning\": false, \"cpp.cxx\": [null, \"g++\"], \"cpp.descriptive_names\": \"original_aten\", \"cpp.dynamic_threads\": false, \"cpp.enable_concat_linear\": false, \"cpp.enable_floating_point_contract_flag\": \"off\", \"cpp.enable_grouped_gemm_template\": false, \"cpp.enable_kernel_profile\": false, \"cpp.enable_loop_tail_vec\": true, \"cpp.enable_tiling_heuristics\": true, \"cpp.enable_unsafe_math_opt_flag\": false, \"cpp.fallback_scatter_reduce_sum\": true, \"cpp.gemm_cache_blocking\": null, \"cpp.gemm_max_k_slices\": 1, \"cpp.gemm_thread_factors\": null, \"cpp.inject_log1p_bug_TESTING_ONLY\": null, \"cpp.inject_relu_bug_TESTING_ONLY\": null, \"cpp.max_horizontal_fusion_size\": 16, \"cpp.min_chunk_size\": 4096, \"cpp.no_redundant_loops\": true, \"cpp.simdlen\": null, \"cpp.threads\": -1, \"cpp.vec_isa_ok\": null, \"cpp.weight_prepack\": true, \"cpp_wrapper\": false, \"cpu_backend\": \"cpp\", \"cuda.arch\": null, \"cuda.compile_opt_level\": \"-O1\", \"cuda.cuda_cxx\": null, \"cuda.cutlass_backend_min_gemm_size\": 1, \"cuda.cutlass_dir\": \"/data/users/shangdiy/fbsource/buck-out/v2/gen/fbcode/0bd9d136228ad8a7/scripts/shangdiy/__aot__/aot#link-tree/third_party/cutlass\", \"cuda.cutlass_instantiation_level\": \"0\", \"cuda.cutlass_max_profiling_configs\": null, \"cuda.cutlass_max_profiling_swizzle_options\": [1, 2, 4], \"cuda.cutlass_op_allowlist_regex\": null, \"cuda.cutlass_op_denylist_regex\": null, \"cuda.enable_cuda_lto\": false, \"cuda.enable_debug_info\": false, \"cuda.enable_ptxas_info\": false, \"cuda.generate_test_runner\": false, \"cuda.use_fast_math\": false, \"cuda.version\": null, \"cuda_backend\": \"triton\", \"custom_op_default_layout_constraint\": \"needs_fixed_stride_order\", \"dce\": false, \"debug\": false, \"debug_fusion\": false, \"debug_index_asserts\": false, \"debug_ir_traceback\": false, \"decompose_mem_bound_mm\": false, \"developer_warnings\": true, \"disable_cpp_codegen\": false, \"disable_padding_cpu\": true, \"disable_progress\": true, \"dynamic_scale_rblock\": true, \"efficient_conv_bn_eval_fx_passes\": false, \"emulate_precision_casts\": false, \"enable_auto_functionalized_v2\": true, \"enable_linear_binary_folding\": false, \"enabled_metric_tables\": \"\", \"epilogue_fusion\": true, \"epilogue_fusion_first\": false, \"estimate_op_runtime\": \"default\", \"external_matmul\": [], \"fallback_random\": false, \"force_disable_caches\": false, \"force_fuse_int_mm_with_mul\": false, \"force_layout_optimization\": false, \"force_pointwise_cat\": false, \"force_same_precision\": true, \"force_shape_pad\": false, \"freezing\": false, \"freezing_discard_parameters\": false, \"fx_graph_cache\": true, \"fx_graph_remote_cache\": null, \"fx_passes_numeric_check\": {\"num_iterations\": 1, \"pre_grad\": false, \"precision\": 0.0001, \"requires_optimizer\": true}, \"generate_intermediate_hooks\": false, \"global_cache_dir\": null, \"graph_partition\": false, \"group_fusion\": false, \"halide.asserts\": false, \"halide.cpu_target\": \"host\", \"halide.debug\": false, \"halide.gpu_target\": \"host-cuda\", \"halide.scan_kernels\": false, \"halide.scheduler_cpu\": \"Adams2019\", \"halide.scheduler_cuda\": \"Anderson2021\", \"implicit_fallbacks\": true, \"inplace_buffers\": true, \"inplace_padding\": true, \"inter_node_bw\": 25, \"intra_node_bw\": 300, \"is_nightly_or_source\": false, \"is_predispatch\": false, \"joint_custom_post_pass\": null, \"joint_custom_pre_pass\": null, \"joint_graph_constant_folding\": true, \"keep_output_stride\": true, \"kernel_name_max_ops\": 10, \"layout_opt_default\": \"1\", \"layout_optimization\": true, \"loop_ordering_after_fusion\": false, \"max_autotune\": false, \"max_autotune_conv_backends\": \"ATEN,TRITON\", \"max_autotune_gemm\": false, \"max_autotune_gemm_backends\": \"ATEN,TRITON,CPP\", \"max_autotune_gemm_search_space\": \"DEFAULT\", \"max_autotune_pointwise\": false, \"max_autotune_subproc_graceful_timeout_seconds\": 1.0, \"max_autotune_subproc_result_timeout_seconds\": 60.0, \"max_autotune_subproc_terminate_timeout_seconds\": 2.0, \"max_epilogue_benchmarked_choices\": 1, \"max_fusion_size\": 64, \"max_pointwise_cat_inputs\": 8, \"memory_planning\": false, \"memory_pool\": \"intermediates\", \"mixed_mm_choice\": \"heuristic\", \"nan_asserts\": false, \"online_softmax\": true, \"optimize_scatter_upon_const_tensor\": true, \"pad_channels_last\": false, \"pad_outputs\": false, \"padding_alignment_bytes\": 128, \"padding_stride_threshold\": 1024, \"pattern_matcher\": true, \"permute_fusion\": false, \"pick_loop_orders\": true, \"post_grad_custom_post_pass\": null, \"post_grad_custom_pre_pass\": null, \"post_grad_fusion_options\": {}, \"pre_grad_custom_pass\": null, \"pre_grad_fusion_options\": {}, \"profile_bandwidth\": false, \"profile_bandwidth_output\": null, \"profile_bandwidth_regex\": \"\", \"profile_bandwidth_with_do_bench_using_profiling\": false, \"profiler_mark_wrapper_call\": false, \"prologue_fusion\": true, \"realize_acc_reads_threshold\": 8, \"realize_opcount_threshold\": 30, \"realize_reads_threshold\": 4, \"remove_pre_grad_passes\": null, \"reorder_for_compute_comm_overlap\": false, \"reorder_for_compute_comm_overlap_passes\": [\"reorder_compute_for_overlap\", \"sink_waits\", \"raise_comms\"], \"reorder_for_locality\": true, \"reorder_for_peak_memory\": true, \"rocm.arch\": [], \"rocm.ck_dir\": null, \"rocm.ck_supported_arch\": [\"gfx90a\", \"gfx942\"], \"rocm.compile_opt_level\": \"-O2\", \"rocm.flush_denormals\": true, \"rocm.generate_test_runner\": false, \"rocm.is_debug\": false, \"rocm.kBatch_sweep\": null, \"rocm.n_max_profiling_configs\": null, \"rocm.print_kernel_resource_usage\": false, \"rocm.rocm_home\": null, \"rocm.save_temps\": false, \"rocm.split_k_threshold\": 16, \"rocm.use_fast_math\": true, \"rocm.use_preselected_instances\": false, \"save_args\": false, \"scalar_asserts\": true, \"score_fusion_memory_threshold\": 10, \"search_autotune_cache\": false, \"shape_padding\": true, \"size_asserts\": true, \"sleep_sec_TESTING_ONLY\": null, \"split_cat_fx_passes\": true, \"split_reductions\": true, \"static_weight_shapes\": true, \"test_configs.autotune_choice_desc_regex\": null, \"test_configs.autotune_choice_name_regex\": null, \"test_configs.force_extern_kernel_in_multi_template\": false, \"test_configs.graphsafe_rng_func_ignores_fallback_random\": false, \"test_configs.max_mm_configs\": null, \"test_configs.runtime_triton_dtype_assert\": false, \"trace.compile_profile\": false, \"trace.debug_dir\": null, \"trace.debug_log\": false, \"trace.dot_graph_shape\": null, \"trace.draw_orig_fx_graph\": false, \"trace.enabled\": true, \"trace.fx_graph\": true, \"trace.fx_graph_transformed\": true, \"trace.graph_diagram\": false, \"trace.info_log\": false, \"trace.ir_post_fusion\": true, \"trace.ir_pre_fusion\": true, \"trace.log_autotuning_results\": false, \"trace.log_inductor_triton_kernel_to_post_grad_node_info\": true, \"trace.log_url_for_graph_xform\": null, \"trace.output_code\": true, \"trace.save_real_tensors\": false, \"trace.upload_tar\": null, \"triton.autotune_at_compile_time\": null, \"triton.autotune_cublasLt\": true, \"triton.autotune_pointwise\": true, \"triton.codegen_upcast_to_fp32\": true, \"triton.cooperative_reductions\": false, \"triton.cudagraph_dynamic_shape_warn_limit\": 50, \"triton.cudagraph_skip_dynamic_graphs\": false, \"triton.cudagraph_support_input_mutation\": false, \"triton.cudagraph_trees\": true, \"triton.cudagraph_trees_history_recording\": false, \"triton.cudagraph_unexpected_rerecord_limit\": 128, \"triton.cudagraphs\": false, \"triton.debug_sync_graph\": false, \"triton.debug_sync_kernel\": false, \"triton.dense_indexing\": false, \"triton.descriptive_names\": \"original_aten\", \"triton.divisible_by_16\": true, \"triton.enable_persistent_tma_matmul\": false, \"triton.fast_path_cudagraph_asserts\": false, \"triton.force_cooperative_reductions\": false, \"triton.force_cudagraph_sync\": false, \"triton.force_cudagraphs_warmup\": false, \"triton.inject_relu_bug_TESTING_ONLY\": null, \"triton.max_tiles\": 2, \"triton.min_split_scan_rblock\": 256, \"triton.multi_kernel\": 0, \"triton.persistent_reductions\": true, \"triton.prefer_nd_tiling\": false, \"triton.skip_cudagraph_warmup\": false, \"triton.skip_l1_cache\": false, \"triton.slow_path_cudagraph_asserts\": true, \"triton.spill_threshold\": 16, \"triton.store_cubin\": false, \"triton.tile_reductions\": false, \"triton.tiling_prevents_pointwise_fusion\": true, \"triton.tiling_prevents_reduction_fusion\": true, \"triton.unique_kernel_names\": true, \"triton.unique_user_kernel_names\": false, \"triton.use_block_ptr\": false, \"triton_kernel_default_layout_constraint\": \"needs_fixed_stride_order\", \"unbacked_symint_fallback\": 8192, \"unroll_reductions_threshold\": 8, \"unsafe_ignore_unsupported_triton_autotune_args\": false, \"use_experimental_benchmarker\": false, \"use_fast_math\": false, \"use_mixed_mm\": true, \"verbose_progress\": false, \"warn_mix_layout\": false, \"worker_start_method\": \"subprocess\"}", "remote_cache_version": 14, "inductor_fx_remote_cache_hit_count": null, "inductor_fx_remote_cache_miss_count": null, "inductor_fx_remote_cache_backend_type": "_ManifoldCache", "inductor_fx_remote_cache_hit_keys": null, "inductor_fx_remote_cache_miss_keys": null, "cuda_version": "12.4.0", "triton_version": "3.2.0", "feature_usage": {"fx_cache": false, "parallel_compile_post_warmup": false}, "compile_time_autotune_time_us": 1137292, "is_runtime": false, "gc_time_us": null, "tensorify_float_attempt": null, "tensorify_float_success": null, "tensorify_float_failure": null, "guard_latency_us": null, "recompile_reason": null, "num_graph_breaks": 0, "triton_kernel_compile_times_us": "[[\"triton_poi_fused_addmm_relu_sigmoid_0\", 25575]]"}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0}
+V0310 11:51:18.076000 35178 /data/users/shangdiy/fbsource/fbcode/caffe2/torch/_dynamo/utils.py:1804] {"chromium_event": {}, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "daff1b448d5b9e836fb824cfb151343e"}
+	{
+	"name": "compile_fx_aot",
+	"ts": 1741632678076018.0,
+	"args": {
+	"compile_id": "0/0",
+	"num_graph_breaks": 0,
+	"frame_key": null,
+	"co_name": null,
+	"co_filename": null,
+	"co_firstlineno": null,
+	"cache_size": null,
+	"accumulated_cache_size": null,
+	"guard_count": null,
+	"shape_env_guard_count": null,
+	"graph_op_count": null,
+	"graph_node_count": null,
+	"graph_input_count": null,
+	"fail_type": null,
+	"fail_reason": null,
+	"fail_user_frame_filename": null,
+	"fail_user_frame_lineno": null,
+	"non_compliant_ops": null,
+	"compliant_custom_ops": null,
+	"restart_reasons": null,
+	"dynamo_time_before_restart_s": null,
+	"has_guarded_code": null,
+	"dynamo_config": "{\"_autograd_backward_strict_mode_conditional_banned_ops\": [\"stride\", \"storage_offset\", \"is_contiguous\"], \"_unsafe_skip_fsdp_module_guards\": false, \"accumulated_recompile_limit\": 256, \"allow_complex_guards_as_runtime_asserts\": false, \"allow_empty_graphs\": false, \"allow_ignore_mark_dynamic\": false, \"allow_rnn\": false, \"allow_unspec_int_on_nn_module\": false, \"allowed_functions_module_string_ignorelist\": [\"torch._decomp\", \"torch._prims\", \"torch._refs\", \"torch.distributions\", \"torch.testing\"], \"assume_static_by_default\": true, \"automatic_dynamic_local_pgo\": true, \"automatic_dynamic_remote_pgo\": null, \"automatic_dynamic_shapes\": true, \"automatic_dynamic_shapes_mark_as\": \"dynamic\", \"capture_autograd_function\": true, \"capture_dynamic_output_shape_ops\": false, \"capture_func_transforms\": true, \"capture_scalar_outputs\": false, \"capture_sparse_compute\": false, \"compiled_autograd\": false, \"compiled_autograd_kwargs_override\": {}, \"cprofile\": false, \"cudagraph_backend_keep_input_mutation\": false, \"cudagraph_backend_support_input_mutation\": false, \"dead_code_elimination\": true, \"disable\": false, \"do_not_emit_runtime_asserts\": false, \"dynamic_shapes\": true, \"enable_compiler_collectives\": false, \"enable_cpp_framelocals_guard_eval\": true, \"enable_cpp_guard_manager\": true, \"enable_cpp_symbolic_shape_guards\": false, \"enable_faithful_generator_behavior\": true, \"enable_trace_contextlib\": true, \"error_on_nested_fx_trace\": true, \"error_on_nested_jit_trace\": true, \"error_on_recompile\": false, \"fail_on_recompile_limit_hit\": false, \"fake_tensor_cache_crosscheck_enabled\": false, \"fake_tensor_cache_enabled\": true, \"force_nn_module_property_static_shapes\": true, \"force_parameter_static_shapes\": true, \"force_unspec_int_unbacked_size_like_on_torchrec_kjt\": false, \"guard_nn_modules\": true, \"guard_nn_modules_using_dict_tags\": true, \"inline_inbuilt_nn_modules\": true, \"issue_3_13_0_warning\": true, \"minimum_call_count\": 1, \"numpy_default_complex\": \"complex128\", \"numpy_default_float\": \"float64\", \"numpy_default_int\": \"int64\", \"only_allow_pt2_compliant_ops\": false, \"optimize_ddp\": true, \"optimize_ddp_lazy_compile\": false, \"prefer_deferred_runtime_asserts_over_guards\": false, \"prepare_freezing\": false, \"raise_on_ctx_manager_usage\": true, \"raise_on_unsafe_aot_autograd\": false, \"recompile_limit\": 8, \"record_compile_time_instruction_count\": false, \"replay_record_enabled\": false, \"report_guard_failures\": true, \"rewrite_assert_with_torch_assert\": true, \"run_gc_after_compile\": true, \"skip_code_recursive_on_recompile_limit_hit\": true, \"skip_fsdp_guards\": true, \"skip_fsdp_hooks\": true, \"skip_nnmodule_hook_guards\": true, \"skip_no_tensor_aliasing_guards_on_parameters\": true, \"skip_tensor_guards_with_matching_dict_tags\": true, \"skip_torchrec\": true, \"skipfiles_inline_module_allowlist\": {}, \"specialize_float\": false, \"specialize_int\": false, \"suppress_errors\": false, \"trace_numpy\": true, \"track_nodes_for_deduplication\": false, \"use_graph_deduplication\": false, \"use_lazy_graph_module\": true, \"use_numpy_random_stream\": false, \"verify_correctness\": false}"
 	},
 	"ph": "E",
 	"cat": "dynamo_timed",
