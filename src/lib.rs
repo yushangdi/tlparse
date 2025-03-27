@@ -459,7 +459,9 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
         // attempt 0 for now.
         let mut compile_id_entry = e.compile_id.clone();
         if let Some(ref mut entry) = compile_id_entry {
-            entry.attempt = Some(0);
+            if entry.frame_compile_id.is_some() && entry.attempt.is_none() {
+                entry.attempt = Some(0);
+            }
         }
 
         // TODO: output should be able to generate this without explicitly creating
