@@ -240,3 +240,29 @@ fn test_export_guard_report() {
         );
     }
 }
+
+#[test]
+fn test_provenance_tracking() {
+    let expected_files = [
+        "provenance_tracking_-_-_-_-.html",
+        "-_-_-_-/inductor_provenance_tracking_node_mappings_11.json",
+    ];
+    // Read the test file
+    let path = Path::new("tests/inputs/inductor_provenance_aot_cuda_log.txt").to_path_buf();
+    let config = tlparse::ParseConfig {
+        inductor_provenance: true,
+        ..Default::default()
+    };
+    let output = tlparse::parse_path(&path, config);
+    assert!(output.is_ok());
+    let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
+    println!("{:?}", map.keys());
+    // Check all files are present
+    for prefix in expected_files {
+        assert!(
+            prefix_exists(&map, prefix),
+            "{} not found in output",
+            prefix
+        );
+    }
+}
