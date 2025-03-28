@@ -829,8 +829,10 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
             filename_pattern: &str,
             directory_name: &str,
         ) -> String {
+            // get the last file that include the filename_pattern in the output
             output
                 .iter()
+                .rev()
                 .find(|(path, _)| {
                     path.to_string_lossy()
                         .contains(&format!("{}/{}", directory_name, filename_pattern))
