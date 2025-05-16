@@ -488,3 +488,59 @@ function findCorrespondingLines(sourceEditorId, lineNumber) {
     
     return result;
 }
+
+
+// Resizable Panels Start
+function setupResizablePanels() {
+    const container = document.querySelector('.editor-container');
+    const pre = document.getElementById('preGradGraph');
+    const post = document.getElementById('postGradGraph');
+    const code = document.getElementById('generatedCode');
+    const divider1 = document.getElementById('divider1');
+    const divider2 = document.getElementById('divider2');
+
+    let isDragging = false;
+    let dragDivider = null;
+
+    function onMouseMove(e) {
+        if (!isDragging || !dragDivider) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const totalWidth = containerRect.width;
+
+        if (dragDivider === divider1) {
+            const newPreWidth = e.clientX - containerRect.left;
+            const newPostWidth = post.offsetWidth + (pre.offsetWidth - newPreWidth);
+            pre.style.flex = `0 0 ${newPreWidth}px`;
+            post.style.flex = `0 0 ${newPostWidth}px`;
+        } else if (dragDivider === divider2) {
+            const preWidth = pre.offsetWidth;
+            const newPostWidth = e.clientX - containerRect.left - preWidth - divider1.offsetWidth;
+            const newCodeWidth = totalWidth - e.clientX + containerRect.left - divider2.offsetWidth;
+            post.style.flex = `0 0 ${newPostWidth}px`;
+            code.style.flex = `0 0 ${newCodeWidth}px`;
+        }
+    }
+
+    function onMouseUp() {
+        isDragging = false;
+        dragDivider = null;
+        document.body.style.cursor = '';
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+    }
+
+    [divider1, divider2].forEach(div => {
+        div.addEventListener('mousedown', e => {
+            isDragging = true;
+            dragDivider = div;
+            document.body.style.cursor = 'col-resize';
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+    });
+}
+
+window.addEventListener('DOMContentLoaded', setupResizablePanels);
+
+// Resizable Panels End
