@@ -9,6 +9,8 @@ let pyCodeToPost = {};
 let postToPyCode = {};
 let postToCppCode = {};
 let cppCodeToPost = {};
+let modelCodeToPreGrad = {};
+let preGradToModelCode = {};
 
 let jsonData = null;
 
@@ -240,6 +242,7 @@ function convertNodeMappingsToLineNumbers() {
     postToPyCode = linePostToPyCode;
     cppCodeToPost = lineCppCodeToPost;
     postToCppCode = linePostToCppCode;
+    mapModelCodeToPreGradGraph();  
 
     console.log('Mappings converted to line numbers:', {
         preToPost,
@@ -247,12 +250,35 @@ function convertNodeMappingsToLineNumbers() {
         pyCodeToPost,
         postToPyCode,
         cppCodeToPost,
-        postToCppCode
+        postToCppCode,
+        modelCodeToPreGrad,
+        preGradToModelCode
     });
 }
 
 
-// Setup editor content
+// Map model code lines to pre-grad graph lines
+function mapModelCodeToPreGradGraph() {
+    const preGradGraphLines = preGradGraphData.map(line => line.trim());
+
+    // Parse model code to extract line numbers
+    const modelCodeLines = document.querySelector('#modelCode pre').textContent.split('\n');
+    modelCodeLines.forEach((line, index) => {
+        const match = line.match(/# (.+)/); // Match any content after #
+        if (match) {
+            const contentAfterHash = match[1].trim();
+            // Check if this content exists in pre-grad graph
+            const preGradIndex = preGradGraphLines.findIndex(preLine => preLine.includes(contentAfterHash));
+            if (preGradIndex !== -1) {
+                // TODO: model code might map to multiple pre-grad lines
+                modelCodeToPreGrad[index + 1] = preGradIndex + 1; // 1-based index
+                preGradToModelCode[preGradIndex + 1] = index + 1; // Reverse mapping
+            }
+        }
+    });
+}
+
+// Setup editor content, add line numbers and highlight corresponding lines
 function setupEditorContent(editorId, lines) {
     if (!lines) return;
     
@@ -265,14 +291,36 @@ function setupEditorContent(editorId, lines) {
         const lineDiv = document.createElement('div');
         lineDiv.className = 'line';
         
-        // Create text nodes instead of using innerHTML
+        // Add line number to the line
         const lineNumber = document.createElement('span');
         lineNumber.className = 'line-number';
         lineNumber.textContent = index + 1;
+        lineDiv.appendChild(lineNumber);
+
         
         const lineContent = document.createElement('span');
         lineContent.className = 'line-content';
         lineContent.textContent = line;
+        // add a clickable link to the line if it's model code
+        if (editorId === 'modelCode') {
+            const match = line.match(/# (.+):(\d+)/);  // Match file path and line number
+            if (match) {
+                const filePath = match[1];
+                const lineNumStr = match[2];
+        
+                const link = document.createElement('a');
+                link.href = `vscode://file/${filePath}:${lineNumStr}`;
+                link.textContent = ' ↗';
+                link.title = `Open in VSCode: ${filePath}:${lineNumStr}`;
+                link.style.marginLeft = '4px';
+                link.style.fontSize = 'smaller';
+                link.style.color = '#007acc';
+                link.style.textDecoration = 'none';
+                link.style.cursor = 'pointer';
+        
+                lineDiv.appendChild(link);
+            }
+        }
         
         // Check if this line has any matches
         const lineNum = index + 1;
@@ -296,7 +344,6 @@ function setupEditorContent(editorId, lines) {
             lineContent.classList.add('has-match');
         }
         
-        lineDiv.appendChild(lineNumber);
         lineDiv.appendChild(lineContent);
         
         // Add both click and hover handlers
@@ -354,10 +401,12 @@ function handleLineClick(editorId, lineNumber) {
 function initializeData() {
     try {
         // Get content from pre tags
+        const modelCode = document.querySelector('#modelCode pre');
         const preGradGraph = document.querySelector('#preGradGraph pre');
         const postGradGraph = document.querySelector('#postGradGraph pre');
         const generatedCode = document.querySelector('#generatedCode pre');
 
+        if (modelCode) modelCodeLines = modelCode.textContent.split('\n');
         if (preGradGraph) preGradGraphData = preGradGraph.textContent.split('\n');
         if (postGradGraph) postGradGraphData = postGradGraph.textContent.split('\n');
         if (generatedCode) {
@@ -380,6 +429,7 @@ function initializeData() {
         setupEditorContent('preGradGraph', preGradGraphData);
         setupEditorContent('postGradGraph', postGradGraphData);
         setupEditorContent('generatedCode', codeData || cppCodeData);
+        setupEditorContent('modelCode', modelCodeLines);
 
         // If it's C++ code, scroll to run_impl
         if (cppCodeData) {
@@ -402,7 +452,7 @@ function initializeData() {
 // Call initialization when the page loads
 window.addEventListener('DOMContentLoaded', initializeData);
 
-// Highlight corresponding lines
+// Update highlightCorrespondingLines to include model code
 function highlightCorrespondingLines(sourceEditorId, lineNumber) {
     let correspondingLines = findCorrespondingLines(sourceEditorId, lineNumber);
     
@@ -498,6 +548,7 @@ function setupResizablePanels() {
     const code = document.getElementById('generatedCode');
     const divider1 = document.getElementById('divider1');
     const divider2 = document.getElementById('divider2');
+    const divider3 = document.getElementById('divider3');
 
     let isDragging = false;
     let dragDivider = null;
@@ -517,6 +568,12 @@ function setupResizablePanels() {
             const preWidth = pre.offsetWidth;
             const newPostWidth = e.clientX - containerRect.left - preWidth - divider1.offsetWidth;
             const newCodeWidth = totalWidth - e.clientX + containerRect.left - divider2.offsetWidth;
+            post.style.flex = `0 0 ${newPostWidth}px`;
+            code.style.flex = `0 0 ${newCodeWidth}px`;
+        } else if (dragDivider === divider3) {
+            const preWidth = pre.offsetWidth;
+            const newPostWidth = e.clientX - containerRect.left - preWidth - divider2.offsetWidth;
+            const newCodeWidth = totalWidth - e.clientX + containerRect.left - divider3.offsetWidth;
             post.style.flex = `0 0 ${newPostWidth}px`;
             code.style.flex = `0 0 ${newCodeWidth}px`;
         }

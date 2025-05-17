@@ -12,14 +12,26 @@
 
 <body>
     <div class="editor-container">
+               
+        <div id="modelCode" class="editor">
+            <pre>
+/Users/shangdiy/Desktop/demo/demo.py:
+def forward:
+13: x = self.fc1(x)  # /Users/shangdiy/Desktop/demo/demo.py:13
+14: x = self.relu(x)  # /Users/shangdiy/Desktop/demo/demo.py:14
+15: x = self.sigmoid(x)  # /Users/shangdiy/Desktop/demo/demo.py:15
+16: d = a * 3.14  # /Users/shangdiy/Desktop/demo/demo.py:16
+            </pre>
+        </div>
+        <div id="divider1" class="divider"></div>
         <div id="preGradGraph" class="editor">
             <pre>{pre_grad_graph_content}</pre>
         </div>
-        <div id="divider1" class="divider"></div>
+        <div id="divider2" class="divider"></div>
         <div id="postGradGraph" class="editor">
             <pre>{post_grad_graph_content}</pre>
         </div>
-        <div id="divider2" class="divider"></div>
+        <div id="divider3" class="divider"></div>
         <div id="generatedCode" class="editor">
             <pre>{output_code_content | format_unescaped}{aot_code_content}</pre>
         </div>
