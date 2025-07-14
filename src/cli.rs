@@ -98,19 +98,31 @@ fn main() -> anyhow::Result<()> {
         export: cli.export,
         inductor_provenance: cli.inductor_provenance,
     };
-
-    let output = parse_path(&path, config)?;
-
-    for (filename, path) in output {
-        let out_file = out_path.join(filename);
-        if let Some(dir) = out_file.parent() {
-            fs::create_dir_all(dir)?;
-        }
-        fs::write(out_file, path)?;
-    }
+    let per_rank_config = config;
+    let main_output_file = parse_and_write_output(per_rank_config, &path, &out_path);
 
     if !cli.no_browser {
-        opener::open(out_path.join("index.html"))?;
+        opener::open(main_output_file.unwrap())?;
     }
     Ok(())
+}
+
+// Helper function to parse a log file and write output to a directory
+// Returns the relative path to the main output file within the output directory
+fn parse_and_write_output(
+    config: ParseConfig,
+    log_path: &PathBuf,
+    output_dir: &PathBuf,
+) -> anyhow::Result<PathBuf> {
+    let output = parse_path(log_path, config)?;
+
+    // Write output files to output directory
+    for (filename, content) in output {
+        let out_path = output_dir.join(&filename);
+        if let Some(dir) = out_path.parent() {
+            fs::create_dir_all(dir)?;
+        }
+        fs::write(out_path, content)?;
+    }
+    Ok(output_dir.join("index.html"))
 }
