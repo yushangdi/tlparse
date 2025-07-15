@@ -304,7 +304,7 @@ fn handle_guard(
     });
 }
 
-pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOutput> {
+pub fn parse_path(path: &PathBuf, config: &ParseConfig) -> anyhow::Result<ParseOutput> {
     let strict = config.strict;
     if !path.is_file() {
         bail!("{} is not a file", path.display())
@@ -442,9 +442,10 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
         })
         .peekable();
 
-    let mut all_parsers = default_parsers(&tt, &config);
-    all_parsers.extend(config.custom_parsers);
+    let default_parsers = default_parsers(&tt, config);
+    let mut all_parsers: Vec<&Box<dyn StructuredLogParser>> = default_parsers.iter().collect();
     let mut chromium_events: Vec<serde_json::Value> = Vec::new();
+    all_parsers.extend(config.custom_parsers.iter());
 
     while let Some((lineno, line)) = iter.next() {
         bytes_read += line.len() as u64;
@@ -959,7 +960,7 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
         let index_context = ExportIndexContext {
             css: EXPORT_CSS,
             javascript: JAVASCRIPT,
-            custom_header_html: config.custom_header_html,
+            custom_header_html: config.custom_header_html.clone(),
             directory: directory
                 .drain(..)
                 .map(|(x, y)| (x.map_or("(unknown)".to_string(), |e| e.to_string()), y))
@@ -1015,7 +1016,7 @@ pub fn parse_path(path: &PathBuf, config: ParseConfig) -> anyhow::Result<ParseOu
     let index_context = IndexContext {
         css: CSS,
         javascript: JAVASCRIPT,
-        custom_header_html: config.custom_header_html,
+        custom_header_html: config.custom_header_html.clone(),
         directory: directory
             .drain(..)
             .map(|(x, y)| (x.map_or("(unknown)".to_string(), |e| e.to_string()), y))

@@ -47,6 +47,9 @@ pub struct Cli {
     /// For inductor provenance tracking highlighter
     #[arg(short, long)]
     inductor_provenance: bool,
+    /// Parse all ranks and create a unified multi-rank report
+    #[arg(long)]
+    all_ranks_html: bool,
 }
 
 fn main() -> anyhow::Result<()> {
@@ -75,18 +78,14 @@ fn main() -> anyhow::Result<()> {
         cli.path
     };
 
-    let out_path = cli.out;
-
-    if out_path.exists() {
-        if !cli.overwrite {
-            bail!(
-                "Directory {} already exists, use -o OUTDIR to write to another location or pass --overwrite to overwrite the old contents",
-                out_path.display()
-            );
+    if cli.all_ranks_html {
+        if cli.latest {
+            bail!("--latest cannot be used with --all-ranks-html");
         }
-        fs::remove_dir_all(&out_path)?;
+        if cli.no_browser {
+            bail!("--no-browser not yet implemented with --all-ranks-html");
+        }
     }
-    fs::create_dir(&out_path)?;
 
     let config = ParseConfig {
         strict: cli.strict,
@@ -98,25 +97,45 @@ fn main() -> anyhow::Result<()> {
         export: cli.export,
         inductor_provenance: cli.inductor_provenance,
     };
-    let per_rank_config = config;
-    let main_output_file = parse_and_write_output(per_rank_config, &path, &out_path);
 
-    if !cli.no_browser {
-        opener::open(main_output_file.unwrap())?;
+    if cli.all_ranks_html {
+        handle_all_ranks(&config, path, cli.out, cli.overwrite)?;
+    } else {
+        handle_one_rank(
+            &config,
+            path,
+            cli.latest,
+            cli.out,
+            !cli.no_browser,
+            cli.overwrite,
+        )?;
     }
     Ok(())
 }
 
-// Helper function to parse a log file and write output to a directory
-// Returns the relative path to the main output file within the output directory
+/// Create the output directory
+fn setup_output_directory(out_path: &PathBuf, overwrite: bool) -> anyhow::Result<()> {
+    if out_path.exists() {
+        if !overwrite {
+            bail!(
+                "Directory {} already exists; pass --overwrite to replace it or use -o OUTDIR",
+                out_path.display()
+            );
+        }
+        fs::remove_dir_all(&out_path)?;
+    }
+    fs::create_dir_all(&out_path)?;
+    Ok(())
+}
+
+/// Parse a log file and write the rendered artefacts into `output_dir`.
 fn parse_and_write_output(
-    config: ParseConfig,
+    config: &ParseConfig,
     log_path: &PathBuf,
     output_dir: &PathBuf,
 ) -> anyhow::Result<PathBuf> {
     let output = parse_path(log_path, config)?;
 
-    // Write output files to output directory
     for (filename, content) in output {
         let out_path = output_dir.join(&filename);
         if let Some(dir) = out_path.parent() {
@@ -125,4 +144,97 @@ fn parse_and_write_output(
         fs::write(out_path, content)?;
     }
     Ok(output_dir.join("index.html"))
+}
+
+fn handle_one_rank(
+    cfg: &ParseConfig,
+    input_path: PathBuf,
+    latest: bool,
+    out_dir: PathBuf,
+    open_browser: bool,
+    overwrite: bool,
+) -> anyhow::Result<()> {
+    // Resolve which log file we should parse
+    let log_path = if latest {
+        if !input_path.is_dir() {
+            bail!(
+                "Input path {} is not a directory (required with --latest)",
+                input_path.display()
+            );
+        }
+        std::fs::read_dir(input_path)?
+            .flatten()
+            .filter(|e| e.metadata().ok().map_or(false, |m| m.is_file()))
+            .max_by_key(|e| e.metadata().unwrap().modified().unwrap())
+            .map(|e| e.path())
+            .context("No files found in directory for --latest")?
+    } else {
+        input_path.clone()
+    };
+
+    setup_output_directory(&out_dir, overwrite)?;
+    let main_output_file = parse_and_write_output(cfg, &log_path, &out_dir)?;
+
+    if open_browser {
+        opener::open(&main_output_file)?;
+    }
+    Ok(())
+}
+
+fn handle_all_ranks(
+    cfg: &ParseConfig,
+    path: PathBuf,
+    out_path: PathBuf,
+    overwrite: bool,
+) -> anyhow::Result<()> {
+    let input_dir = path;
+    if !input_dir.is_dir() {
+        bail!(
+            "Input path {} must be a directory when using --all-ranks-html",
+            input_dir.display()
+        );
+    }
+
+    setup_output_directory(&out_path, overwrite)?;
+
+    // Discover rank log files
+    let rank_logs: Vec<_> = std::fs::read_dir(&input_dir)?
+        .flatten()
+        .filter_map(|entry| {
+            let path = entry.path();
+            if !path.is_file() {
+                return None;
+            }
+            let filename = path.file_name()?.to_str()?;
+            filename
+                .strip_prefix("dedicated_log_torch_trace_rank_")?
+                .strip_suffix(".log")?
+                .split('_')
+                .next()?
+                .parse::<u32>()
+                .ok()
+                .map(|rank_num| (path.clone(), rank_num))
+        })
+        .collect();
+
+    if rank_logs.is_empty() {
+        bail!(
+            "No rank log files found in directory {}",
+            input_dir.display()
+        );
+    }
+
+    for (log_path, rank_num) in rank_logs {
+        let subdir = out_path.join(format!("rank_{rank_num}"));
+        println!("Processing rank {rank_num} → {}", subdir.display());
+
+        handle_one_rank(cfg, log_path, false, subdir, false, overwrite)?;
+    }
+
+    println!(
+        "Multi-rank report generated under {}\nIndividual pages: rank_*/index.html",
+        out_path.display()
+    );
+    // TODO: generate and open a landing page
+    Ok(())
 }

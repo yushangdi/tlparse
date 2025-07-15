@@ -27,7 +27,7 @@ fn test_parse_simple() {
         strict: true,
         ..Default::default()
     };
-    let output = tlparse::parse_path(&path, config);
+    let output = tlparse::parse_path(&path, &config);
     assert!(output.is_ok());
     let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
     // Check all files are present
@@ -83,7 +83,7 @@ fn test_parse_compilation_metrics() {
         strict: true,
         ..Default::default()
     };
-    let output = tlparse::parse_path(&path, config);
+    let output = tlparse::parse_path(&path, &config);
     assert!(output.is_ok());
     let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
     // Check all files are present
@@ -242,7 +242,7 @@ fn test_parse_compilation_failures() {
         strict: true,
         ..Default::default()
     };
-    let output = tlparse::parse_path(&path, config);
+    let output = tlparse::parse_path(&path, &config);
     assert!(output.is_ok());
     let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
     // Check all files are present
@@ -267,7 +267,7 @@ fn test_parse_artifact() {
         strict: true,
         ..Default::default()
     };
-    let output = tlparse::parse_path(&path, config);
+    let output = tlparse::parse_path(&path, &config);
     assert!(output.is_ok());
     let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
     // Check all files are present
@@ -291,7 +291,7 @@ fn test_parse_chromium_event() {
         strict: true,
         ..Default::default()
     };
-    let output = tlparse::parse_path(&path, config);
+    let output = tlparse::parse_path(&path, &config);
     assert!(output.is_ok());
     let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
     // Check all files are present
@@ -319,7 +319,7 @@ fn test_cache_hit_miss() {
         strict: true,
         ..Default::default()
     };
-    let output = tlparse::parse_path(&path, config);
+    let output = tlparse::parse_path(&path, &config);
     assert!(output.is_ok());
     let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
     // Check all files are present
@@ -348,7 +348,7 @@ fn test_export_report() {
         export: true,
         ..Default::default()
     };
-    let output = tlparse::parse_path(&path, config);
+    let output = tlparse::parse_path(&path, &config);
     assert!(output.is_ok());
     let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
     println!("{:?}", map.keys());
@@ -378,7 +378,7 @@ fn test_export_guard_report() {
         export: true,
         ..Default::default()
     };
-    let output = tlparse::parse_path(&path, config);
+    let output = tlparse::parse_path(&path, &config);
     assert!(output.is_ok());
     let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
     println!("{:?}", map.keys());
@@ -406,7 +406,7 @@ fn test_provenance_tracking() {
         inductor_provenance: true,
         ..Default::default()
     };
-    let output = tlparse::parse_path(&path, config);
+    let output = tlparse::parse_path(&path, &config);
     assert!(output.is_ok());
     let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
     println!("{:?}", map.keys());
