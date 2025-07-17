@@ -832,3 +832,12 @@ pub struct ProvenanceContext<'a> {
     pub aot_code_content: String,
     pub node_mappings_content: String,
 }
+
+#[derive(serde::Serialize)]
+pub struct MultiRankContext<'a> {
+    pub css: &'a str,
+    pub custom_header_html: &'a str,
+    pub num_ranks: usize,
+    pub ranks: Vec<String>,
+    pub qps: &'a str,
+}

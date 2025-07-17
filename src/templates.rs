@@ -529,3 +529,33 @@ pub static TEMPLATE_SYMBOLIC_GUARD_INFO: &str = r#"
 pub static PROVENANCE_CSS: &str = include_str!("provenance.css");
 pub static PROVENANCE_JS: &str = include_str!("provenance.js");
 pub static TEMPLATE_PROVENANCE_TRACKING: &str = include_str!("provenance.html");
+
+pub static TEMPLATE_MULTI_RANK_INDEX: &str = r#"
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<style>
+{css | format_unescaped}
+</style>
+<body>
+<div>
+{custom_header_html | format_unescaped}
+<h2>Multi-Rank TLParse Report</h2>
+<p>
+This report contains TLParse links from <strong>{num_ranks}</strong> rank(s). Click on any rank below
+to view its detailed compilation report.
+</p>
+<p>
+Individual rank reports:
+</p>
+<ul>
+{{ for rank in ranks }}
+    <li><a href="rank_{rank}/index.html">Rank {rank}</a></li>
+{{ endfor }}
+</ul>
+</div>
+{qps | format_unescaped}
+</body>
+</html>
+"#;
