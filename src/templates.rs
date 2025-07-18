@@ -546,6 +546,14 @@ pub static TEMPLATE_MULTI_RANK_INDEX: &str = r#"
 This report contains TLParse links from <strong>{num_ranks}</strong> rank(s). Click on any rank below
 to view its detailed compilation report.
 </p>
+{{ if has_chromium_events }}
+<h3> Chromium Events </h3>
+<p>
+PT2 generates <a href='chromium_events.json'>Chromium Trace Events</a> in JSON on specific events during compilation.
+You can download and view them in a tool like <a href='https://ui.perfetto.dev/'>Perfetto</a>.
+This is a combined trace from all ranks.
+</p>
+{{ endif }}
 <p>
 Individual rank reports:
 </p>

@@ -561,3 +561,146 @@ fn test_all_ranks_no_logs() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
+
+#[test]
+fn test_all_ranks_chromium_events_combined() -> Result<(), Box<dyn std::error::Error>> {
+    let input_dir = PathBuf::from("tests/inputs/multi_rank_logs");
+    let temp_out_dir = tempdir()?;
+    let out_dir = temp_out_dir.path();
+
+    let mut cmd = Command::cargo_bin("tlparse")?;
+    cmd.arg(&input_dir)
+        .arg("--all-ranks-html")
+        .arg("--overwrite")
+        .arg("-o")
+        .arg(out_dir)
+        .arg("--no-browser");
+    cmd.assert().success();
+
+    // check that chromium_events.json is created and contains events from all ranks
+    let combined_events_path = out_dir.join("chromium_events.json");
+    assert!(combined_events_path.exists());
+
+    let events_content = fs::read_to_string(combined_events_path)?;
+    let events: Vec<serde_json::Value> = serde_json::from_str(&events_content)?;
+    assert!(!events.is_empty());
+
+    // collect all unique process IDs (ranks) from the events
+    let pids: std::collections::HashSet<u64> = events
+        .iter()
+        .filter_map(|event| event.get("pid").and_then(|v| v.as_u64()))
+        .collect();
+
+    let expected_pids: std::collections::HashSet<u64> = [0, 2].iter().cloned().collect();
+    assert_eq!(pids, expected_pids);
+
+    // verify each rank-specific chromium_events.json file
+    for rank in 0u64..=2 {
+        let rank_events_path = out_dir.join(format!("rank_{}/chromium_events.json", rank));
+        assert!(rank_events_path.exists());
+        let rank_events_content = fs::read_to_string(&rank_events_path)?;
+        let rank_events: Vec<serde_json::Value> = serde_json::from_str(&rank_events_content)?;
+
+        if expected_pids.contains(&(rank as u64)) {
+            assert!(!rank_events.is_empty());
+            let combined_for_rank: Vec<&serde_json::Value> = events
+                .iter()
+                .filter(|ev| ev.get("pid").and_then(|v| v.as_u64()) == Some(rank as u64))
+                .collect();
+            assert_eq!(rank_events.len(), combined_for_rank.len());
+        } else {
+            assert!(rank_events.is_empty());
+        }
+    }
+
+    let landing_page_path = out_dir.join("index.html");
+    assert!(landing_page_path.exists());
+    let landing_content = fs::read_to_string(landing_page_path)?;
+    for i in [0, 1, 2] {
+        assert!(landing_content.contains(&format!("rank_{}", i)));
+        assert!(out_dir.join(format!("rank_{}/index.html", i)).exists());
+    }
+
+    Ok(())
+}
+
+#[test]
+fn test_all_ranks_chromium_events_sparse() -> Result<(), Box<dyn std::error::Error>> {
+    let input_dir = PathBuf::from("tests/inputs/multi_rank_logs");
+    let temp_out_dir = tempdir()?;
+    let out_dir = temp_out_dir.path();
+
+    let chromium_log_source = Path::new("tests/inputs/chromium_events.log");
+
+    // Rank 0 and 2 will have traces rank 1 will have an empty log (no trace events).
+    fs::copy(
+        &chromium_log_source,
+        input_dir.join("dedicated_log_torch_trace_rank_0.log"),
+    )?;
+
+    {
+        let rank1_path = input_dir.join("dedicated_log_torch_trace_rank_1.log");
+        fs::File::create(rank1_path)?;
+    }
+
+    fs::copy(
+        &chromium_log_source,
+        input_dir.join("dedicated_log_torch_trace_rank_2.log"),
+    )?;
+
+    let mut cmd = Command::cargo_bin("tlparse")?;
+    cmd.arg(input_dir)
+        .arg("--all-ranks-html")
+        .arg("--overwrite")
+        .arg("-o")
+        .arg(out_dir)
+        .arg("--no-browser");
+    cmd.assert().success();
+
+    let combined_events_path = out_dir.join("chromium_events.json");
+    assert!(combined_events_path.exists());
+
+    let events_content = fs::read_to_string(combined_events_path)?;
+    let events: Vec<serde_json::Value> = serde_json::from_str(&events_content)?;
+    assert!(!events.is_empty());
+
+    // collect all unique process IDs (ranks) from the events
+    let pids: std::collections::HashSet<u64> = events
+        .iter()
+        .filter_map(|event| event.get("pid").and_then(|v| v.as_u64()))
+        .collect();
+
+    let expected_pids: std::collections::HashSet<u64> = [0, 2].iter().cloned().collect();
+    assert_eq!(pids, expected_pids);
+
+    // verify each rank-specific chromium_events.json file
+    for rank in 0u64..=2 {
+        let rank_events_path = out_dir.join(format!("rank_{}/chromium_events.json", rank));
+        assert!(rank_events_path.exists());
+        let rank_events_content = fs::read_to_string(&rank_events_path)?;
+        let rank_events: Vec<serde_json::Value> = serde_json::from_str(&rank_events_content)?;
+
+        if expected_pids.contains(&(rank as u64)) {
+            assert!(!rank_events.is_empty());
+            let combined_for_rank: Vec<&serde_json::Value> = events
+                .iter()
+                .filter(|ev| ev.get("pid").and_then(|v| v.as_u64()) == Some(rank as u64))
+                .collect();
+            assert_eq!(rank_events.len(), combined_for_rank.len());
+        } else {
+            assert!(rank_events.is_empty());
+        }
+    }
+
+    let landing_page_path = out_dir.join("index.html");
+    assert!(landing_page_path.exists());
+    let landing_content = fs::read_to_string(landing_page_path)?;
+
+    for i in 0..3 {
+        assert!(landing_content.contains(&format!("rank_{}", i)));
+    }
+
+    assert!(landing_content.contains("chromium_events.json"));
+
+    Ok(())
+}
