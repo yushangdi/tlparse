@@ -24,6 +24,12 @@ summary::-webkit-details-marker { color: #00ACF3; font-size: 125%; margin-right:
 summary:focus { outline-style: none; }
 article > details > summary { font-size: 28px; margin-top: 16px; }
 details > p { margin-left: 24px; }
+        .warning-box {
+            background-color:rgb(249, 178, 178);
+            border: 1px solidrgb(251, 251, 251);
+            padding: 12px 16px;
+            margin: 16px 0;
+        }
 details details summary { font-size: 16px; }
 "#;
 
@@ -541,6 +547,11 @@ pub static TEMPLATE_MULTI_RANK_INDEX: &str = r#"
 <body>
 <div>
 {custom_header_html | format_unescaped}
+{{ if show_desync_warning }}
+<div class="warning-box">
+    <p><strong>Warning:</strong> Placeholder desync warning message.</p>
+</div>
+{{ endif }}
 <h2>Multi-Rank TLParse Report</h2>
 <p>
 This report contains TLParse links from <strong>{num_ranks}</strong> rank(s). Click on any rank below

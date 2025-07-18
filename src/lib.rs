@@ -1189,6 +1189,7 @@ pub fn generate_multi_rank_html(
         ranks: sorted_ranks,
         qps: TEMPLATE_QUERY_PARAM_SCRIPT,
         has_chromium_events,
+        show_desync_warning: false, // placeholder for future condition
     };
     let html = tt.render("multi_rank_index.html", &ctx)?;
     let landing_page_path = out_path.join("index.html");

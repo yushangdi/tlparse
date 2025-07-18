@@ -841,4 +841,5 @@ pub struct MultiRankContext<'a> {
     pub ranks: Vec<String>,
     pub qps: &'a str,
     pub has_chromium_events: bool,
+    pub show_desync_warning: bool,
 }
