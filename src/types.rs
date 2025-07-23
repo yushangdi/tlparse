@@ -28,6 +28,14 @@ pub type FxIndexMap<K, V> = IndexMap<K, V, BuildHasherDefault<FxHasher>>;
 pub struct RankMetaData {
     pub rank: u32,
     pub compile_ids: FxHashSet<String>,
+    pub cache_sequence: String,
+}
+
+/// Grouping of ranks that share the same cache hit/miss sequence.
+#[derive(Debug, Serialize)]
+pub struct CacheDivergenceGroup {
+    pub sequence: String,
+    pub ranks: String,
 }
 
 pub fn extract_eval_with_key_id(filename: &str) -> Option<u64> {
@@ -849,4 +857,5 @@ pub struct MultiRankContext<'a> {
     pub qps: &'a str,
     pub has_chromium_events: bool,
     pub show_desync_warning: bool,
+    pub divergence_groups: Vec<CacheDivergenceGroup>,
 }

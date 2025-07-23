@@ -22,7 +22,7 @@ pub mod parsers;
 mod templates;
 mod types;
 
-pub use types::RankMetaData;
+pub use types::{CacheDivergenceGroup, RankMetaData};
 
 #[derive(Debug)]
 enum ParserResult {
@@ -1179,6 +1179,7 @@ pub fn generate_multi_rank_html(
     cfg: &ParseConfig,
     has_chromium_events: bool,
     show_desync_warning: bool,
+    divergence_groups: Vec<CacheDivergenceGroup>,
 ) -> anyhow::Result<(PathBuf, String)> {
     // Create the TinyTemplate instance for rendering the landing page.
     let mut tt = TinyTemplate::new();
@@ -1193,6 +1194,7 @@ pub fn generate_multi_rank_html(
         qps: TEMPLATE_QUERY_PARAM_SCRIPT,
         has_chromium_events,
         show_desync_warning,
+        divergence_groups,
     };
     let html = tt.render("multi_rank_index.html", &ctx)?;
     let landing_page_path = out_path.join("index.html");

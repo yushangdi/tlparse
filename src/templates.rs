@@ -550,6 +550,14 @@ pub static TEMPLATE_MULTI_RANK_INDEX: &str = r#"
 {{ if show_desync_warning }}
 <div class="warning-box">
     <p><strong>Warning:</strong> Diverging Compilation IDs detected across ranks. This may lead to hangs or timeouts during distributed execution.</p>
+    {{ if divergence_groups }}
+    <p><strong>Warning</strong>: Diverging Cache hit/miss patterns detected across ranks. Cache hit/miss pattern groups:</p>
+    <ul>
+        {{ for group in divergence_groups }}
+            <li>Ranks: {group.ranks}</li>
+        {{ endfor }}
+    </ul>
+    {{ endif }}
 </div>
 {{ endif }}
 <h2>Multi-Rank TLParse Report</h2>

@@ -591,11 +591,11 @@ fn test_all_ranks_chromium_events_combined() -> Result<(), Box<dyn std::error::E
         .filter_map(|event| event.get("pid").and_then(|v| v.as_u64()))
         .collect();
 
-    let expected_pids: std::collections::HashSet<u64> = [0, 2].iter().cloned().collect();
+    let expected_pids: std::collections::HashSet<u64> = [0, 2, 3].iter().cloned().collect();
     assert_eq!(pids, expected_pids);
 
     // verify each rank-specific chromium_events.json file
-    for rank in 0u64..=2 {
+    for rank in 0u64..=3 {
         let rank_events_path = out_dir.join(format!("rank_{}/chromium_events.json", rank));
         assert!(rank_events_path.exists());
         let rank_events_content = fs::read_to_string(&rank_events_path)?;
@@ -616,7 +616,7 @@ fn test_all_ranks_chromium_events_combined() -> Result<(), Box<dyn std::error::E
     let landing_page_path = out_dir.join("index.html");
     assert!(landing_page_path.exists());
     let landing_content = fs::read_to_string(landing_page_path)?;
-    for i in [0, 1, 2] {
+    for i in 0..4 {
         assert!(landing_content.contains(&format!("rank_{}", i)));
         assert!(out_dir.join(format!("rank_{}/index.html", i)).exists());
     }
@@ -670,11 +670,11 @@ fn test_all_ranks_chromium_events_sparse() -> Result<(), Box<dyn std::error::Err
         .filter_map(|event| event.get("pid").and_then(|v| v.as_u64()))
         .collect();
 
-    let expected_pids: std::collections::HashSet<u64> = [0, 2].iter().cloned().collect();
+    let expected_pids: std::collections::HashSet<u64> = [0, 2, 3].iter().cloned().collect();
     assert_eq!(pids, expected_pids);
 
     // verify each rank-specific chromium_events.json file
-    for rank in 0u64..=2 {
+    for rank in 0u64..=3 {
         let rank_events_path = out_dir.join(format!("rank_{}/chromium_events.json", rank));
         assert!(rank_events_path.exists());
         let rank_events_content = fs::read_to_string(&rank_events_path)?;
@@ -696,7 +696,7 @@ fn test_all_ranks_chromium_events_sparse() -> Result<(), Box<dyn std::error::Err
     assert!(landing_page_path.exists());
     let landing_content = fs::read_to_string(landing_page_path)?;
 
-    for i in 0..3 {
+    for i in 0..4 {
         assert!(landing_content.contains(&format!("rank_{}", i)));
     }
 
@@ -772,6 +772,95 @@ fn test_no_compile_id_divergence() -> Result<(), Box<dyn std::error::Error>> {
         !landing_content.contains("Diverging Compilation IDs detected"),
         "Did not expect divergence warning for identical logs"
     );
+
+    Ok(())
+}
+
+// Detect diverging cache hit/miss patterns: should raise warning
+#[test]
+fn test_diverging_cache_events_warning() -> Result<(), Box<dyn std::error::Error>> {
+    // Create temp input dir with different logs for rank 0 and 1
+    let temp_in = tempdir()?;
+    let src_log_hits = PathBuf::from("tests/inputs/cache_hit_miss.log");
+    let src_log_no_hits = PathBuf::from("tests/inputs/simple.log");
+
+    fs::copy(
+        &src_log_hits,
+        temp_in.path().join("dedicated_log_torch_trace_rank_0.log"),
+    )?;
+    fs::copy(
+        &src_log_no_hits,
+        temp_in.path().join("dedicated_log_torch_trace_rank_1.log"),
+    )?;
+
+    let temp_out = tempdir()?;
+
+    let mut cmd = Command::cargo_bin("tlparse")?;
+    cmd.arg(temp_in.path())
+        .arg("--all-ranks-html")
+        .arg("--overwrite")
+        .arg("-o")
+        .arg(temp_out.path())
+        .arg("--no-browser");
+    cmd.assert().success();
+
+    let landing_page = temp_out.path().join("index.html");
+    let landing_content = fs::read_to_string(&landing_page)?;
+    assert!(landing_content.contains("Diverging Cache hit/miss patterns detected"));
+
+    Ok(())
+}
+
+// Two ranks with identical cache logs, no divergence warning
+#[test]
+fn test_no_cache_event_divergence() -> Result<(), Box<dyn std::error::Error>> {
+    // Create temp input dir with identical logs for rank 0 and 1
+    let temp_in = tempdir()?;
+    let src_log = PathBuf::from("tests/inputs/cache_hit_miss.log");
+
+    for rank in 0..=1 {
+        let dest = temp_in
+            .path()
+            .join(format!("dedicated_log_torch_trace_rank_{}.log", rank));
+        fs::copy(&src_log, dest)?;
+    }
+
+    let temp_out = tempdir()?;
+
+    let mut cmd = Command::cargo_bin("tlparse")?;
+    cmd.arg(temp_in.path())
+        .arg("--all-ranks-html")
+        .arg("--overwrite")
+        .arg("-o")
+        .arg(temp_out.path())
+        .arg("--no-browser");
+    cmd.assert().success();
+
+    let landing_page = temp_out.path().join("index.html");
+    let landing_content = fs::read_to_string(&landing_page)?;
+    assert!(!landing_content.contains("Diverging Cache hit/miss patterns detected"));
+
+    Ok(())
+}
+
+// Test diverging cache hit/miss patterns using the existing multi_rank_logs directory should create > 2 groups
+#[test]
+fn test_diverging_cache_events_multiple_groups() -> Result<(), Box<dyn std::error::Error>> {
+    let input_dir = PathBuf::from("tests/inputs/multi_rank_logs");
+    let temp_out = tempdir()?;
+
+    let mut cmd = Command::cargo_bin("tlparse")?;
+    cmd.arg(&input_dir)
+        .arg("--all-ranks-html")
+        .arg("--overwrite")
+        .arg("-o")
+        .arg(temp_out.path())
+        .arg("--no-browser");
+    cmd.assert().success();
+
+    let landing_page = temp_out.path().join("index.html");
+    let landing_content = fs::read_to_string(&landing_page)?;
+    assert!(landing_content.contains("Diverging Cache hit/miss patterns detected"));
 
     Ok(())
 }
