@@ -687,7 +687,7 @@ pub fn read_runtime_estimations(
     read_artifacts(
         out_path,
         rank_nums,
-        "inductor_tlparse_runtime",
+        "inductor_runtime_and_tensor_meta",
         |content, rank, graph| {
             #[derive(serde::Deserialize)]
             struct RuntimeJson {

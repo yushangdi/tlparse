@@ -1096,3 +1096,63 @@ fn test_runtime_analysis_mismatched_graphs() -> Result<(), Box<dyn std::error::E
 
     Ok(())
 }
+
+#[test]
+fn test_chromium_trace_with_runtime() -> Result<(), Box<dyn std::error::Error>> {
+    let input_dir = PathBuf::from("tests/inputs/multi_rank_runtime");
+    let temp_out = tempdir()?;
+    let out_dir = temp_out.path();
+
+    Command::cargo_bin("tlparse")?
+        .arg(&input_dir)
+        .args(&["--all-ranks-html", "--overwrite", "-o"])
+        .arg(&out_dir)
+        .arg("--no-browser")
+        .assert()
+        .success();
+
+    let runtime_trace_path = out_dir.join("chromium_trace_with_runtime.json");
+    assert!(runtime_trace_path.exists());
+
+    let trace_events: Vec<serde_json::Value> =
+        serde_json::from_str(&fs::read_to_string(&runtime_trace_path)?)?;
+    assert!(!trace_events.is_empty());
+
+    let runtime_events: Vec<&serde_json::Value> = trace_events
+        .iter()
+        .filter(|e| e["ph"] == "X" && e["cat"] == "runtime")
+        .collect();
+    assert!(!runtime_events.is_empty());
+
+    for e in &runtime_events {
+        assert!(e["name"].is_string());
+        let dur = e["dur"].as_u64().expect("dur should be u64");
+        assert!(dur > 0);
+        assert!(e["pid"].as_u64().is_some());
+        assert!(e["tid"].as_u64().is_some());
+        assert!(e["args"]["runtime_ns"].is_number());
+        assert!(e["args"]["graph"].is_string());
+        if let (Some(pid), Some(rank)) = (e["pid"].as_u64(), e["args"]["rank"].as_u64()) {
+            assert_eq!(pid, rank);
+        }
+    }
+
+    // Verify exact rank set matches input logs
+    let expected_ranks: std::collections::HashSet<u64> = std::fs::read_dir(&input_dir)?
+        .filter_map(|e| e.ok())
+        .filter_map(|e| e.file_name().into_string().ok())
+        .filter_map(|name| {
+            name.strip_prefix("dedicated_log_torch_trace_rank_")
+                .and_then(|s| s.strip_suffix(".log"))
+                .and_then(|n| n.parse::<u64>().ok())
+        })
+        .collect();
+
+    let pids: std::collections::HashSet<u64> = runtime_events
+        .iter()
+        .filter_map(|e| e["pid"].as_u64())
+        .collect();
+    assert_eq!(pids, expected_ranks, "pid set != expected rank set");
+
+    Ok(())
+}

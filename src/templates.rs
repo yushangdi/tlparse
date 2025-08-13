@@ -552,7 +552,7 @@ pub static TEMPLATE_MULTI_RANK_INDEX: &str = r#"
     {{ if compile_id_divergence }}
     <p><strong>Warning:</strong> Diverging Compilation IDs detected across ranks. This may lead to hangs or timeouts during distributed execution.</p>
     {{ endif }}
-    {{ if has_cache_divergence }}
+    {{ if diagnostics.divergence.cache }}
     <p><strong>Warning:</strong> Diverging Cache hit/miss patterns detected across ranks. Cache hit/miss pattern groups:</p>
     <ul>
         {{ for group in cache_divergence_groups }}
@@ -560,7 +560,7 @@ pub static TEMPLATE_MULTI_RANK_INDEX: &str = r#"
         {{ endfor }}
     </ul>
     {{ endif }}
-    {{ if has_collective_divergence }}
+    {{ if diagnostics.divergence.collective }}
     <p><strong>Warning:</strong> Diverging collective operation sequences detected across ranks. This can lead to hangs or timeouts during distributed execution.</p>
     <p>Collective operation sequence groups:</p>
     <ul>
@@ -584,6 +584,14 @@ You can download and view them in a tool like <a href='https://ui.perfetto.dev/'
 This is a combined trace from all ranks.
 </p>
 {{ endif }}
+{{ if diagnostics.artifacts.runtime_trace }}
+<h3> Runtime Trace Visualization </h3>
+<p>
+<a href='chromium_trace_with_runtime.json'>Runtime Estimation Chromium Trace</a> shows estimated runtime per operation across all ranks and graphs.
+Each rank appears as a separate process (PID) in the trace; within each process, each compiled graph is visualized as its own thread (TID). Operations are laid out sequentially by estimated duration on that thread.
+You can download and view this trace in <a href='https://ui.perfetto.dev/'>Perfetto</a> to visualize performance differences across ranks.
+</p>
+{{ endif }}
 <p>
 Individual rank reports:
 </p>
@@ -592,8 +600,8 @@ Individual rank reports:
     <li><a href="rank_{rank}/index.html">Rank {rank}</a></li>
 {{ endfor }}
 </ul>
-{{ if runtime_analysis }}
-{{ if runtime_analysis.has_mismatched_graph_counts }}
+{{ if diagnostics.analysis }}
+{{ if diagnostics.analysis.has_mismatched_graph_counts }}
 <h3>Graph Runtime Analysis</h3>
 <p>
 <strong>Runtime analysis not available:</strong> Ranks have different numbers of compiled graphs, preventing cross-rank comparison. This mismatch may indicate compilation divergence between ranks.
@@ -605,7 +613,7 @@ Runtime variance analysis across all <strong>{num_ranks}</strong> rank(s) for ea
 helping identify performance imbalances that could impact distributed training efficiency. Large deltas indicate potential
 desync issues on specific ranks.
 </p>
-{{ for graph in runtime_analysis.graphs }}
+{{ for graph in diagnostics.analysis.graphs }}
 <p><strong>Graph {graph.graph_id}:</strong> {graph.delta_ms} ms delta (Fastest: Rank {graph.rank_details.0.rank} - {graph.rank_details.0.runtime_ms} ms, Slowest: Rank {graph.rank_details.1.rank} - {graph.rank_details.1.runtime_ms} ms)</p>
 {{ endfor }}
 {{ endif }}

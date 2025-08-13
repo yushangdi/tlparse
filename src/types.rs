@@ -61,14 +61,14 @@ pub struct GraphRuntime {
 }
 
 /// Details for a specific rank at a graph index
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct RuntimeRankDetail {
     pub rank: u32,
     pub runtime_ms: f64,
 }
 
 /// Analysis results for a single graph index across all ranks
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct GraphAnalysis {
     pub graph_index: usize,
     pub graph_id: String,
@@ -77,7 +77,7 @@ pub struct GraphAnalysis {
 }
 
 /// Runtime analysis results across ranks for all graphs
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct RuntimeAnalysis {
     pub graphs: Vec<GraphAnalysis>,
     pub has_mismatched_graph_counts: bool,
@@ -893,6 +893,24 @@ pub struct ProvenanceContext<'a> {
     pub node_mappings_content: String,
 }
 
+#[derive(Debug, Clone, Copy, Default, serde::Serialize, serde::Deserialize)]
+pub struct DivergenceFlags {
+    pub cache: bool,
+    pub collective: bool,
+}
+
+#[derive(Debug, Clone, Copy, Default, serde::Serialize, serde::Deserialize)]
+pub struct ArtifactFlags {
+    pub runtime_trace: bool,
+}
+
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
+pub struct Diagnostics {
+    pub divergence: DivergenceFlags,
+    pub artifacts: ArtifactFlags,
+    pub analysis: Option<RuntimeAnalysis>,
+}
+
 #[derive(Serialize)]
 pub struct MultiRankContext<'a> {
     pub css: &'a str,
@@ -905,7 +923,5 @@ pub struct MultiRankContext<'a> {
     pub cache_divergence_groups: Vec<DivergenceGroup>,
     pub collective_divergence_groups: Vec<DivergenceGroup>,
     pub compile_id_divergence: bool,
-    pub has_cache_divergence: bool,
-    pub has_collective_divergence: bool,
-    pub runtime_analysis: Option<RuntimeAnalysis>,
+    pub diagnostics: Diagnostics,
 }

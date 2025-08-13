@@ -7,7 +7,8 @@ use std::path::PathBuf;
 use fxhash::{FxHashMap, FxHashSet};
 use tlparse::{
     analyze_graph_runtime_deltas, generate_multi_rank_html, parse_path,
-    read_chromium_events_with_pid, DivergenceGroup, ParseConfig, RankMetaData,
+    read_chromium_events_with_pid, ArtifactFlags, Diagnostics, DivergenceFlags, DivergenceGroup,
+    ParseConfig, RankMetaData,
 };
 
 #[derive(Parser)]
@@ -338,6 +339,106 @@ fn handle_all_ranks(
             serde_json::to_string_pretty(&runtime_estimations)?,
         )?;
         println!("Runtime estimations: {}", runtime_path.display());
+
+        // Generate runtime trace events in a single pass
+        let mut runtime_events: Vec<serde_json::Value> = Vec::new();
+        let mut pid_set: FxHashSet<u32> = FxHashSet::default();
+        let mut thread_names: FxHashMap<(u32, u32), String> = FxHashMap::default();
+
+        // Concise, deterministic 32-bit TID from (rank, graph)
+        let calc_tid = |rank: u32, graph: &str| -> u32 {
+            use std::hash::{Hash, Hasher};
+            let mut h = fxhash::FxHasher::default();
+            (rank, graph).hash(&mut h);
+            (h.finish() & 0xFFFF_FFFF) as u32
+        };
+
+        for gr in &runtime_estimations {
+            pid_set.insert(gr.rank);
+            let tid = calc_tid(gr.rank, &gr.graph);
+            thread_names
+                .entry((gr.rank, tid))
+                .or_insert_with(|| gr.graph.clone());
+
+            let mut time_offset_us: u64 = 0;
+            for op in &gr.ops {
+                let dur_us = (op.estimated_runtime_ns / 1000.0).ceil().max(1.0) as u64;
+                runtime_events.push(serde_json::json!({
+                    "name": op.name,
+                    "ph": "X",
+                    "ts": time_offset_us,
+                    "dur": dur_us,
+                    "pid": gr.rank,
+                    "tid": tid,
+                    "cat": "runtime",
+                    "args": {
+                        "graph": gr.graph,
+                        "rank": gr.rank,
+                        "runtime_ns": op.estimated_runtime_ns as u64
+                    }
+                }));
+                time_offset_us += dur_us;
+            }
+        }
+
+        let mut all_events: Vec<serde_json::Value> = runtime_events;
+
+        // Emit process (rank) metadata in ascending pid order
+        let mut pids: Vec<u32> = pid_set.into_iter().collect();
+        pids.sort_unstable();
+        for pid in pids.into_iter() {
+            all_events.extend([
+                serde_json::json!({
+                    "name": "process_name",
+                    "ph": "M",
+                    "pid": pid,
+                    "args": {"name": format!("Rank {}", pid)}
+                }),
+                serde_json::json!({
+                    "name": "process_sort_index",
+                    "ph": "M",
+                    "pid": pid,
+                    "args": {"sort_index": pid as i64}
+                }),
+            ]);
+        }
+
+        // Emit thread names sorted by graph name within each pid
+        let mut threads_by_pid: FxHashMap<u32, Vec<(u32, String)>> = FxHashMap::default();
+        for ((pid, tid), graph_name) in thread_names.into_iter() {
+            threads_by_pid
+                .entry(pid)
+                .or_default()
+                .push((tid, graph_name));
+        }
+        let mut pids_for_threads: Vec<u32> = threads_by_pid.keys().copied().collect();
+        pids_for_threads.sort_unstable();
+        for pid in pids_for_threads {
+            let entries = threads_by_pid.remove(&pid).unwrap_or_default();
+            for (idx, (tid, graph_name)) in entries.into_iter().enumerate() {
+                all_events.extend([
+                    serde_json::json!({
+                        "name": "thread_name",
+                        "ph": "M",
+                        "pid": pid,
+                        "tid": tid,
+                        "args": {"name": format!("graph {}", graph_name)}
+                    }),
+                    serde_json::json!({
+                        "name": "thread_sort_index",
+                        "ph": "M",
+                        "pid": pid,
+                        "tid": tid,
+                        "args": {"sort_index": idx as i64}
+                    }),
+                ]);
+            }
+        }
+
+        fs::write(
+            out_path.join("chromium_trace_with_runtime.json"),
+            serde_json::to_string_pretty(&all_events)?,
+        )?;
     }
 
     // Analyze graph runtime deltas across ranks
@@ -400,6 +501,17 @@ fn handle_all_ranks(
         out_path.display()
     );
 
+    let diagnostics = Diagnostics {
+        divergence: DivergenceFlags {
+            cache: cache_seq_groups.len() > 1,
+            collective: collective_seq_groups.len() > 1,
+        },
+        artifacts: ArtifactFlags {
+            runtime_trace: !runtime_estimations.is_empty(),
+        },
+        analysis: runtime_analysis,
+    };
+
     let (landing_page_path, landing_html) = generate_multi_rank_html(
         &out_path,
         sorted_ranks,
@@ -409,9 +521,7 @@ fn handle_all_ranks(
         cache_divergence_groups,
         collective_divergence_groups,
         compile_id_divergence,
-        cache_seq_groups.len() > 1,
-        collective_seq_groups.len() > 1,
-        runtime_analysis,
+        diagnostics,
     )?;
     fs::write(&landing_page_path, landing_html)?;
     if open_browser {

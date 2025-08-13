@@ -1683,7 +1683,7 @@ V0804 12:34:15.202000 1142858 torch/_inductor/debug.py:700] {"artifact": {"name"
 	"torch.ops._c10d_functional.all_reduce_.default",
 	"torch.ops._c10d_functional.wait_tensor.default"
 	]
-V0804 12:34:15.305000 1142858 torch/_inductor/debug.py:734] {"artifact": {"name": "inductor_tlparse_runtime", "encoding": "json"}, "rank": 3, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "114d64567a1ab3e037f77ad8fb9055c2"}
+V0804 12:34:15.305000 1142858 torch/_inductor/debug.py:734] {"artifact": {"name": "inductor_runtime_and_tensor_meta", "encoding": "json"}, "rank": 3, "frame_id": 0, "frame_compile_id": 0, "attempt": 0, "has_payload": "114d64567a1ab3e037f77ad8fb9055c2"}
 	{
 	"ops": [
 	{
@@ -5432,7 +5432,7 @@ V0804 12:34:17.528000 1142858 torch/_inductor/debug.py:700] {"artifact": {"name"
 	"torch.ops._c10d_functional.wait_tensor.default",
 	"torch.ops._c10d_functional.wait_tensor.default"
 	]
-V0804 12:34:17.536000 1142858 torch/_inductor/debug.py:734] {"artifact": {"name": "inductor_tlparse_runtime", "encoding": "json"}, "rank": 3, "frame_id": 0, "frame_compile_id": 1, "attempt": 0, "has_payload": "5bdf44b46ade21759085f713237b436d"}
+V0804 12:34:17.536000 1142858 torch/_inductor/debug.py:734] {"artifact": {"name": "inductor_runtime_and_tensor_meta", "encoding": "json"}, "rank": 3, "frame_id": 0, "frame_compile_id": 1, "attempt": 0, "has_payload": "5bdf44b46ade21759085f713237b436d"}
 	{
 	"ops": [
 	{
@@ -9255,7 +9255,7 @@ V0804 12:34:17.528000 1142858 torch/_inductor/debug.py:700] {"artifact": {"name"
 	"torch.ops._c10d_functional.wait_tensor.default",
 	"torch.ops._c10d_functional.wait_tensor.default"
 	]
-V0804 12:34:17.536000 1142858 torch/_inductor/debug.py:734] {"artifact": {"name": "inductor_tlparse_runtime", "encoding": "json"}, "rank": 3, "frame_id": 0, "frame_compile_id": 2, "attempt": 0, "has_payload": "5bdf44b46ade21759085f713237b436d"}
+V0804 12:34:17.536000 1142858 torch/_inductor/debug.py:734] {"artifact": {"name": "inductor_runtime_and_tensor_meta", "encoding": "json"}, "rank": 3, "frame_id": 0, "frame_compile_id": 2, "attempt": 0, "has_payload": "5bdf44b46ade21759085f713237b436d"}
 	{
 	"ops": [
 	{
@@ -13078,7 +13078,7 @@ V0804 12:34:17.528000 1142858 torch/_inductor/debug.py:700] {"artifact": {"name"
 	"torch.ops._c10d_functional.wait_tensor.default",
 	"torch.ops._c10d_functional.wait_tensor.default"
 	]
-V0804 12:34:17.536000 1142858 torch/_inductor/debug.py:734] {"artifact": {"name": "inductor_tlparse_runtime", "encoding": "json"}, "rank": 3, "frame_id": 0, "frame_compile_id": 3, "attempt": 0, "has_payload": "5bdf44b46ade21759085f713237b436d"}
+V0804 12:34:17.536000 1142858 torch/_inductor/debug.py:734] {"artifact": {"name": "inductor_runtime_and_tensor_meta", "encoding": "json"}, "rank": 3, "frame_id": 0, "frame_compile_id": 3, "attempt": 0, "has_payload": "5bdf44b46ade21759085f713237b436d"}
 	{
 	"ops": [
 	{

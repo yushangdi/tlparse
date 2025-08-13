@@ -23,7 +23,8 @@ mod templates;
 mod types;
 
 pub use types::{
-    DivergenceGroup, GraphAnalysis, GraphRuntime, RankMetaData, RuntimeAnalysis, RuntimeRankDetail,
+    ArtifactFlags, Diagnostics, DivergenceFlags, DivergenceGroup, GraphAnalysis, GraphRuntime,
+    RankMetaData, RuntimeAnalysis, RuntimeRankDetail,
 };
 
 #[derive(Debug)]
@@ -1184,9 +1185,7 @@ pub fn generate_multi_rank_html(
     cache_divergence_groups: Vec<DivergenceGroup>,
     collective_divergence_groups: Vec<DivergenceGroup>,
     compile_id_divergence: bool,
-    has_cache_divergence: bool,
-    has_collective_divergence: bool,
-    runtime_analysis: Option<RuntimeAnalysis>,
+    diagnostics: Diagnostics,
 ) -> anyhow::Result<(PathBuf, String)> {
     // Create the TinyTemplate instance for rendering the landing page.
     let mut tt = TinyTemplate::new();
@@ -1204,9 +1203,7 @@ pub fn generate_multi_rank_html(
         cache_divergence_groups,
         collective_divergence_groups,
         compile_id_divergence,
-        has_cache_divergence,
-        has_collective_divergence,
-        runtime_analysis,
+        diagnostics,
     };
     let html = tt.render("multi_rank_index.html", &ctx)?;
     let landing_page_path = out_path.join("index.html");
@@ -1285,11 +1282,10 @@ fn compare_graph_runtimes(
             );
 
             let delta_ns = max_runtime - min_runtime;
-            let graph_id = runtimes[0].1.to_string();
 
             Some(GraphAnalysis {
                 graph_index: index,
-                graph_id: graph_id,
+                graph_id: runtimes[0].1.to_string(),
                 delta_ms: (delta_ns / 1e6 * 1000.0).round() / 1000.0,
                 rank_details: vec![
                     RuntimeRankDetail {
