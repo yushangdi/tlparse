@@ -1196,6 +1196,17 @@ pub fn parse_path(path: &PathBuf, config: &ParseConfig) -> anyhow::Result<ParseO
                 directory_name,
             );
 
+            // Convert node mappings to line number mappings
+            let line_mappings_content = convert_node_mappings_to_line_numbers(
+                &node_mappings_content,
+                &pre_grad_graph_content,
+                &post_grad_graph_content,
+                &output_code_content,
+                &aot_code_content,
+            );
+            let line_mappings_content_str = serde_json::to_string_pretty(&line_mappings_content)
+                .unwrap_or_else(|_| "{}".to_string());
+
             output.push((
                 PathBuf::from(format!("provenance_tracking_{}.html", directory_name)),
                 tt.render(
@@ -1207,7 +1218,7 @@ pub fn parse_path(path: &PathBuf, config: &ParseConfig) -> anyhow::Result<ParseO
                         post_grad_graph_content,
                         output_code_content,
                         aot_code_content,
-                        node_mappings_content,
+                        line_mappings_content: line_mappings_content_str,
                     },
                 )?,
             ));
@@ -1381,5 +1392,335 @@ pub fn analyze_graph_runtime_deltas(
     Some(RuntimeAnalysis {
         graphs,
         has_mismatched_graph_counts: false,
+    })
+}
+
+/// Converts node-based mappings to line number-based mappings for visualization.
+///
+/// This function processes node mappings and converts them to line number mappings
+/// that can be used to highlight corresponding lines across different views.
+/// It handles pre-grad graph, post-grad graph, and generated code files.
+fn convert_node_mappings_to_line_numbers(
+    node_mappings_content: &str,
+    pre_grad_graph_content: &str,
+    post_grad_graph_content: &str,
+    output_code_content: &str,
+    aot_code_content: &str,
+) -> serde_json::Value {
+    // Parse the node mappings JSON
+    let node_mappings: serde_json::Value = match serde_json::from_str(node_mappings_content) {
+        Ok(mappings) => mappings,
+        Err(_) => return serde_json::json!({}),
+    };
+
+    // Helper function to check if a line is valid (not empty and doesn't start with comment)
+    fn valid_line(line: &str, symbol: &str) -> bool {
+        let stripped = line.trim();
+        !stripped.is_empty() && !stripped.starts_with(symbol)
+    }
+
+    // Helper function to extract node name from a line
+    fn extract_node_name(line: &str) -> Option<String> {
+        let trimmed = line.trim();
+        if valid_line(trimmed, "#") {
+            // Split on '=' and take everything before it
+            let before_equals = trimmed.split('=').next()?;
+            // Split on ':' and take everything before it
+            let node_name = before_equals.split(':').next()?.trim();
+            if !node_name.is_empty() {
+                return Some(node_name.to_string());
+            }
+        }
+        None
+    }
+
+    // Helper function to build node-to-line lookup map from graph content
+    fn build_node_to_lines_map(content: &str) -> std::collections::HashMap<String, usize> {
+        let mut node_to_lines = std::collections::HashMap::new();
+        for (i, line) in content.lines().enumerate() {
+            if let Some(node_name) = extract_node_name(line) {
+                node_to_lines.insert(node_name, i + 1); // 1-based line numbers
+            }
+        }
+        node_to_lines
+    }
+
+    // Helper function to build Python kernel-to-lines lookup map
+    fn build_python_kernel_to_lines_map(
+        content: &str,
+        kernel_names: &[&str],
+    ) -> std::collections::HashMap<String, Vec<usize>> {
+        let content = content
+            .lines()
+            .skip_while(|line| line.is_empty())
+            .collect::<Vec<&str>>()
+            .join("\n");
+        let mut kernel_to_lines = std::collections::HashMap::new();
+
+        // Find the line number of "def call(args)" - allowing for whitespace between tokens
+        let run_impl_line = content
+            .lines()
+            .position(|line| {
+                line.contains("def") && line.contains("call") && line.contains("(args)")
+            })
+            .unwrap_or(0);
+        let first_line_number = content
+            .lines()
+            .position(|line| line.contains("# AOT ID:"))
+            .unwrap_or(0);
+
+        println!("run_impl_line: {}", run_impl_line);
+        for (i, line) in content.lines().enumerate().skip(run_impl_line) {
+            if valid_line(line, "#") {
+                for kernel_name in kernel_names {
+                    if line.contains(kernel_name) {
+                        kernel_to_lines
+                            .entry(kernel_name.to_string())
+                            .or_insert_with(Vec::new)
+                            .push(i + 1 - first_line_number);
+                    }
+                }
+            }
+        }
+        kernel_to_lines
+    }
+
+    // Helper function to build C++ kernel-to-lines lookup map
+    // We only consider lines after "::run_impl(" and skip the empty lines at the beginning when computing line numbers
+    fn build_cpp_kernel_to_lines_map(
+        content: &str,
+        kernel_names: &[&str],
+    ) -> std::collections::HashMap<String, Vec<usize>> {
+        // remove empty lines at the beginning and end of the content
+        // We need to do this because empty lines are ignored in html <pre> tags
+        let content = content
+            .lines()
+            .skip_while(|line| line.is_empty())
+            .collect::<Vec<&str>>()
+            .join("\n");
+        let mut kernel_to_lines = std::collections::HashMap::new();
+
+        // Find the line number of "::run_impl("
+        let run_impl_line = content
+            .lines()
+            .position(|line| line.contains("::run_impl("))
+            .unwrap_or(0);
+        for (i, line) in content.lines().enumerate().skip(run_impl_line) {
+            if valid_line(line, "//")
+                && valid_line(line, "def")
+                && valid_line(line, "static inline void")
+            {
+                for kernel_name in kernel_names {
+                    if line.contains(&format!("{}(", kernel_name)) {
+                        kernel_to_lines
+                            .entry(kernel_name.to_string())
+                            .or_insert_with(Vec::new)
+                            .push(i + 1);
+                    }
+                }
+            }
+        }
+        kernel_to_lines
+    }
+
+    // Helper function to process mappings from source to target
+    fn process_mappings<F>(
+        source_mappings: &serde_json::Map<String, serde_json::Value>,
+        source_lookup: &std::collections::HashMap<String, usize>,
+        target_lookup: &std::collections::HashMap<String, usize>,
+        target_line_processor: F,
+    ) -> std::collections::HashMap<usize, Vec<usize>>
+    where
+        F: Fn(&str) -> Option<usize>,
+    {
+        let mut result = std::collections::HashMap::new();
+
+        for (source_node, target_nodes) in source_mappings {
+            if let Some(source_line) = source_lookup.get(source_node) {
+                let mut target_lines = Vec::new();
+                if let Some(target_nodes_array) = target_nodes.as_array() {
+                    for target_node in target_nodes_array {
+                        if let Some(target_node_str) = target_node.as_str() {
+                            if let Some(target_line) = target_line_processor(target_node_str) {
+                                target_lines.push(target_line);
+                            }
+                        }
+                    }
+                }
+                if !target_lines.is_empty() {
+                    result.insert(*source_line, target_lines);
+                }
+            }
+        }
+        result
+    }
+
+    // Helper function to process kernel-to-post mappings
+    fn process_kernel_to_post_mappings(
+        kernel_mappings: &serde_json::Map<String, serde_json::Value>,
+        kernel_lookup: &std::collections::HashMap<String, Vec<usize>>,
+        post_lookup: &std::collections::HashMap<String, usize>,
+    ) -> std::collections::HashMap<usize, Vec<usize>> {
+        let mut result = std::collections::HashMap::new();
+
+        for (kernel_name, post_nodes) in kernel_mappings {
+            if let Some(kernel_lines) = kernel_lookup.get(kernel_name) {
+                for kernel_line in kernel_lines {
+                    let mut target_lines = Vec::new();
+                    if let Some(post_nodes_array) = post_nodes.as_array() {
+                        for post_node in post_nodes_array {
+                            if let Some(post_node_str) = post_node.as_str() {
+                                if let Some(post_line) = post_lookup.get(post_node_str) {
+                                    target_lines.push(*post_line);
+                                }
+                            }
+                        }
+                    }
+                    if !target_lines.is_empty() {
+                        result.insert(*kernel_line, target_lines);
+                    }
+                }
+            }
+        }
+        result
+    }
+
+    // Helper function to process post-to-kernel mappings
+    fn process_post_to_kernel_mappings(
+        post_mappings: &serde_json::Map<String, serde_json::Value>,
+        post_lookup: &std::collections::HashMap<String, usize>,
+        kernel_lookup: &std::collections::HashMap<String, Vec<usize>>,
+    ) -> std::collections::HashMap<usize, Vec<usize>> {
+        let mut result = std::collections::HashMap::new();
+
+        for (post_node, kernel_names) in post_mappings {
+            if let Some(post_line) = post_lookup.get(post_node) {
+                let mut target_lines = Vec::new();
+                if let Some(kernel_names_array) = kernel_names.as_array() {
+                    for kernel_name in kernel_names_array {
+                        if let Some(kernel_name_str) = kernel_name.as_str() {
+                            if let Some(kernel_lines) = kernel_lookup.get(kernel_name_str) {
+                                target_lines.extend(kernel_lines);
+                            }
+                        }
+                    }
+                }
+                if !target_lines.is_empty() {
+                    result.insert(*post_line, target_lines);
+                }
+            }
+        }
+        result
+    }
+
+    // Helper function to convert HashMap to JSON Map
+    fn hashmap_to_json_map(
+        map: std::collections::HashMap<usize, Vec<usize>>,
+    ) -> serde_json::Map<String, serde_json::Value> {
+        map.into_iter()
+            .map(|(k, v)| (k.to_string(), serde_json::json!(v)))
+            .collect()
+    }
+
+    let kernel_names: Vec<&str> = node_mappings
+        .get("cppCodeToPost")
+        .and_then(|v| v.as_object())
+        .map(|obj| obj.keys().map(|k| k.as_str()).collect())
+        .unwrap_or_default();
+
+    // Build lookup maps
+    let pre_grad_node_to_lines = build_node_to_lines_map(pre_grad_graph_content);
+    let post_grad_node_to_lines = build_node_to_lines_map(post_grad_graph_content);
+    let py_kernel_to_lines = build_python_kernel_to_lines_map(output_code_content, &kernel_names);
+    let cpp_code_to_lines = build_cpp_kernel_to_lines_map(aot_code_content, &kernel_names);
+    println!("py_kernel_to_lines: {:?}", py_kernel_to_lines);
+    println!("cpp_kernel_names: {:?}", kernel_names);
+    println!("cpp_code_to_lines: {:?}", cpp_code_to_lines);
+
+    // Process all mappings using helper functions
+    let line_pre_to_post =
+        if let Some(pre_to_post) = node_mappings.get("preToPost").and_then(|v| v.as_object()) {
+            process_mappings(
+                pre_to_post,
+                &pre_grad_node_to_lines,
+                &post_grad_node_to_lines,
+                |node_name| post_grad_node_to_lines.get(node_name).copied(),
+            )
+        } else {
+            std::collections::HashMap::new()
+        };
+
+    let line_post_to_pre =
+        if let Some(post_to_pre) = node_mappings.get("postToPre").and_then(|v| v.as_object()) {
+            process_mappings(
+                post_to_pre,
+                &post_grad_node_to_lines,
+                &pre_grad_node_to_lines,
+                |node_name| pre_grad_node_to_lines.get(node_name).copied(),
+            )
+        } else {
+            std::collections::HashMap::new()
+        };
+
+    let line_cpp_code_to_post = if let Some(cpp_code_to_post) = node_mappings
+        .get("cppCodeToPost")
+        .and_then(|v| v.as_object())
+    {
+        process_kernel_to_post_mappings(
+            cpp_code_to_post,
+            &cpp_code_to_lines,
+            &post_grad_node_to_lines,
+        )
+    } else {
+        std::collections::HashMap::new()
+    };
+
+    let line_post_to_cpp_code = if let Some(post_to_cpp_code) = node_mappings
+        .get("postToCppCode")
+        .and_then(|v| v.as_object())
+    {
+        process_post_to_kernel_mappings(
+            post_to_cpp_code,
+            &post_grad_node_to_lines,
+            &cpp_code_to_lines,
+        )
+    } else {
+        std::collections::HashMap::new()
+    };
+
+    let line_py_code_to_post = if let Some(cpp_code_to_post) = node_mappings
+        .get("cppCodeToPost")
+        .and_then(|v| v.as_object())
+    {
+        process_kernel_to_post_mappings(
+            cpp_code_to_post,
+            &py_kernel_to_lines,
+            &post_grad_node_to_lines,
+        )
+    } else {
+        std::collections::HashMap::new()
+    };
+
+    let line_post_to_py_code = if let Some(post_to_cpp_code) = node_mappings
+        .get("postToCppCode")
+        .and_then(|v| v.as_object())
+    {
+        process_post_to_kernel_mappings(
+            post_to_cpp_code,
+            &post_grad_node_to_lines,
+            &py_kernel_to_lines,
+        )
+    } else {
+        std::collections::HashMap::new()
+    };
+
+    // Convert all HashMaps to JSON objects
+    serde_json::json!({
+        "preToPost": hashmap_to_json_map(line_pre_to_post),
+        "postToPre": hashmap_to_json_map(line_post_to_pre),
+        "pyCodeToPost": hashmap_to_json_map(line_py_code_to_post),
+        "postToPyCode": hashmap_to_json_map(line_post_to_py_code),
+        "cppCodeToPost": hashmap_to_json_map(line_cpp_code_to_post),
+        "postToCppCode": hashmap_to_json_map(line_post_to_cpp_code)
     })
 }
