@@ -398,7 +398,7 @@ fn test_export_guard_report() {
 }
 
 #[test]
-fn test_provenance_tracking() {
+fn test_provenance_tracking_aot_cuda() {
     let expected_files = [
         "-_-_-_-/before_pre_grad_graph_0.txt",
         "-_-_-_-/after_post_grad_graph_6.txt",
@@ -423,6 +423,1148 @@ fn test_provenance_tracking() {
             prefix
         );
     }
+
+    // Read the HTML file and verify the line mappings
+    let html_path = map
+        .keys()
+        .find(|p| {
+            p.to_str()
+                .unwrap()
+                .contains("provenance_tracking_-_-_-_-.html")
+        })
+        .unwrap();
+    let html_content = map.get(html_path).unwrap();
+
+    // Extract the line mappings JSON from the script tag
+    let script_start = html_content
+        .find(r#"<script id="lineMappings" type="application/json">"#)
+        .unwrap();
+    let json_start = html_content[script_start..].find(">").unwrap() + script_start + 1;
+    let json_end = html_content[json_start..].find("</script>").unwrap() + json_start;
+    let line_mappings_str = &html_content[json_start..json_end];
+    let line_mappings: serde_json::Value = serde_json::from_str(line_mappings_str).unwrap();
+
+    // Verify the line mappings match the expected values
+    let expected_mappings = serde_json::json!({
+        "cppCodeToPost": {
+            "1060": [14, 27, 24],
+            "1064": [21, 18, 15],
+            "1071": [24],
+            "1079": [14, 27, 24],
+            "1084": [35, 31, 28, 34, 33, 32]
+        },
+        "postToCppCode": {
+            "14": [1060, 1079],
+            "15": [1064],
+            "18": [1064],
+            "21": [1064],
+            "24": [1071, 1060, 1079],
+            "27": [1060, 1079],
+            "28": [1084],
+            "31": [1084],
+            "32": [1084],
+            "33": [1084],
+            "34": [1084],
+            "35": [1084]
+        },
+        "postToPre": {
+            "11": [8],
+            "14": [8],
+            "15": [8],
+            "18": [11],
+            "21": [14],
+            "24": [17],
+            "27": [20],
+            "28": [20],
+            "31": [23],
+            "32": [23],
+            "33": [23],
+            "34": [23],
+            "35": [23]
+        },
+        "postToPyCode": {},
+        "preToPost": {
+            "11": [18],
+            "14": [21],
+            "17": [24],
+            "20": [27, 28],
+            "23": [31, 32, 33, 34, 35],
+            "8": [11, 14, 15]
+        },
+        "pyCodeToPost": {}
+    });
+
+    assert_eq!(line_mappings, expected_mappings);
+}
+
+#[test]
+fn test_provenance_tracking_aot_debug_handle() {
+    let expected_files = [
+        "-_-_-_-/before_pre_grad_graph_0.txt",
+        "-_-_-_-/after_post_grad_graph_6.txt",
+        "provenance_tracking_-_-_-_-.html",
+        "-_-_-_-/inductor_provenance_tracking_node_mappings_10.json",
+    ];
+
+    let path = Path::new("tests/inputs/inductor_provenance_aot_debug_handle_log.txt").to_path_buf();
+    let config = tlparse::ParseConfig {
+        inductor_provenance: true,
+        ..Default::default()
+    };
+    let output = tlparse::parse_path(&path, &config);
+    assert!(output.is_ok());
+    let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
+
+    // Check all files are present
+    for prefix in expected_files {
+        assert!(
+            prefix_exists(&map, prefix),
+            "{} not found in output",
+            prefix
+        );
+    }
+
+    // Read the HTML file and verify the line mappings
+    let html_path = map
+        .keys()
+        .find(|p| {
+            p.to_str()
+                .unwrap()
+                .contains("provenance_tracking_-_-_-_-.html")
+        })
+        .unwrap();
+    let html_content = map.get(html_path).unwrap();
+
+    // Extract the line mappings JSON from the script tag
+    let script_start = html_content
+        .find(r#"<script id="lineMappings" type="application/json">"#)
+        .unwrap();
+    let json_start = html_content[script_start..].find(">").unwrap() + script_start + 1;
+    let json_end = html_content[json_start..].find("</script>").unwrap() + json_start;
+    let line_mappings_str = &html_content[json_start..json_end];
+    let line_mappings: serde_json::Value = serde_json::from_str(line_mappings_str).unwrap();
+
+    // Verify the line mappings match the expected values for debug handle version
+    let expected_mappings = serde_json::json!(        {
+      "cppCodeToPost": {
+        "1074": [
+          12
+        ],
+        "1079": [
+          19,
+          16,
+          13
+        ],
+        "1087": [
+          22
+        ],
+        "1096": [
+          25
+        ],
+        "1102": [
+          33,
+          29,
+          26,
+          32,
+          31,
+          30
+        ]
+      },
+      "postToCppCode": {
+        "12": [
+          1074
+        ],
+        "13": [
+          1079
+        ],
+        "16": [
+          1079
+        ],
+        "19": [
+          1079
+        ],
+        "22": [
+          1087
+        ],
+        "25": [
+          1096
+        ],
+        "26": [
+          1102
+        ],
+        "29": [
+          1102
+        ],
+        "30": [
+          1102
+        ],
+        "31": [
+          1102
+        ],
+        "32": [
+          1102
+        ],
+        "33": [
+          1102
+        ]
+      },
+      "postToPre": {
+        "11": [
+          8
+        ],
+        "12": [
+          8
+        ],
+        "13": [
+          8
+        ],
+        "16": [
+          11
+        ],
+        "19": [
+          14
+        ],
+        "22": [
+          17
+        ],
+        "25": [
+          20
+        ],
+        "26": [
+          20
+        ],
+        "29": [
+          23
+        ],
+        "30": [
+          23
+        ],
+        "31": [
+          23
+        ],
+        "32": [
+          23
+        ],
+        "33": [
+          23
+        ]
+      },
+      "postToPyCode": {},
+      "preToPost": {
+        "11": [
+          16
+        ],
+        "14": [
+          19
+        ],
+        "17": [
+          22
+        ],
+        "20": [
+          25,
+          26
+        ],
+        "23": [
+          29,
+          30,
+          31,
+          32,
+          33
+        ],
+        "8": [
+          11,
+          12,
+          13
+        ]
+      },
+      "pyCodeToPost": {}
+    });
+
+    assert_eq!(line_mappings, expected_mappings);
+}
+
+#[test]
+fn test_provenance_tracking_aot_log() {
+    let expected_files = [
+        "-_-_-_-/before_pre_grad_graph_0.txt",
+        "-_-_-_-/after_post_grad_graph_6.txt",
+        "provenance_tracking_-_-_-_-.html",
+        "-_-_-_-/inductor_provenance_tracking_node_mappings_11.json",
+    ];
+
+    let path = Path::new("tests/inputs/inductor_provenance_aot_log.txt").to_path_buf();
+    let config = tlparse::ParseConfig {
+        inductor_provenance: true,
+        ..Default::default()
+    };
+    let output = tlparse::parse_path(&path, &config);
+    assert!(output.is_ok());
+    let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
+
+    // Check all files are present
+    for prefix in expected_files {
+        assert!(
+            prefix_exists(&map, prefix),
+            "{} not found in output",
+            prefix
+        );
+    }
+
+    // Read the HTML file and verify the line mappings
+    let html_path = map
+        .keys()
+        .find(|p| {
+            p.to_str()
+                .unwrap()
+                .contains("provenance_tracking_-_-_-_-.html")
+        })
+        .unwrap();
+    let html_content = map.get(html_path).unwrap();
+
+    // Extract the line mappings JSON from the script tag
+    let script_start = html_content
+        .find(r#"<script id="lineMappings" type="application/json">"#)
+        .unwrap();
+    let json_start = html_content[script_start..].find(">").unwrap() + script_start + 1;
+    let json_end = html_content[json_start..].find("</script>").unwrap() + json_start;
+    let line_mappings_str = &html_content[json_start..json_end];
+    let line_mappings: serde_json::Value = serde_json::from_str(line_mappings_str).unwrap();
+
+    // For jit log, we expect similar structure to jit cuda but with different kernel names
+    let expected_mappings = serde_json::json!(  {
+      "cppCodeToPost": {
+        "813": [
+          12,
+          24,
+          21
+        ],
+        "821": [
+          18,
+          15,
+          21
+        ],
+        "829": [
+          12,
+          24,
+          21
+        ],
+        "834": [
+          31,
+          27,
+          30,
+          29,
+          28
+        ]
+      },
+      "postToCppCode": {
+        "12": [
+          813,
+          829
+        ],
+        "15": [
+          821
+        ],
+        "18": [
+          821
+        ],
+        "21": [
+          821,
+          813,
+          829
+        ],
+        "24": [
+          813,
+          829
+        ],
+        "27": [
+          834
+        ],
+        "28": [
+          834
+        ],
+        "29": [
+          834
+        ],
+        "30": [
+          834
+        ],
+        "31": [
+          834
+        ]
+      },
+      "postToPre": {
+        "11": [
+          8
+        ],
+        "12": [
+          8
+        ],
+        "15": [
+          11
+        ],
+        "18": [
+          14
+        ],
+        "21": [
+          17
+        ],
+        "24": [
+          20
+        ],
+        "27": [
+          23
+        ],
+        "28": [
+          23
+        ],
+        "29": [
+          23
+        ],
+        "30": [
+          23
+        ],
+        "31": [
+          23
+        ]
+      },
+      "postToPyCode": {},
+      "preToPost": {
+        "11": [
+          15
+        ],
+        "14": [
+          18
+        ],
+        "17": [
+          21
+        ],
+        "20": [
+          24
+        ],
+        "23": [
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "8": [
+          11,
+          12
+        ]
+      },
+      "pyCodeToPost": {}
+    });
+
+    assert_eq!(line_mappings, expected_mappings);
+}
+
+#[test]
+fn test_provenance_tracking_aot_log_old() {
+    let expected_files = [
+        "-_-_-_-/inductor_pre_grad_graph_0.txt",
+        "-_-_-_-/inductor_post_grad_graph_8.txt",
+        "provenance_tracking_-_-_-_-.html",
+        "-_-_-_-/inductor_provenance_tracking_node_mappings_11.json",
+    ];
+
+    let path = Path::new("tests/inputs/inductor_provenance_aot_log_old.txt").to_path_buf();
+    let config = tlparse::ParseConfig {
+        inductor_provenance: true,
+        ..Default::default()
+    };
+    let output = tlparse::parse_path(&path, &config);
+    assert!(output.is_ok());
+    let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
+
+    // Check all files are present
+    for prefix in expected_files {
+        assert!(
+            prefix_exists(&map, prefix),
+            "{} not found in output",
+            prefix
+        );
+    }
+
+    // Read the HTML file and verify the line mappings
+    let html_path = map
+        .keys()
+        .find(|p| {
+            p.to_str()
+                .unwrap()
+                .contains("provenance_tracking_-_-_-_-.html")
+        })
+        .unwrap();
+    let html_content = map.get(html_path).unwrap();
+
+    // Extract the line mappings JSON from the script tag
+    let script_start = html_content
+        .find(r#"<script id="lineMappings" type="application/json">"#)
+        .unwrap();
+    let json_start = html_content[script_start..].find(">").unwrap() + script_start + 1;
+    let json_end = html_content[json_start..].find("</script>").unwrap() + json_start;
+    let line_mappings_str = &html_content[json_start..json_end];
+    let line_mappings: serde_json::Value = serde_json::from_str(line_mappings_str).unwrap();
+
+    // For old log, we expect the same structure as the regular aot log
+    let expected_mappings = serde_json::json!(       {
+      "cppCodeToPost": {
+        "704": [
+          21
+        ],
+        "717": [
+          31,
+          27,
+          30,
+          29,
+          28
+        ]
+      },
+      "postToCppCode": {
+        "21": [
+          704
+        ],
+        "27": [
+          717
+        ],
+        "28": [
+          717
+        ],
+        "29": [
+          717
+        ],
+        "30": [
+          717
+        ],
+        "31": [
+          717
+        ]
+      },
+      "postToPre": {
+        "11": [
+          8
+        ],
+        "12": [
+          8
+        ],
+        "15": [
+          11
+        ],
+        "18": [
+          14
+        ],
+        "21": [
+          17
+        ],
+        "24": [
+          20
+        ],
+        "27": [
+          23
+        ],
+        "28": [
+          23
+        ],
+        "29": [
+          23
+        ],
+        "30": [
+          23
+        ],
+        "31": [
+          23
+        ]
+      },
+      "postToPyCode": {},
+      "preToPost": {
+        "11": [
+          15
+        ],
+        "14": [
+          18
+        ],
+        "17": [
+          21
+        ],
+        "20": [
+          24
+        ],
+        "23": [
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "8": [
+          11,
+          12
+        ]
+      },
+      "pyCodeToPost": {}
+    });
+
+    assert_eq!(line_mappings, expected_mappings);
+}
+
+#[test]
+fn test_provenance_tracking_jit_cuda() {
+    let expected_files = [
+        "-_0_0_0/before_pre_grad_graph_1.txt",
+        "-_0_0_0/after_post_grad_graph_8.txt",
+        "provenance_tracking_-_0_0_0.html",
+        "-_0_0_0/inductor_provenance_tracking_node_mappings_14.json",
+    ];
+
+    let path = Path::new("tests/inputs/inductor_provenance_jit_cuda_log.txt").to_path_buf();
+    let config = tlparse::ParseConfig {
+        inductor_provenance: true,
+        ..Default::default()
+    };
+    let output = tlparse::parse_path(&path, &config);
+    assert!(output.is_ok());
+    let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
+
+    // Check all files are present
+    for prefix in expected_files {
+        assert!(
+            prefix_exists(&map, prefix),
+            "{} not found in output",
+            prefix
+        );
+    }
+
+    // Read the HTML file and verify the line mappings
+    let html_path = map
+        .keys()
+        .find(|p| {
+            p.to_str()
+                .unwrap()
+                .contains("provenance_tracking_-_0_0_0.html")
+        })
+        .unwrap();
+    let html_content = map.get(html_path).unwrap();
+
+    // Extract the line mappings JSON from the script tag
+    let script_start = html_content
+        .find(r#"<script id="lineMappings" type="application/json">"#)
+        .unwrap();
+    let json_start = html_content[script_start..].find(">").unwrap() + script_start + 1;
+    let json_end = html_content[json_start..].find("</script>").unwrap() + json_start;
+    let line_mappings_str = &html_content[json_start..json_end];
+    let line_mappings: serde_json::Value = serde_json::from_str(line_mappings_str).unwrap();
+
+    // Verify the line mappings match the expected values for jit cuda
+    let expected_mappings = serde_json::json!(        {
+      "cppCodeToPost": {},
+      "postToCppCode": {},
+      "postToPre": {
+        "11": [
+          14
+        ],
+        "14": [
+          17
+        ],
+        "17": [
+          20
+        ],
+        "20": [
+          23
+        ],
+        "21": [
+          23
+        ],
+        "24": [
+          26
+        ],
+        "25": [
+          26
+        ],
+        "26": [
+          26
+        ],
+        "27": [
+          26
+        ],
+        "28": [
+          26
+        ],
+        "4": [
+          11
+        ],
+        "7": [
+          11
+        ],
+        "8": [
+          11
+        ]
+      },
+      "postToPyCode": {
+        "11": [
+          192
+        ],
+        "14": [
+          192
+        ],
+        "17": [
+          197,
+          186,
+          201
+        ],
+        "20": [
+          186,
+          201
+        ],
+        "21": [
+          207
+        ],
+        "24": [
+          207
+        ],
+        "25": [
+          207
+        ],
+        "26": [
+          207
+        ],
+        "27": [
+          207
+        ],
+        "28": [
+          207
+        ],
+        "7": [
+          186,
+          201
+        ],
+        "8": [
+          192
+        ]
+      },
+      "preToPost": {
+        "11": [
+          4,
+          7,
+          8
+        ],
+        "14": [
+          11
+        ],
+        "17": [
+          14
+        ],
+        "20": [
+          17
+        ],
+        "23": [
+          20,
+          21
+        ],
+        "26": [
+          24,
+          25,
+          26,
+          27,
+          28
+        ]
+      },
+      "pyCodeToPost": {
+        "186": [
+          7,
+          20,
+          17
+        ],
+        "192": [
+          14,
+          11,
+          8
+        ],
+        "197": [
+          17
+        ],
+        "201": [
+          7,
+          20,
+          17
+        ],
+        "207": [
+          28,
+          24,
+          21,
+          27,
+          26,
+          25
+        ]
+      }
+    });
+
+    assert_eq!(line_mappings, expected_mappings);
+}
+
+#[test]
+fn test_provenance_tracking_jit_log() {
+    let expected_files = [
+        "-_0_0_0/before_pre_grad_graph_1.txt",
+        "-_0_0_0/after_post_grad_graph_8.txt",
+        "provenance_tracking_-_0_0_0.html",
+        "-_0_0_0/inductor_provenance_tracking_node_mappings_13.json",
+    ];
+
+    let path = Path::new("tests/inputs/inductor_provenance_jit_log.txt").to_path_buf();
+    let config = tlparse::ParseConfig {
+        inductor_provenance: true,
+        ..Default::default()
+    };
+    let output = tlparse::parse_path(&path, &config);
+    assert!(output.is_ok());
+    let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
+
+    // Check all files are present
+    for prefix in expected_files {
+        assert!(
+            prefix_exists(&map, prefix),
+            "{} not found in output",
+            prefix
+        );
+    }
+
+    // Read the HTML file and verify the line mappings
+    let html_path = map
+        .keys()
+        .find(|p| {
+            p.to_str()
+                .unwrap()
+                .contains("provenance_tracking_-_0_0_0.html")
+        })
+        .unwrap();
+    let html_content = map.get(html_path).unwrap();
+
+    // Extract the line mappings JSON from the script tag
+    let script_start = html_content
+        .find(r#"<script id="lineMappings" type="application/json">"#)
+        .unwrap();
+    let json_start = html_content[script_start..].find(">").unwrap() + script_start + 1;
+    let json_end = html_content[json_start..].find("</script>").unwrap() + json_start;
+    let line_mappings_str = &html_content[json_start..json_end];
+    let line_mappings: serde_json::Value = serde_json::from_str(line_mappings_str).unwrap();
+
+    // For jit log, we expect similar structure to jit cuda but with different kernel names
+    let expected_mappings = serde_json::json!(       {
+      "cppCodeToPost": {},
+      "postToCppCode": {},
+      "postToPre": {
+        "11": [
+          17
+        ],
+        "14": [
+          20
+        ],
+        "17": [
+          23
+        ],
+        "20": [
+          26
+        ],
+        "21": [
+          26
+        ],
+        "22": [
+          26
+        ],
+        "23": [
+          26
+        ],
+        "24": [
+          26
+        ],
+        "4": [
+          11
+        ],
+        "5": [
+          11
+        ],
+        "8": [
+          14
+        ]
+      },
+      "postToPyCode": {
+        "11": [
+          138
+        ],
+        "14": [
+          138,
+          132,
+          142
+        ],
+        "17": [
+          132,
+          142
+        ],
+        "20": [
+          147
+        ],
+        "21": [
+          147
+        ],
+        "22": [
+          147
+        ],
+        "23": [
+          147
+        ],
+        "24": [
+          147
+        ],
+        "5": [
+          132,
+          142
+        ],
+        "8": [
+          138
+        ]
+      },
+      "preToPost": {
+        "11": [
+          4,
+          5
+        ],
+        "14": [
+          8
+        ],
+        "17": [
+          11
+        ],
+        "20": [
+          14
+        ],
+        "23": [
+          17
+        ],
+        "26": [
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      "pyCodeToPost": {
+        "132": [
+          5,
+          17,
+          14
+        ],
+        "138": [
+          11,
+          8,
+          14
+        ],
+        "142": [
+          5,
+          17,
+          14
+        ],
+        "147": [
+          24,
+          20,
+          23,
+          22,
+          21
+        ]
+      }
+    });
+
+    assert_eq!(line_mappings, expected_mappings);
+}
+
+#[test]
+fn test_provenance_tracking_jit_debug_handle() {
+    let expected_files = [
+        "-_0_0_0/before_pre_grad_graph_1.txt",
+        "-_0_0_0/after_post_grad_graph_11.txt",
+        "provenance_tracking_-_0_0_0.html",
+        "-_0_0_0/inductor_provenance_tracking_node_mappings_14.json",
+    ];
+
+    let path = Path::new("tests/inputs/inductor_provenance_jit_debug_handle_log.txt").to_path_buf();
+    let config = tlparse::ParseConfig {
+        inductor_provenance: true,
+        ..Default::default()
+    };
+    let output = tlparse::parse_path(&path, &config);
+    assert!(output.is_ok());
+    let map: HashMap<PathBuf, String> = output.unwrap().into_iter().collect();
+
+    // Check all files are present
+    for prefix in expected_files {
+        assert!(
+            prefix_exists(&map, prefix),
+            "{} not found in output",
+            prefix
+        );
+    }
+
+    // Read the HTML file and verify the line mappings
+    let html_path = map
+        .keys()
+        .find(|p| {
+            p.to_str()
+                .unwrap()
+                .contains("provenance_tracking_-_0_0_0.html")
+        })
+        .unwrap();
+    let html_content = map.get(html_path).unwrap();
+
+    // Extract the line mappings JSON from the script tag
+    let script_start = html_content
+        .find(r#"<script id="lineMappings" type="application/json">"#)
+        .unwrap();
+    let json_start = html_content[script_start..].find(">").unwrap() + script_start + 1;
+    let json_end = html_content[json_start..].find("</script>").unwrap() + json_start;
+    let line_mappings_str = &html_content[json_start..json_end];
+    let line_mappings: serde_json::Value = serde_json::from_str(line_mappings_str).unwrap();
+
+    // For jit log, we expect similar structure to jit cuda but with different kernel names
+    let expected_mappings = serde_json::json!(         {
+      "cppCodeToPost": {},
+      "postToCppCode": {},
+      "postToPre": {
+        "12": [
+          17
+        ],
+        "15": [
+          20
+        ],
+        "18": [
+          23
+        ],
+        "19": [
+          23
+        ],
+        "22": [
+          26
+        ],
+        "23": [
+          26
+        ],
+        "24": [
+          26
+        ],
+        "25": [
+          26
+        ],
+        "26": [
+          26
+        ],
+        "4": [
+          11
+        ],
+        "5": [
+          11
+        ],
+        "6": [
+          11
+        ],
+        "9": [
+          14
+        ]
+      },
+      "postToPyCode": {
+        "12": [
+          204
+        ],
+        "15": [
+          211
+        ],
+        "18": [
+          216
+        ],
+        "19": [
+          223
+        ],
+        "22": [
+          223
+        ],
+        "23": [
+          223
+        ],
+        "24": [
+          223
+        ],
+        "25": [
+          223
+        ],
+        "26": [
+          223
+        ],
+        "29": [
+          204
+        ],
+        "5": [
+          197
+        ],
+        "6": [
+          204
+        ],
+        "9": [
+          204
+        ]
+      },
+      "preToPost": {
+        "11": [
+          4,
+          5,
+          6
+        ],
+        "14": [
+          9
+        ],
+        "17": [
+          12
+        ],
+        "20": [
+          15
+        ],
+        "23": [
+          18,
+          19
+        ],
+        "26": [
+          22,
+          23,
+          24,
+          25,
+          26
+        ]
+      },
+      "pyCodeToPost": {
+        "197": [
+          5
+        ],
+        "204": [
+          12,
+          9,
+          6,
+          29
+        ],
+        "211": [
+          15
+        ],
+        "216": [
+          18
+        ],
+        "223": [
+          26,
+          22,
+          19,
+          25,
+          24,
+          23
+        ]
+      }
+    });
+
+    assert_eq!(line_mappings, expected_mappings);
 }
 
 #[test]

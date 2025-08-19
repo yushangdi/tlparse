@@ -1413,6 +1413,13 @@ fn convert_node_mappings_to_line_numbers(
         Err(_) => return serde_json::json!({}),
     };
 
+    let version = node_mappings
+        .get("version")
+        .and_then(|v| v.as_f64())
+        .unwrap_or(1.0) as i64;
+    #[cfg(debug_assertions)]
+    println!("Inductor Provenance Tracking Mapping Version: {}", version);
+
     // Helper function to check if a line is valid (not empty and doesn't start with comment)
     fn valid_line(line: &str, symbol: &str) -> bool {
         let stripped = line.trim();
@@ -1449,6 +1456,7 @@ fn convert_node_mappings_to_line_numbers(
     fn build_python_kernel_to_lines_map(
         content: &str,
         kernel_names: &[&str],
+        _version: i64,
     ) -> std::collections::HashMap<String, Vec<usize>> {
         let content = content
             .lines()
@@ -1469,11 +1477,43 @@ fn convert_node_mappings_to_line_numbers(
             .position(|line| line.contains("# AOT ID:"))
             .unwrap_or(0);
 
-        println!("run_impl_line: {}", run_impl_line);
-        for (i, line) in content.lines().enumerate().skip(run_impl_line) {
-            if valid_line(line, "#") {
-                for kernel_name in kernel_names {
+        // For each kernel name (e.g. triton_poi_fused_mul_1:2):
+        // - Extract pure_kernel_name (triton_poi_fused_mul_1) before the ':'
+        // - If kernel name found: map to next line containing pure_kernel_name
+        // - If kernel_name not found: map to all lines with pure_kernel_name
+        for kernel_name in kernel_names {
+            // Get pure kernel name before ':' if it exists
+            let pure_kernel_name = if let Some(idx) = kernel_name.find(':') {
+                &kernel_name[..idx]
+            } else {
+                kernel_name
+            };
+
+            let mut found = false;
+            // If kernel_name contains a debug handle and we found it, we can stop after first match
+            if kernel_name.contains(':') {
+                for (i, line) in content.lines().enumerate().skip(run_impl_line) {
                     if line.contains(kernel_name) {
+                        // Found kernel name, look for next line with pure_kernel_name
+                        for (j, next_line) in content.lines().enumerate().skip(i + 1) {
+                            if next_line.contains(pure_kernel_name) {
+                                kernel_to_lines
+                                    .entry(kernel_name.to_string())
+                                    .or_insert_with(Vec::new)
+                                    .push(j + 1 - first_line_number);
+                                found = true;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+
+            // If exact kernel name not found, map all lines with pure kernel name
+            if !found {
+                for (i, line) in content.lines().enumerate().skip(run_impl_line) {
+                    if line.contains(pure_kernel_name) {
                         kernel_to_lines
                             .entry(kernel_name.to_string())
                             .or_insert_with(Vec::new)
@@ -1490,6 +1530,7 @@ fn convert_node_mappings_to_line_numbers(
     fn build_cpp_kernel_to_lines_map(
         content: &str,
         kernel_names: &[&str],
+        _version: i64,
     ) -> std::collections::HashMap<String, Vec<usize>> {
         // remove empty lines at the beginning and end of the content
         // We need to do this because empty lines are ignored in html <pre> tags
@@ -1505,13 +1546,47 @@ fn convert_node_mappings_to_line_numbers(
             .lines()
             .position(|line| line.contains("::run_impl("))
             .unwrap_or(0);
-        for (i, line) in content.lines().enumerate().skip(run_impl_line) {
-            if valid_line(line, "//")
-                && valid_line(line, "def")
-                && valid_line(line, "static inline void")
-            {
-                for kernel_name in kernel_names {
-                    if line.contains(&format!("{}(", kernel_name)) {
+
+        // For each kernel name (e.g. triton_poi_fused_mul_1:2):
+        // - Extract pure_kernel_name (triton_poi_fused_mul_1) before the ':'
+        // - If kernel name found: map to next line containing pure_kernel_name
+        // - If kernel_name not found: map to all lines with pure_kernel_name
+        for kernel_name in kernel_names {
+            // Get pure kernel name before ':' if it exists
+            let pure_kernel_name = if let Some(idx) = kernel_name.find(':') {
+                &kernel_name[..idx]
+            } else {
+                kernel_name
+            };
+
+            let mut found = false;
+            if kernel_name.contains(':') {
+                for (i, line) in content.lines().enumerate().skip(run_impl_line) {
+                    if valid_line(line, "def")
+                        && valid_line(line, "static inline void")
+                        && line.contains(kernel_name)
+                    {
+                        // Found exact kernel name - map to next matching line
+                        let next_line = content
+                            .lines()
+                            .skip(i + 1)
+                            .position(|l| l.contains(pure_kernel_name))
+                            .map(|pos| i + pos + 2);
+
+                        if let Some(line_num) = next_line {
+                            kernel_to_lines
+                                .entry(kernel_name.to_string())
+                                .or_insert_with(Vec::new)
+                                .push(line_num);
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if !found {
+                for (i, line) in content.lines().enumerate().skip(run_impl_line) {
+                    if line.contains(pure_kernel_name) {
                         kernel_to_lines
                             .entry(kernel_name.to_string())
                             .or_insert_with(Vec::new)
@@ -1527,7 +1602,7 @@ fn convert_node_mappings_to_line_numbers(
     fn process_mappings<F>(
         source_mappings: &serde_json::Map<String, serde_json::Value>,
         source_lookup: &std::collections::HashMap<String, usize>,
-        target_lookup: &std::collections::HashMap<String, usize>,
+        _target_lookup: &std::collections::HashMap<String, usize>,
         target_line_processor: F,
     ) -> std::collections::HashMap<usize, Vec<usize>>
     where
@@ -1631,10 +1706,15 @@ fn convert_node_mappings_to_line_numbers(
     // Build lookup maps
     let pre_grad_node_to_lines = build_node_to_lines_map(pre_grad_graph_content);
     let post_grad_node_to_lines = build_node_to_lines_map(post_grad_graph_content);
-    let py_kernel_to_lines = build_python_kernel_to_lines_map(output_code_content, &kernel_names);
-    let cpp_code_to_lines = build_cpp_kernel_to_lines_map(aot_code_content, &kernel_names);
+    let py_kernel_to_lines =
+        build_python_kernel_to_lines_map(output_code_content, &kernel_names, version);
+    let cpp_code_to_lines = build_cpp_kernel_to_lines_map(aot_code_content, &kernel_names, version);
+
+    #[cfg(debug_assertions)]
+    println!("kernel_names: {:?}", kernel_names);
+    #[cfg(debug_assertions)]
     println!("py_kernel_to_lines: {:?}", py_kernel_to_lines);
-    println!("cpp_kernel_names: {:?}", kernel_names);
+    #[cfg(debug_assertions)]
     println!("cpp_code_to_lines: {:?}", cpp_code_to_lines);
 
     // Process all mappings using helper functions
