@@ -1417,8 +1417,6 @@ fn convert_node_mappings_to_line_numbers(
         .get("version")
         .and_then(|v| v.as_f64())
         .unwrap_or(1.0) as i64;
-    #[cfg(debug_assertions)]
-    println!("Inductor Provenance Tracking Mapping Version: {}", version);
 
     // Helper function to check if a line is valid (not empty and doesn't start with comment)
     fn valid_line(line: &str, symbol: &str) -> bool {
@@ -1709,13 +1707,6 @@ fn convert_node_mappings_to_line_numbers(
     let py_kernel_to_lines =
         build_python_kernel_to_lines_map(output_code_content, &kernel_names, version);
     let cpp_code_to_lines = build_cpp_kernel_to_lines_map(aot_code_content, &kernel_names, version);
-
-    #[cfg(debug_assertions)]
-    println!("kernel_names: {:?}", kernel_names);
-    #[cfg(debug_assertions)]
-    println!("py_kernel_to_lines: {:?}", py_kernel_to_lines);
-    #[cfg(debug_assertions)]
-    println!("cpp_code_to_lines: {:?}", cpp_code_to_lines);
 
     // Process all mappings using helper functions
     let line_pre_to_post =
