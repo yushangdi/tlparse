@@ -10,246 +10,52 @@ let postToPyCode = {};
 let postToCppCode = {};
 let cppCodeToPost = {};
 
-let jsonData = null;
+let lineMappings = null;
 
 /**
- * Converts node-based mappings to line number-based mappings for visualization.
+ * Initializes the line number mappings from the pre-processed data.
  * 
- * This function processes four types of files and their relationships:
- * 1. Pre-grad graph (FX IR before autograd and any pre_grad pass)
- * 2. Post-grad graph (FX IR after autograd)
- * 3. Generated Python triton code (produced by JIT inductor)
- * 3. Generated C++ code  (produced by AOT inductor)
- * 
- * The conversion happens in several steps:
- * 
- * 1. First, it creates lookup maps that associate node names with line numbers:
- *    - For pre/post grad graphs: Extracts node names from lines like "node_name = ..." or "node_name: ... = ..."
- *    - For C++/python code: Identifies kernel definitions and their associated line ranges
- * 
- * 2. Then, it processes four types of mappings:
- *    - preToPost: Maps pre-grad nodes to post-grad nodes
- *    - postToPre: Maps post-grad nodes back to pre-grad nodes
- *    - cppCodeToPost: Maps C++/triton kernel lines to post-grad nodes
- *    - postToCppCode: Maps post-grad nodes to C++ kernel lines
- * 
- * 3. For each mapping type, it:
- *    - Looks up the line numbers for the source nodes
- *    - Looks up the line numbers for the target nodes
- *    - Creates a new mapping using line numbers instead of node names
- * 
- * Special handling for C++ code:
- * - C++ kernels span multiple lines (from kernel definition to launch)
- * - Each kernel's line range includes:
- *   * The nullptr check line
- *   * All lines up to and including the launchKernel call
- *   * One line after the launch for completeness
- * 
- * The function updates these global variables:
+ * This function expects the line mappings to be already converted from node mappings
+ * to line number mappings by the Rust backend. The mappings should contain:
  * - preToPost: {sourceLineNum: [targetLineNums]}
  * - postToPre: {sourceLineNum: [targetLineNums]}
+ * - pyCodeToPost: {sourceLineNum: [targetLineNums]}
+ * - postToPyCode: {sourceLineNum: [targetLineNums]}
  * - cppCodeToPost: {sourceLineNum: [targetLineNums]}
  * - postToCppCode: {sourceLineNum: [targetLineNums]}
  * 
  * These mappings enable the UI to highlight corresponding lines
  * across different views when a user clicks on a line.
  */
-function convertNodeMappingsToLineNumbers() {
-    if (!nodeMappings) {
-        console.warn('No node mappings available');
-        return;
-    }
-
-    function validLine(line, symbol = "#") {
-        const stripped = line.trim();
-        return stripped && !stripped.startsWith(symbol);
-    }
-
-    // Create lookup maps for both files
-    const preGradNodeToLines = {};
-    const postGradNodeToLines = {};
-    const pyKernelToLines = {};
-    const cppCodeToLines = {};
-
-    // Build pre_grad graph lookup map
-    preGradGraphData.forEach((line, i) => {
-        if (validLine(line)) {
-            // Split on '=' and take everything before it
-            const beforeEquals = line.trim().split("=")[0];
-            // Split on ':' and take everything before it
-            const nodeName = beforeEquals.split(":")[0].trim();
-            if (nodeName) {
-                preGradNodeToLines[nodeName] = i + 1;  // 1-based line numbers
-            }
+function initializeLineMappings() {
+    try {
+        // Get the line mappings from the embedded JSON data
+        const lineMappingsElement = document.getElementById('lineMappings');
+        if (lineMappingsElement) {
+            lineMappings = JSON.parse(lineMappingsElement.textContent);
+            
+            // Update global variables with the line mappings
+            preToPost = lineMappings.preToPost || {};
+            postToPre = lineMappings.postToPre || {};
+            pyCodeToPost = lineMappings.pyCodeToPost || {};
+            postToPyCode = lineMappings.postToPyCode || {};
+            cppCodeToPost = lineMappings.cppCodeToPost || {};
+            postToCppCode = lineMappings.postToCppCode || {};
+            
+            console.log('Line mappings initialized:', {
+                preToPost,
+                postToPre,
+                pyCodeToPost,
+                postToPyCode,
+                cppCodeToPost,
+                postToCppCode
+            });
+        } else {
+            console.warn('No line mappings element found');
         }
-    });
-
-    // Build post_grad lookup map
-    postGradGraphData.forEach((line, i) => {
-        if (validLine(line)) {
-            // Split on '=' and take everything before it
-            const beforeEquals = line.trim().split("=")[0];
-            // Split on ':' and take everything before it
-            const nodeName = beforeEquals.split(":")[0].trim();
-            if (nodeName) {
-                postGradNodeToLines[nodeName] = i + 1;  // 1-based line numbers
-            }
-        }
-    });
-
-    // Build generated python code lookup map
-    let currentKernelName = null;
-    let currentKernelLines = [];
-
-    if (codeData) {
-        codeData.forEach((line, i) => {
-            if (validLine(line)) {
-                if (line.includes('async_compile.triton(')) {
-                    currentKernelName = line.split('=')[0].trim();
-                    currentKernelLines = [i + 1];  // Start collecting lines
-                } else if (line.includes("''', device_str='cuda')") && currentKernelName) {
-                    currentKernelLines.push(i + 1);  // Add the last line
-                    pyKernelToLines[currentKernelName] = currentKernelLines;
-                    currentKernelName = null;
-                    currentKernelLines = [];
-                } else if (currentKernelName) {
-                    currentKernelLines.push(i + 1);  // Add lines in between
-                }
-            }
-        });
+    } catch (error) {
+        console.error('Error initializing line mappings:', error);
     }
-
-    if (cppCodeData) {
-        let kernelNames = Object.keys(nodeMappings["cppCodeToPost"]);
-
-        // Build generated cpp wrapper code lookup map
-        for (let i = 0; i < cppCodeData.length; i++) {
-            const line = cppCodeData[i];
-            // check if the line include any of the kernel names
-            // Skip definition lines, highlight the launch line
-            if (validLine(line, "//") && validLine(line, "def") && validLine(line, "static inline void") && kernelNames.some(kernelName => line.includes(kernelName + "("))) {
-                // let kernelName be the first match
-                const kernelName = kernelNames.find(kernelName => line.includes(kernelName + "("));
-                // create an array for the kernel name if it doesn't exist
-                if (!cppCodeToLines[kernelName]) {
-                    cppCodeToLines[kernelName] = [];
-                }
-                // add the line number to the array
-                cppCodeToLines[kernelName].push(i + 1);
-            }
-        }
-    }
-
-    // Process all mappings
-    const linePreToPost = {};
-    const linePostToPre = {};
-    const linePyCodeToPost = {};
-    const linePostToPyCode = {};
-    const lineCppCodeToPost = {};
-    const linePostToCppCode = {};
-
-    // Process preToPost using lookup maps
-    for (const [fxNodeName, genCodeNodes] of Object.entries(nodeMappings["preToPost"])) {
-        if (fxNodeName in preGradNodeToLines) {
-            const fxLineNum = preGradNodeToLines[fxNodeName];
-            linePreToPost[fxLineNum] = [];
-            for (const genNodeName of genCodeNodes) {
-                if (genNodeName in postGradNodeToLines) {
-                    linePreToPost[fxLineNum].push(postGradNodeToLines[genNodeName]);
-                }
-            }
-        }
-    }
-
-    // Process postToPre using lookup maps
-    for (const [genNodeName, fxNodeNames] of Object.entries(nodeMappings["postToPre"])) {
-        if (genNodeName in postGradNodeToLines) {
-            const genLineNum = postGradNodeToLines[genNodeName];
-            linePostToPre[genLineNum] = [];
-            for (const fxNodeName of fxNodeNames) {
-                if (fxNodeName in preGradNodeToLines) {
-                    linePostToPre[genLineNum].push(preGradNodeToLines[fxNodeName]);
-                }
-            }
-        }
-    }
-
-    // Process pyCodeToPost using lookup maps
-    for (const [pyKernelName, postGradNodeNames] of Object.entries(nodeMappings["cppCodeToPost"] || {})) {
-        if (pyKernelName in pyKernelToLines) {
-            const genLineNums = pyKernelToLines[pyKernelName];
-            for (const genLineNum of genLineNums) {
-                if (!(genLineNum in linePyCodeToPost)) {
-                    linePyCodeToPost[genLineNum] = [];
-                }
-                for (const postGradNodeName of postGradNodeNames) {
-                    if (postGradNodeName in postGradNodeToLines) {
-                        linePyCodeToPost[genLineNum].push(postGradNodeToLines[postGradNodeName]);
-                    }
-                }
-            }
-        }
-    }
-
-    // Process postToPyCode using lookup maps
-    for (const [postGradNode, pyKernelNames] of Object.entries(nodeMappings["postToCppCode"] || {})) {
-        if (postGradNode in postGradNodeToLines) {
-            const genLineNum = postGradNodeToLines[postGradNode];
-            linePostToPyCode[genLineNum] = [];
-            for (const pyKernelName of pyKernelNames) {
-                if (pyKernelName in pyKernelToLines) {
-                    linePostToPyCode[genLineNum].push(...pyKernelToLines[pyKernelName]);
-                }
-            }
-        }
-    }
-
-    // Process cppCodeToPost using lookup maps
-    for (const [cppCodeKernelName, postGradNodeNames] of Object.entries(nodeMappings["cppCodeToPost"])) {
-        if (cppCodeKernelName in cppCodeToLines) {
-            const genLineNums = cppCodeToLines[cppCodeKernelName];
-            for (const genLineNum of genLineNums) {
-                if (!(genLineNum in lineCppCodeToPost)) {
-                    lineCppCodeToPost[genLineNum] = [];
-                }
-                for (const postGradNodeName of postGradNodeNames) {
-                    if (postGradNodeName in postGradNodeToLines) {
-                        lineCppCodeToPost[genLineNum].push(postGradNodeToLines[postGradNodeName]);
-                    }
-                }
-            }
-        }
-    }
-
-    // Process postToCppCode using lookup maps
-    for (const [postGradNode, cppCodeKernelNames] of Object.entries(nodeMappings["postToCppCode"])) {
-        if (postGradNode in postGradNodeToLines) {
-            const genLineNum = postGradNodeToLines[postGradNode];
-            linePostToCppCode[genLineNum] = [];
-            for (const cppCodeKernelName of cppCodeKernelNames) {
-                if (cppCodeKernelName in cppCodeToLines) {
-                    linePostToCppCode[genLineNum].push(...cppCodeToLines[cppCodeKernelName]);
-                }
-            }
-        }
-    }
-
-    // Update global variables
-    preToPost = linePreToPost;
-    postToPre = linePostToPre;
-    pyCodeToPost = linePyCodeToPost;
-    postToPyCode = linePostToPyCode;
-    cppCodeToPost = lineCppCodeToPost;
-    postToCppCode = linePostToCppCode;
-
-    console.log('Mappings converted to line numbers:', {
-        preToPost,
-        postToPre,
-        pyCodeToPost,
-        postToPyCode,
-        cppCodeToPost,
-        postToCppCode
-    });
 }
 
 
@@ -374,8 +180,8 @@ function initializeData() {
             }
         }
 
-        // Convert node mappings to line numbers
-        convertNodeMappingsToLineNumbers();
+        // Initialize line mappings from pre-processed data
+        initializeLineMappings();
 
         // Setup highlighting
         setupEditorContent('preGradGraph', preGradGraphData);

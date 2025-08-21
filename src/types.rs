@@ -900,7 +900,7 @@ pub struct ProvenanceContext<'a> {
     pub post_grad_graph_content: String,
     pub output_code_content: String,
     pub aot_code_content: String,
-    pub node_mappings_content: String,
+    pub line_mappings_content: String,
 }
 
 #[derive(Debug, Clone, Copy, Default, serde::Serialize, serde::Deserialize)]

@@ -25,9 +25,12 @@
         </div>
     </div>
 
+    <!-- Line mappings data for JavaScript -->
+    <script id="lineMappings" type="application/json">
+        {line_mappings_content | format_unescaped}
+    </script>
+
     <script>
-        // Make node mappings available to JavaScript
-        const nodeMappings = {node_mappings_content | format_unescaped};
         {js | format_unescaped}
     </script>
 </body>
